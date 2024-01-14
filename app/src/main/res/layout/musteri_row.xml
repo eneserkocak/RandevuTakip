@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="musteri"
+            type="com.eneserkocak.randevu.model.Musteri" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:gravity="center_vertical"
+        android:background="@drawable/ilac_row_bg"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="14sp"
+            android:textAllCaps="true"
+            android:text="@{musteri.musteriAdi}"
+            android:textStyle="bold">
+
+
+        </TextView>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:textSize="14sp"
+                android:textAlignment="viewEnd"
+                android:textAllCaps="true"
+                android:text="@{musteri.musteriTel}"
+                android:textStyle="bold">
+
+
+            </TextView>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</layout>

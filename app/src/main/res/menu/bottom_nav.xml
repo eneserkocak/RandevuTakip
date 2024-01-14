@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Anasayfa"
+      android:id="@+id/anasayfa"
+      android:icon="@drawable/home_24" />
+
+    <item android:title="Randevu Ekle"
+       android:id="@+id/randevuEkle"
+       android:icon="@drawable/edit_calendar" />
+
+    <item android:title="Randevular"
+        android:id="@+id/randevuList"
+        android:icon="@drawable/calendar_list"/>
+
+    <item android:title="Ayarlar"
+        android:id="@+id/ayarlar"
+        android:icon="@drawable/settings"/>
+
+    <item android:title="Müşteriler"
+        android:id="@+id/musteriler"
+        android:icon="@drawable/people"/>
+</menu>

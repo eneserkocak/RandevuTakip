@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:orientation="vertical"
+        tools:context=".view_ayarlar.gun_ozeti.GunOzetiFragment">
+
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="8dp"
+            android:orientation="horizontal">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toplamRandevu"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/maps_konum_btn_bg"
+                android:padding="8dp">
+
+
+                <TextView
+
+                    android:id="@+id/textView23"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="Toplam Randevu"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+
+                    android:id="@+id/toplamRandCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="31dp"
+                    android:layout_marginTop="4dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView23"
+                    tools:text="5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toplamGelir"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_margin="1dp"
+                android:layout_weight="1"
+                android:background="@drawable/maps_konum_btn_bg"
+                android:padding="8dp">
+
+
+                <TextView
+
+                    android:id="@+id/textView22"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="Toplam Gelir"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+
+                    android:id="@+id/toplamGelirCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:drawableEnd="@drawable/lira_24"
+                    android:drawableLeft="@drawable/lira_24"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"
+                    tools:text="5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_konum_btn_bg"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/backDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:background="@drawable/left_icon"
+
+                ></TextView>
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                tools:text="12.12.2023"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/ilac_row_bg"
+                android:textAlignment="center"></TextView>
+
+            <TextView
+                android:id="@+id/nextDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:background="@drawable/rightly_icon"></TextView>
+
+
+        </LinearLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gunOzetiRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"/>
+
+
+    </LinearLayout>
+</layout>

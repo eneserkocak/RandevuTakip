@@ -1,0 +1,124 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Randevu" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">#03A9F4</item>
+        <item name="colorPrimaryVariant">@color/purple_200</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+
+   </style>
+
+    <style name="musteriDuzenleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="hizmetEkleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="musteriSecFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="firmaAyarFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="hizmetDuzenleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="randevuTamamlaFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="firmaKonumListeFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="randevuIptalFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="randevuNotlarFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="personelRandevularFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="giderEkleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="gunOzetiSecFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="smsGonderFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+
+</resources>

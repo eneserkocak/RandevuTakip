@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="gider"
+            type="com.eneserkocak.randevu.model.Gider" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:strokeColor="#EBEBEB"
+        app:strokeWidth="3dp"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:textAlignment="center"
+            android:text="Eklenen giderler, Gün Özeti ve Raporlar içerisinde görüntülenir ..!"></TextView>
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/indicator" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="Gider Türü"
+
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <EditText
+            android:id="@+id/giderAdi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ilac_row_bg"
+            android:gravity="center_vertical"
+            android:hint="Ör: Yakıt,kira vb"
+
+            android:textColorHint="#EBEBEB"
+
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Gider Fiyatı "
+
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+
+        <EditText
+            android:id="@+id/giderTutar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textCursorDrawable="@drawable/lira"
+            android:background="@drawable/ilac_row_bg"
+            android:gravity="center_vertical"
+
+            android:inputType="number"
+
+
+            android:textColorHint="#5E5858"
+
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:text="Vazgeç"
+                android:id="@+id/vazgecBtn"
+
+                android:textSize="16sp"
+                android:background="@drawable/maps_cancel_btn_bg"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/giderKaydetBtn"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+               android:background="@drawable/maps_btn_bg"
+                android:gravity="center"
+                android:text="Gider Ekle"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

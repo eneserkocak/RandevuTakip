@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/randevu_graph"
+    app:startDestination="@id/authenticationFragment">
+
+    <fragment
+        android:id="@+id/girisFragment"
+        android:name="com.eneserkocak.randevu.view.GirisFragment"
+        android:label="Anasayfa" >
+        <action
+            android:id="@+id/action_girisFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_girisFragment_to_randevuAlFragment"
+            app:destination="@id/randevuAlFragment" />
+        <action
+            android:id="@+id/action_girisFragment_to_musteriFragment"
+            app:destination="@id/musteriListeFragment" />
+        <action
+            android:id="@+id/action_girisFragment_to_randevuListesiFragment"
+            app:destination="@id/randevuListesiFragment" />
+        <action
+            android:id="@+id/action_girisFragment_to_authenticationFragment"
+            app:destination="@id/authenticationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ayarlarFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.ayarlar.AyarlarFragment"
+        android:label="Yönetici İşlemleri" >
+        <action
+            android:id="@+id/action_ayarlarFragment_to_girisFragment"
+            app:destination="@id/girisFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_personelEkleFragment"
+            app:destination="@id/personelListeFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_firmaAyarFragment"
+            app:destination="@id/firmaAyarFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_hizmetListeFragment32"
+            app:destination="@id/hizmetListeFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_gunSaatPersListeFragment"
+            app:destination="@id/gunSaatPersListeFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_raporlarFragment"
+            app:destination="@id/raporlarFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_giderEkleFragment"
+            app:destination="@id/giderEkleFragment" />
+        <action
+            android:id="@+id/action_ayarlarFragment_to_gunOzetiSecFragment"
+            app:destination="@id/gunOzetiSecFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/personelListeFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.personel_ayar.PersonelListeFragment"
+        android:label="Personeller">
+        <action
+            android:id="@+id/action_personelListeFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_personelListeFragment_to_yeniPersonelEkleFragment"
+            app:destination="@id/yeniPersonelEkleFragment" />
+        <action
+            android:id="@+id/action_personelListeFragment_to_personelRandevularFragment"
+            app:destination="@id/personelRandevularFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yeniPersonelEkleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.personel_ayar.YeniPersonelEkleFragment"
+        android:label="Personel Ekle" >
+        <action
+            android:id="@+id/action_yeniPersonelEkleFragment_to_personelListeFragment"
+            app:destination="@id/personelListeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/randevuAlFragment"
+        android:name="com.eneserkocak.randevu.view_randevuEkle.RandevuAlFragment"
+        android:label="Randevu Oluştur" >
+        <action
+            android:id="@+id/action_randevuAlFragment_to_girisFragment"
+            app:destination="@id/girisFragment" />
+        <action
+            android:id="@+id/action_randevuAlFragment_to_musteriSecFragment"
+            app:destination="@id/musteriSecFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/perDuzenleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.personel_ayar.PerDuzenleFragment"
+        android:label="Per. Bilgilerini Düzenle"
+        tools:layout="@layout/fragment_per_duzenle" >
+        <action
+            android:id="@+id/action_perDuzenleFragment_to_personelRandevularFragment"
+            app:destination="@id/personelRandevularFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/musteriListeFragment"
+        android:name="com.eneserkocak.randevu.view_musteri.MusteriFragment"
+        android:label="Müşteriler" >
+        <action
+            android:id="@+id/action_musteriFragment_to_yeniMusteriEkleFragment"
+            app:destination="@id/yeniMusteriEkleFragment" />
+        <action
+            android:id="@+id/action_musteriFragment_to_musteriDuzenleFragment"
+            app:destination="@id/musteriDuzenleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yeniMusteriEkleFragment"
+        android:name="com.eneserkocak.randevu.view_musteri.YeniMusteriEkleFragment"
+        android:label="Müşteri Ekle/Düzenle" >
+        <action
+            android:id="@+id/action_yeniMusteriEkleFragment_to_musteriFragment"
+            app:destination="@id/musteriListeFragment" />
+        <action
+            android:id="@+id/action_yeniMusteriEkleFragment_to_musteriDuzenleFragment"
+            app:destination="@id/musteriDuzenleFragment" />
+        <action
+            android:id="@+id/action_yeniMusteriEkleFragment_to_musteriDuzenleFragment2"
+            app:destination="@id/musteriDuzenleFragment" />
+        <argument
+            android:name="gelinenSayfa"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_yeniMusteriEkleFragment_to_musteriSecFragment"
+            app:destination="@id/musteriSecFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/musteriDuzenleFragment"
+        android:name="com.eneserkocak.randevu.view_musteri.MusteriDuzenleFragment"
+        android:label="MusteriDuzenleFragment" >
+        <action
+            android:id="@+id/action_musteriDuzenleFragment_to_yeniMusteriEkleFragment"
+            app:destination="@id/yeniMusteriEkleFragment" />
+        <action
+            android:id="@+id/action_musteriDuzenleFragment_to_yeniMusteriEkleFragment2"
+            app:destination="@id/yeniMusteriEkleFragment" />
+        <action
+            android:id="@+id/action_musteriDuzenleFragment_to_musteriFragment"
+            app:destination="@id/musteriListeFragment" />
+        <action
+            android:id="@+id/action_musteriDuzenleFragment_to_firmaKonumListeFragment"
+            app:destination="@id/firmaKonumListeFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/hizmetEkleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.hizmet_ayar.HizmetEkleFragment"
+        android:label="HizmetEkleFragment" >
+        <action
+            android:id="@+id/action_hizmetEkleFragment_to_hizmetListeFragment32"
+            app:destination="@id/hizmetListeFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/musteriSecFragment"
+        android:name="com.eneserkocak.randevu.view_randevuEkle.MusteriSecFragment"
+        android:label="MusteriSecFragment" >
+        <action
+            android:id="@+id/action_musteriSecFragment_to_randevuAlFragment"
+            app:destination="@id/randevuAlFragment" />
+        <action
+            android:id="@+id/action_musteriSecFragment_to_yeniMusteriEkleFragment"
+            app:destination="@id/yeniMusteriEkleFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/firmaBilgileriFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaBilgileriFragment"
+        android:label="Firma Bilgileri" >
+        <action
+            android:id="@+id/action_firmaBilgileriFragment_to_firmaAyarFragment"
+            app:destination="@id/firmaAyarFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/firmaAyarFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaAyarFragment"
+        android:label="FirmaAyarFragment" >
+        <action
+            android:id="@+id/action_firmaAyarFragment_to_firmaBilgileriFragment"
+            app:destination="@id/firmaBilgileriFragment" />
+        <action
+            android:id="@+id/action_firmaAyarFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_firmaAyarFragment_to_firmaMapsFragment"
+            app:destination="@id/firmaMapsFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/firmaMapsFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaMapsFragment"
+        android:label="Firma Konum" >
+        <action
+            android:id="@+id/action_firmaMapsFragment_to_firmaAyarFragment"
+            app:destination="@id/firmaAyarFragment" />
+        <argument
+            android:name="gelinenSayfa"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/hizmetListeFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.hizmet_ayar.HizmetListeFragment"
+        android:label="Hizmetler" >
+        <action
+            android:id="@+id/action_hizmetListeFragment3_to_ayarlarFragment2"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_hizmetListeFragment3_to_hizmetEkleFragment2"
+            app:destination="@id/hizmetEkleFragment" />
+        <action
+            android:id="@+id/action_hizmetListeFragment_to_hizmetDuzenleFragment"
+            app:destination="@id/hizmetDuzenleFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/hizmetDuzenleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.hizmet_ayar.HizmetDuzenleFragment"
+        android:label="HizmetDuzenleFragment" >
+        <action
+            android:id="@+id/action_hizmetDuzenleFragment_to_hizmetListeFragment"
+            app:destination="@id/hizmetListeFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/gunSaatPersListeFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gun_saat_ayar.GunSaatPersListeFragment"
+        android:label="Pers Randevu Durumu" >
+        <action
+            android:id="@+id/action_gunSaatPersListeFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_gunSaatPersListeFragment_to_gunSaatDuzenleFragment"
+            app:destination="@id/gunSaatDuzenleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gunSaatDuzenleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gun_saat_ayar.GunSaatDuzenleFragment"
+        android:label="Mesai Düzenle" >
+        <action
+            android:id="@+id/action_gunSaatDuzenleFragment_to_gunSaatPersListeFragment"
+            app:destination="@id/gunSaatPersListeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/randevuListesiFragment"
+        android:name="com.eneserkocak.randevu.view_randevuListesi.RandevuListesiFragment"
+        android:label="Randevu Listesi" >
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_girisFragment"
+            app:destination="@id/girisFragment" />
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_randevuTamamlaFragment2"
+            app:destination="@id/randevuTamamlaFragment" />
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_randevuTamamlaFragment3"
+            app:destination="@id/randevuTamamlaFragment" />
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_randevuIptalFragment"
+            app:destination="@id/randevuIptalFragment" />
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_randevuNotlarFragment"
+            app:destination="@id/randevuNotlarFragment" />
+        <action
+            android:id="@+id/action_randevuListesiFragment_to_smsGonderFragment"
+            app:destination="@id/smsGonderFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gunOzetiFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gun_ozeti.GunOzetiFragment"
+        android:label="Gelir Özeti" >
+        <action
+            android:id="@+id/action_gunOzetiFragment_to_gunOzetiSecFragment"
+            app:destination="@id/gunOzetiSecFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/randevuTamamlaFragment"
+        android:name="com.eneserkocak.randevu.view_randevuListesi.RandevuTamamlaFragment"
+        android:label="randevuTamamlaFragment"
+        tools:layout="@layout/fragment_randevu_tamamla" >
+        <action
+            android:id="@+id/action_randevuTamamlaFragment_to_randevuListesiFragment"
+            app:destination="@id/randevuListesiFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/raporlarFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.raporlar.RaporlarFragment"
+        android:label="Raporlar" >
+        <action
+            android:id="@+id/action_raporlarFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/firmaKonumListeFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaKonumListeFragment"
+        android:label="FirmaKonumListeFragment" >
+        <action
+            android:id="@+id/action_firmaKonumListeFragment_to_musteriDuzenleFragment"
+            app:destination="@id/musteriDuzenleFragment" />
+        <action
+            android:id="@+id/action_firmaKonumListeFragment_to_firmaMapsFragment"
+            app:destination="@id/firmaMapsFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/randevuIptalFragment"
+        android:name="com.eneserkocak.randevu.view_randevuListesi.RandevuIptalFragment"
+        android:label="RandevuIptalFragment" >
+        <action
+            android:id="@+id/action_randevuIptalFragment_to_randevuListesiFragment"
+            app:destination="@id/randevuListesiFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/authenticationFragment"
+        android:name="com.eneserkocak.randevu.view.AuthenticationFragment"
+        android:label="AuthenticationFragment" >
+        <action
+            android:id="@+id/action_authenticationFragment_to_girisFragment"
+            app:destination="@id/girisFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/randevuNotlarFragment"
+        android:name="com.eneserkocak.randevu.view_randevuListesi.RandevuNotlarFragment"
+        android:label="RandevuNotlarFragment" >
+        <action
+            android:id="@+id/action_randevuNotlarFragment_to_randevuListesiFragment"
+            app:destination="@id/randevuListesiFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/personelRandevularFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.personel_ayar.PersonelRandevularFragment"
+        android:label="PersonelRandevularFragment" >
+        <action
+            android:id="@+id/action_personelRandevularFragment_to_personelListeFragment"
+            app:destination="@id/personelListeFragment" />
+        <action
+            android:id="@+id/action_personelRandevularFragment_to_perDuzenleFragment"
+            app:destination="@id/perDuzenleFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/giderEkleFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gider_ekle.GiderEkleFragment"
+        android:label="GiderEkleFragment" >
+        <action
+            android:id="@+id/action_giderEkleFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/gunOzetiSecFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gun_ozeti.GunOzetiSecFragment"
+        android:label="GunOzetiSecFragment" >
+        <action
+            android:id="@+id/action_gunOzetiSecFragment_to_ayarlarFragment"
+            app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_gunOzetiSecFragment_to_gunOzetiFragment"
+            app:destination="@id/gunOzetiFragment" />
+        <action
+            android:id="@+id/action_gunOzetiSecFragment_to_gunOzetiGiderFragment"
+            app:destination="@id/gunOzetiGiderFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/gunOzetiGiderFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.gun_ozeti.GunOzetiGiderFragment"
+        android:label="Gider Özeti" >
+        <action
+            android:id="@+id/action_gunOzetiGiderFragment_to_gunOzetiSecFragment"
+            app:destination="@id/gunOzetiSecFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/smsGonderFragment"
+        android:name="com.eneserkocak.randevu.view_randevuListesi.SmsGonderFragment"
+        android:label="SmsGonderFragment" >
+        <action
+            android:id="@+id/action_smsGonderFragment_to_randevuListesiFragment"
+            app:destination="@id/randevuListesiFragment" />
+    </dialog>
+</navigation>

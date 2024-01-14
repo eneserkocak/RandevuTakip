@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp"
+        tools:context=".view_ayarlar.gun_ozeti.GunOzetiGiderFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:padding="8dp"
+            >
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toplamGider"
+                android:layout_width="170dp"
+                android:layout_height="100dp"
+                android:layout_margin="1dp"
+                android:layout_gravity="center_horizontal"
+
+
+                android:background="@drawable/maps_konum_btn_bg"
+                android:padding="8dp">
+
+
+                <TextView
+
+                    android:id="@+id/textView22"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:lines="2"
+                    android:text="Toplam Gider"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+
+                    android:id="@+id/toplamGiderCount"
+                    android:layout_width="110dp"
+                    android:layout_height="35dp"
+                    android:layout_marginTop="4dp"
+                    android:drawableLeft="@drawable/lira_24"
+                    android:drawableEnd="@drawable/lira_24"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView22"
+                    tools:text="5" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_konum_btn_bg"
+            android:padding="5dp">
+
+
+            <TextView
+                android:id="@+id/backDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:background="@drawable/left_icon"
+
+                ></TextView>
+
+            <TextView
+                android:id="@+id/dateText"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:gravity="center"
+                tools:text="12.12.2023"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@drawable/ilac_row_bg"
+                android:textAlignment="center"></TextView>
+
+            <TextView
+                android:id="@+id/nextDate"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_weight="2"
+                android:background="@drawable/rightly_icon"></TextView>
+
+
+        </LinearLayout>
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/gunOzetiGiderRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:padding="8dp"/>
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</layout>

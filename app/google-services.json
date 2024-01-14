@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "585822484887",
+    "project_id": "randevuprogrami-16ce0",
+    "storage_bucket": "randevuprogrami-16ce0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:585822484887:android:01d9c61b0c55c9d17b6cd2",
+        "android_client_info": {
+          "package_name": "com.eneserkocak.randevu"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoGAPQDClJL-9dMu4MyqmjM9qvW5Ow2is"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

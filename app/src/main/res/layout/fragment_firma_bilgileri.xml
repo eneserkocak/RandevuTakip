@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.eneserkocak.randevu.viewModel.AppViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        tools:context=".view_ayarlar.firma_ayar.FirmaBilgileriFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Firma Adı"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <EditText
+            android:id="@+id/firmaIsmi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ilac_row_bg"
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:text="@{viewModel.kaydedilenFirma.firmaAdi}"
+            android:textSize="20sp"
+            android:textColorHint="#5E5858"
+
+
+
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Telefon Numarası"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <EditText
+            android:id="@+id/telefonNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.kaydedilenFirma.telefonNumarasi}"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:inputType="number"
+            android:background="@drawable/ilac_row_bg"
+            android:gravity="center_vertical"
+            android:textColorHint="#5E5858"
+            tools:text="0506235216 "
+
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Firma Adresi"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <EditText
+            android:id="@+id/adres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.kaydedilenFirma.adres}"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:background="@drawable/ilac_row_bg"
+            android:gravity="center_vertical"
+            android:textColorHint="#5E5858"
+            tools:text="çağpınar sokak no3  "
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Firma Logosu"
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:textStyle="bold"></TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                app:srcCompat="@drawable/firm_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:layout_width="120dp"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="Görsel Ekle"
+            android:textAlignment="center"
+            android:id="@+id/gorselEkleBtn"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/maps_btn_bg"
+            ></TextView>
+
+
+        <TextView
+            android:text="Kaydet"
+            android:id="@+id/firmaAyarKaydetBtn"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:background="@drawable/maps_btn_bg"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="35dp" />
+
+
+
+    </LinearLayout>
+    </ScrollView>
+</layout>

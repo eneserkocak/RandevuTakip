@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <SearchView
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="20dp"
+
+            android:background="@drawable/search_bg"
+            android:queryHint="Müşteri ara.."
+            android:searchHintIcon="@drawable/search_icon"
+            android:textSize="8sp"
+            app:closeIcon="@drawable/ic_baseline_clear_24"
+
+            app:searchIcon="@drawable/search_icon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/musteriSecRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+
+
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:id="@+id/yeniMusteriEkle"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+
+                android:layout_weight="1"
+                android:background="@drawable/maps_btn_bg"
+                android:gravity="center"
+                android:text="Yeni Müşteri Ekle"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+
+            <TextView
+                android:id="@+id/Kapat"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/maps_cancel_btn_bg"
+                android:gravity="center"
+                android:text="Kapat"
+                android:textAlignment="center"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
