@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:strokeColor="#EBEBEB"
+        app:strokeWidth="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="5dp"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:text="Hesap Yönetimi"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                android:textAlignment="center"></TextView>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textAlignment="center"
+                android:text="Personelinize, giriş hesabı oluşturmanız durumunda, Personeliniz; kendi mobil cihazından, kendi email adresi ve şifresi ile uygulamaya (aynı hesaba) giriş yapabilir.  "></TextView>
+
+            <ImageView
+                android:id="@+id/imageView14"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/indicator" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="Hesap oluşturmak istediğiniz personeli seçiniz."
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/persHesapListeRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

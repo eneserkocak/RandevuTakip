@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_gravity="center"
+                    android:cropToPadding="true"
+                    app:srcCompat="@drawable/second"></ImageView>
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="47dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:cropToPadding="true"
+                    app:srcCompat="@drawable/seconds"></ImageView>
+
+
+
+
+
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Firmanızı Oluşturun..!"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text=" * Personel bilgileri menüsüne gidin ve kendi bilgilerinizi ''Yönetici'' olarak kaydedin. Firmanızda çalışan personeliniz varsa; aynı menü içinde personellerinizin bilgilerini de kaydedin."
+                    android:textAlignment="center"
+                    android:textSize="16sp"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text=" * Çalışma gün-saat ayarları menüsünden, personellerin randevu durumlarını, mesai gün ve saatlerini ayarlayın."
+                    android:textAlignment="center"
+                    android:textSize="16sp"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text=" * Hizmet ayarları menüsüne uğrayın ve verdiğiniz hizmetlerin bilgilerini kaydedin."
+                    android:textAlignment="center"
+                    android:textSize="16sp"></TextView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
+                    android:text=" * Son olarak Müşteriler menüsünden, firma müşterilerinizi ekleyin."
+                    android:textAlignment="center"
+                    android:textSize="16sp"></TextView>
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </LinearLayout>
+
+
+
+    </ScrollView>
+</layout>

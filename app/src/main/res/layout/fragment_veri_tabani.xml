@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/uygulamaHakkinda"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="5dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_gravity="center"
+                    android:cropToPadding="true"
+                    app:srcCompat="@drawable/verii"></ImageView>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="Veri Tabanı"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:text=" * Uygulamada, Bulut Veri Tabanı teknolojisi kullanılmıştır. Bilgileriniz telefonunuzun hafızasında tutulmayıp, network tabanlı sunucularda saklanmaktadır.">
+                </TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:textSize="16sp"
+                    android:textAlignment="center"
+                    android:text=" * Bu sayede uygulamayı kullandığınız telefonunuzu değiştirmeniz durumunda veya telefonunuzun bozulması, çalınması vs gibi olumsuz bir durumda, farklı mobil cihazlardan kendi email hesabınız ve şifrenizle kendi oturumunuza girebilir, İnternet erişiminizin olduğu tüm ortamlardan kendi hesabınıza (verilerinize) erişebilirsiniz.">
+                </TextView>
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>
