@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:hint="TELEFON (0**********)"
-                app:helperText="Karakter*"
+                app:helperText="11 karakter giriniz*"
                 app:counterEnabled="true"
                 app:counterMaxLength="11"
                 app:helperTextTextColor="#A81207"
@@ -66,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/persTel"
+                    android:inputType="number"
                     android:text="@{viewModel.secilenPersonel.personelTel}"
                     />
 

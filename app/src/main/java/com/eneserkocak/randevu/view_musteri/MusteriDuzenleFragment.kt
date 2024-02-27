@@ -39,12 +39,8 @@ const val MUSTERI_DUZENLE = "MusteriDuzenle"
 
 class MusteriDuzenleFragment : DialogFragment() {
 
-    val adapter= MusteriDuzRandAdapter()
-
-
-
+    lateinit var adapter: MusteriDuzRandAdapter
     lateinit var secMusteri:Musteri
-
 
     lateinit var binding:DialogMusteriDuzenleBinding
     val viewModel: AppViewModel by activityViewModels()
@@ -64,7 +60,7 @@ class MusteriDuzenleFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //FİREBASE DEN MUSTERİ İSİMLERİNİ FİLTRELEYEREK BURADA RANDEVULARI ÇEKİP AŞAGIDA ADAPTERE VER:
+        adapter= MusteriDuzRandAdapter()
 
         binding.mustDuznRandevuRecycler .layoutManager=LinearLayoutManager(requireContext())
         binding.mustDuznRandevuRecycler.adapter=adapter
@@ -97,7 +93,11 @@ class MusteriDuzenleFragment : DialogFragment() {
          if (filtreRandevuListesi.isNotEmpty()){
                 binding.mustDuznRandevuRecycler.visibility=View.VISIBLE
                 binding.musteriNotText.visibility=View.GONE
-                adapter.musteriRandevuListesiniGuncelle(filtreRandevuListesi)
+
+                val list= filtreRandevuListesi.sortedBy {
+                    it.randevuTime
+                }
+                adapter.musteriRandevuListesiniGuncelle(list)
         }else{
                 binding.mustDuznRandevuRecycler.visibility=View.GONE
                 binding.musteriNotText.visibility=View.VISIBLE
@@ -117,7 +117,7 @@ class MusteriDuzenleFragment : DialogFragment() {
                     i.data = Uri.parse(url)
                     context?.startActivity(i)
 
-                    AppUtil.longToast(requireContext(),"Müşteriyle whatsapp ile iletişime geçiliyor..!")
+                    AppUtil.shortToast(requireContext(),"Müşteriyle whatsapp ile iletişime geçiliyor..!")
 
                 }else{
                     AppUtil.longToast(requireContext(),"Müşteriye ait telefon numarası kayıtlı değil veya hatalı kaydedilmiş.")
@@ -179,7 +179,11 @@ class MusteriDuzenleFragment : DialogFragment() {
                 binding.mustDuznRandevuRecycler.visibility = View.VISIBLE
             }else{ binding.mustDuznRandevuRecycler.visibility=View.GONE }
 
-            adapter.musteriRandevuListesiniGuncelle(filtreRandevuListesi)
+
+            val list= filtreRandevuListesi.sortedBy {
+                it.randevuTime
+            }
+            adapter.musteriRandevuListesiniGuncelle(list)
         }
 
 
@@ -262,7 +266,7 @@ class MusteriDuzenleFragment : DialogFragment() {
                         Toast.makeText(requireContext(),"Arama yapmak için müşteriye numara eklemelisiniz!..",Toast.LENGTH_LONG).show()
                     }
 
-                    AppUtil.longToast(requireContext(),"Müşteri aranıyor..!")
+                    AppUtil.shortToast(requireContext(),"Müşteri aranıyor..!")
                     findNavController().popBackStack()
 
                 }

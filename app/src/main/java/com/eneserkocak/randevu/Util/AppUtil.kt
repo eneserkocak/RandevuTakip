@@ -40,10 +40,9 @@ import kotlin.coroutines.coroutineContext
 
 object AppUtil {
 
-    //Toolbar app:titleTextColor="#081C34"
 
-    //var kullanicilar= "wGdMgWOziBcEGjeRZpGeDGcOkQg1"
-   // var firmaKodu= 100
+
+
 
     fun  randevuQuery() = FirebaseFirestore.getInstance().collection(RANDEVULAR)
         .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
@@ -180,7 +179,7 @@ object AppUtil {
             MUSTERI_ADRES to musteri.musteriAdres,
             MUSTERI_NOT to musteri.musteriNot,
             MUSTERI_GORSEL to musteri.musteriGorsel,
-           MUSTERI_VERESIYE to musteri.musteriVeresiye,
+            MUSTERI_VERESIYE to musteri.musteriVeresiye,
             MUSTERI_BORC to musteri.musteriBorc
 
         )
@@ -289,10 +288,6 @@ object AppUtil {
 
     // GİDER EKLE VE DUZENLE KODLARIN SONU/////////
 
-
-
-
-
     fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(context.packageName, Context.MODE_PRIVATE)
 
@@ -303,6 +298,12 @@ object AppUtil {
     fun longToast(context: Context?,message:String){
         context?.let {
             Toast.makeText(it,message,Toast.LENGTH_LONG).show()
+        }
+
+    }
+    fun shortToast(context: Context?,message:String){
+        context?.let {
+            Toast.makeText(it,message,Toast.LENGTH_SHORT).show()
         }
 
     }

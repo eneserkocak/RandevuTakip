@@ -72,9 +72,12 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
                         binding.firmaIsmi.setText(secilenFirma.firmaAdi)
                         binding.telefonNo.setText(secilenFirma.firmaTel)
                         binding.adres.setText(secilenFirma.firmaAdres)
+
+
                     }
                 }
             }
+
 
 
 

@@ -7,14 +7,17 @@ import android.view.View
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.eneserkocak.randevu.R
-import com.eneserkocak.randevu.Util.AppUtil
-import com.eneserkocak.randevu.Util.PictureUtil
-import com.eneserkocak.randevu.Util.UserUtil
+import com.eneserkocak.randevu.Util.*
 import com.eneserkocak.randevu.databinding.FragmentGirisBinding
 import com.eneserkocak.randevu.model.*
+import com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaKonumListeFragmentDirections
+import com.eneserkocak.randevu.view_ayarlar.firma_ayar.MAPS_LISTE
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Source
+import java.text.SimpleDateFormat
+import java.util.*
+
 
 
 class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris) {
@@ -30,13 +33,17 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.sktBildirimText.isSelected=true
+
 
 
     //ARRAY LİSTEDE ID Sİ OLMAYAN....SİLİNEN KULLANICILARI ATMAK İÇİN...
 
         auth= FirebaseAuth.getInstance()
 
+
         val userId=auth.currentUser?.uid
+
 
         FirebaseFirestore.getInstance().collection(FIRMALAR).whereArrayContains("kullanicilar",userId!!)
             .get(Source.SERVER)
@@ -51,6 +58,32 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
                 }
             }
 
+        val cal = Calendar.getInstance()
+        val tarih= cal.time.toTimestamp()
+        FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
+            .get()
+            .addOnSuccessListener {
+                it?.let {
+
+                    val firma = it.toObject(Firma::class.java)
+
+                    firma?.let {
+                    val skt = it.skt
+
+                    if (skt < tarih){
+
+                        AppUtil.longToast(requireContext(),"Üyelik süreniz dolmuştur..!")
+                       // findNavController().navigate(R.id.authenticationFragment)
+                        auth.signOut()
+                        findNavController().navigate(R.id.authenticationFragment)
+
+                  }
+                }
+              }
+            }
+
+
+
 //PATRON KONTROLÜ
         FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString()).collection(
             KULLANICILAR).document(userId).get().addOnSuccessListener {
@@ -64,6 +97,43 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
                     }
                 }
         }
+
+    //SKT ÜYELİK BİTİŞ TARİHİ 8 GÜNDEN KÜÇÜKSE BİLDİRİM GÖSTER
+        FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString()).get().addOnSuccessListener {
+            it?.let {
+
+                val firma =it.toObject(Firma::class.java)
+
+            firma?.let {
+                val firmaSkt = it.skt
+
+                    val skt= firmaSkt.toDate()
+
+
+                val cal= Calendar.getInstance()
+                val tarih= cal.time.toTimestamp()
+                val bugunTarih= tarih.toDate()
+
+
+
+                val tarihFarki= (skt.time-bugunTarih.time)/(1000*60*60*24)
+              //  println("GIRISTE TARİH ALACAZ: ${tarihFarki}")
+
+                if (0<tarihFarki && tarihFarki<8){
+                    binding.sktBildirimText.visibility=View.VISIBLE
+                    binding.sktBildirimText.setText("Üyeliğiniz ${tarihFarki} gün sonra sona erecektir. Üyeliğinizi yenilemek için bizimle iletişime geçiniz...")
+                } else if (tarihFarki.toInt()==0) {
+                        binding.sktBildirimText.setText("Üyeliğiniz yarın sona erecektir. Üyeliğinizi yenilemek için bizimle iletişime geçiniz...")
+
+                }
+                else{
+                    binding.sktBildirimText.visibility=View.GONE
+                }
+            }
+            }
+        }
+
+
 
         /*val db = Room.databaseBuilder(requireContext(), FirmaDatabase::class.java, "Firma").allowMainThreadQueries().build()
         val firmaDao = db.firmaDao()
@@ -86,6 +156,8 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
 
         binding.randevular.setOnClickListener {
            findNavController().navigate(R.id.randevuListesiFragment)
+
+
         }
 
         getData(){
@@ -93,9 +165,6 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
 
 
            val firma= firmaListesi.get(0)
-
-
-           // println("firma adı: ${firma.firmaAdi}")
 
             UserUtil.firmaIsim=firma.firmaAdi
 
@@ -141,27 +210,6 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
 
     }
 
-
-
-
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        setHasOptionsMenu(true)
-        super.onCreate(savedInstanceState)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-
-        inflater.inflate(R.menu.cikis_menu,menu)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
-        auth.signOut()
-        findNavController().navigate(R.id.authenticationFragment)
-        return super.onOptionsItemSelected(item)
-    }*/
 }
 
 

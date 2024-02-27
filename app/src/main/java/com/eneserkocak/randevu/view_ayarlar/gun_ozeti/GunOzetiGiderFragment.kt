@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
@@ -28,11 +29,12 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
     lateinit var gider: Gider
     var giderList = listOf<Gider>()
     var filtreGiderListesi = listOf<Gider>()
-    val adapter = GunOzetiGiderAdapter()
+    lateinit var adapter: GunOzetiGiderAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+         adapter = GunOzetiGiderAdapter()
         binding.gunOzetiGiderRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.gunOzetiGiderRecycler.adapter = adapter
 
@@ -49,9 +51,7 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
 
             adapter.giderListesiniGuncelle(filtreGiderListesi)
 
-
         }
-
 
         binding.nextDate.setOnClickListener {
             cal.add(Calendar.DAY_OF_YEAR, 1)
@@ -62,9 +62,7 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
 
                 adapter.giderListesiniGuncelle(filtreGiderListesi)
 
-
             }
-
         }
         binding.backDate.setOnClickListener {
             cal.add(Calendar.DAY_OF_YEAR, -1)
@@ -78,8 +76,8 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
             }
         }
 
-
     }
+
 
     fun getData(giderler: (List<Gider>) -> Unit) {
 
@@ -99,6 +97,7 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
 
                         if (filtreGiderListesi.isEmpty()) {
                             binding.toplamGiderCount.setText("0")
+
                         } else {
                             var giderTutar = 0
                             filtreGiderListesi.forEach {
@@ -108,16 +107,14 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
                         }
                     }
                 }
+
                 giderler.invoke(filtreGiderListesi)
+
             }
-            //println()
+
         }
             .addOnFailureListener {
                 println(it)
             }
-
-
     }
-
-
 }

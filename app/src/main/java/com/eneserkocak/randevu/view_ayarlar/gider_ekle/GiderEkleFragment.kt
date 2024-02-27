@@ -100,9 +100,9 @@ class GiderEkleFragment : DialogFragment() {
         binding.layoutGiderAdi.setEndIconOnClickListener {
             askSpeechInput(124)
         }
-        binding.layoutGiderFiyat.setEndIconOnClickListener {
+       /* binding.layoutGiderFiyat.setEndIconOnClickListener {
             askSpeechInput(125)
-        }
+        }*/
 
   }
 
@@ -114,7 +114,7 @@ class GiderEkleFragment : DialogFragment() {
 
             when (requestCode){
                 124-> binding.giderAdi.setText(result?.get(0).toString())
-                125-> binding.giderTutar.setText(result?.get(0).toString())
+               // 125-> binding.giderTutar.setText(result?.get(0).toString())
 
 
             }

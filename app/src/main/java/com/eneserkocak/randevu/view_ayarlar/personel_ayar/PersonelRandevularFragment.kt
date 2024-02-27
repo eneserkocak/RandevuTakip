@@ -31,8 +31,8 @@ class PersonelRandevularFragment : DialogFragment() {
     val viewModel: AppViewModel by activityViewModels()
 
     lateinit var secilenPersonel: Personel
+    lateinit var adapter: PersonelRandevuAdapter
 
-    val adapter= PersonelRandevuAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,6 +45,7 @@ class PersonelRandevularFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter= PersonelRandevuAdapter()
 
         viewModel.secilenPersonel.observe(viewLifecycleOwner) {
             it?.let {
@@ -72,7 +73,11 @@ class PersonelRandevularFragment : DialogFragment() {
                 if (filtreRandevuListesi.isNotEmpty()){
                     binding.personelRandevuRecycler.visibility=View.VISIBLE
                     binding.randevularText.visibility=View.VISIBLE
-                    adapter.personelRandevuListesiniGuncelle(filtreRandevuListesi)
+
+                    val list= filtreRandevuListesi.sortedBy {
+                        it.randevuTime
+                    }
+                    adapter.personelRandevuListesiniGuncelle(list)
                 }else{
                     binding.personelRandevuRecycler.visibility=View.GONE
                     binding.randevularText.visibility=View.GONE

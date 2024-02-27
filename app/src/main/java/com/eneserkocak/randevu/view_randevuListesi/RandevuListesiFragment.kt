@@ -19,7 +19,10 @@ import com.eneserkocak.randevu.databinding.DialogRandevuNotlarBinding
 import com.eneserkocak.randevu.databinding.FragmentRandevuListesiBinding
 import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.view.BaseFragment
+
+
 import com.eneserkocak.randevu.viewModel.AppViewModel
+import com.eneserkocak.randevu.view_ayarlar.firma_ayar.FirmaMapsFragmentArgs
 import com.eneserkocak.randevu.view_musteri.filtreRandevuListesi
 import com.eneserkocak.randevu.view_randevuEkle.RANDEVULAR
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -46,19 +49,19 @@ class RandevuListesiFragment : BaseFragment<FragmentRandevuListesiBinding>(R.lay
     var randevuListesi = listOf<Randevu>()
     var filtreRandevuListesi= listOf<Randevu>()
 
+    lateinit var adapter: RandevuListeAdapter
 
 
 
-    val adapter= RandevuListeAdapter(){
-        viewModel.secilenRandevu.value=it
-
-
-    }
 
     val cal = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+         adapter= RandevuListeAdapter(viewModel){
+            viewModel.secilenRandevu.value=it
+        }
 
 
 
@@ -67,29 +70,11 @@ class RandevuListesiFragment : BaseFragment<FragmentRandevuListesiBinding>(R.lay
 
 
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
-            val cal = Calendar.getInstance().apply {
+           cal.apply {
                 set(year, month, dayOfMonth)
-                //.apply yerine
-                //cal.set(year,month,dayOfmonth) ta yapabilirdik..
-
-
             }
+            filterAndUpdateAdapter()
 
-            filtreRandevuListesi =
-                randevuListesi.filter { it.randevuTime.toDate().toTarih() == cal.time.toTarih() }
-            adapter.randevuListesiniGuncelle(filtreRandevuListesi)
-
-            println(randevuListesi)
-
-            if (filtreRandevuListesi.size == 0) {
-                binding.bilgiText.setText("Seçilen güne ait randevu bulunmamaktadır..!")
-                binding.bilgiText.setTextColor(Color.parseColor("#C53D3D"))
-                binding.bilgiText.visibility = View.VISIBLE
-                binding.randevuListRecycler.visibility = View.GONE
-            } else {
-                binding.bilgiText.visibility = View.GONE
-                binding.randevuListRecycler.visibility = View.VISIBLE
-            }
         }
 
         viewModel.randVerileriGetir()
@@ -98,31 +83,35 @@ class RandevuListesiFragment : BaseFragment<FragmentRandevuListesiBinding>(R.lay
                 randevuListesi = it
 
 
-                val cal = Calendar.getInstance()
-                val sdf = SimpleDateFormat("dd.MM.yyyy")
-                sdf.format(cal.time)
+                filterAndUpdateAdapter()
 
-                    val randList = randevuListesi.filter {
-                    it.randevuTime.toDate().toTarih() == cal.time.toTarih()
-
-                }
-
-                adapter.randevuListesiniGuncelle(randList)
-
-                if (randList.size==0){
-                    binding.bilgiText.setText("Seçilen güne ait randevu bulunmamaktadır..!")
-                    binding.bilgiText.setTextColor(Color.parseColor("#C53D3D"))
-                    binding.bilgiText.visibility = View.VISIBLE
-                    binding.randevuListRecycler.visibility = View.GONE
-                }else{
-                    binding.bilgiText.visibility = View.GONE
-                    binding.randevuListRecycler.visibility = View.VISIBLE
-                }
-
+             }
 
             }
         }
+
+    private fun filterAndUpdateAdapter() {
+        val randList = randevuListesi.filter {
+            it.randevuTime.toDate().toTarih() == cal.time.toTarih()
+        }
+
+        val list = randList.sortedBy {
+            it.randevuTime
+        }
+
+        adapter.randevuListesiniGuncelle(list)
+
+        if (randList.size == 0) {
+            binding.bilgiText.setText("Seçilen güne ait randevu bulunmamaktadır..!")
+            binding.bilgiText.setTextColor(Color.parseColor("#C53D3D"))
+            binding.bilgiText.visibility = View.VISIBLE
+            binding.randevuListRecycler.visibility = View.GONE
+        } else {
+            binding.bilgiText.visibility = View.GONE
+            binding.randevuListRecycler.visibility = View.VISIBLE
+        }
     }
+}
 
 
-  }
+

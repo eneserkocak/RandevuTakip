@@ -23,16 +23,14 @@ import com.google.firebase.firestore.FirebaseFirestore
 class PersonelListeFragment : BaseFragment<FragmentPersonelListeBinding>(R.layout.fragment_personel_liste) {
 
     var personelListesi= listOf<Personel>()
-
-    val adapter = PersonelRecyclerAdapter(){
-
-        viewModel.secilenPersonel.value=it
-
-    }
+    lateinit var adapter:PersonelRecyclerAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter = PersonelRecyclerAdapter(){
+            viewModel.secilenPersonel.value=it
+        }
 
         binding.personelEkleRecycler.layoutManager= LinearLayoutManager(requireContext())
         binding.personelEkleRecycler.adapter= adapter
@@ -44,8 +42,12 @@ class PersonelListeFragment : BaseFragment<FragmentPersonelListeBinding>(R.layou
    }
 
         getData(){
+
             personelListesi = it
-            adapter.personelListesiniGuncelle(it)
+            val list= personelListesi.sortedBy {
+                it.personelAdi
+            }
+                adapter.personelListesiniGuncelle(list)
         }
 
 

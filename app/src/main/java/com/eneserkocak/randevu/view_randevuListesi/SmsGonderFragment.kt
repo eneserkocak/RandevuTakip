@@ -82,7 +82,7 @@ class SmsGonderFragment : DialogFragment() {
 
                 dismiss()
 
-                AppUtil.longToast(requireContext(),"Müşteriye whatsapp bilgi mesajı gönderiliyor..!")
+                AppUtil.shortToast(requireContext(),"Müşteriye whatsapp bilgi mesajı gönderiliyor..!")
 
             }else{
                 AppUtil.longToast(requireContext(),"Müşteriye ait telefon numarası kayıtlı değil veya hatalı kaydedilmiş.")
@@ -129,7 +129,7 @@ class SmsGonderFragment : DialogFragment() {
 
                     dismiss()
 
-                    AppUtil.longToast(requireContext(),"Müşteriye sms bilgi mesajı gönderiliyor..!")
+                    AppUtil.shortToast(requireContext(),"Müşteriye sms bilgi mesajı gönderiliyor..!")
             }else{
                 AppUtil.longToast(requireContext(),"Müşteriye ait telefon numarası kayıtlı değil veya hatalı kaydedilmiş.")
             }

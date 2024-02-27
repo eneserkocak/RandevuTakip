@@ -20,9 +20,11 @@ import com.eneserkocak.randevu.view.BaseFragment
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObjects
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.properties.Delegates
 
 const val RANDEVULAR = "randevular"
 class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.fragment_randevu_al) {
@@ -85,6 +87,8 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
         }
 
 
+
+
         //dao= PersonelDatabase.getInstance(requireContext())!!.personelDao()
         //personelList= dao.getAll()
         //adapter.personelListesiniGuncelle(personelList)
@@ -97,7 +101,11 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
 
         takeData(){
             hizmetListesi = it
-            hizmetAdapter.hizmetListGuncelle(it)
+
+            val list= hizmetListesi.sortedBy {
+                it.hizmetAdi
+            }
+            hizmetAdapter.hizmetListGuncelle(list)
         }
 
         binding.randevuAlRecycler.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
@@ -140,7 +148,6 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
        binding.randevuOlusturBtn.setOnClickListener {
 
 
-
            if (binding.musteriIsmiText.text.isEmpty()){
                AppUtil.longToast(requireContext(),"Müşteri seçiniz")
                 return@setOnClickListener}else{
@@ -160,6 +167,7 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
                 val randevuTime =   secilenRandevuSaati!!.saat.toTimestamp()
 
                 val randevuMap = mapOf<String,Any>(
+
                     FIRMA_KODU to personel!!.firmaKodu,
                     PERSONEL_ID to personel!!.personelId,
                     MUSTERI_ID to musteri.musteriId,
@@ -169,33 +177,51 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
 
                    )
 
-                val randevu = Randevu(personel!!.firmaKodu,personel!!,musteri,hizmet!!, hizmet!!.fiyat,randevuTime)
+                val randevu = Randevu(0,personel!!.firmaKodu,personel!!,musteri,hizmet!!, hizmet!!.fiyat,randevuTime)
                 //FirebaseFirestore.getInstance().collection(RANDEVULAR).add(randevuMap)
 
               FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
                    .set(randevuMap)
+
+
+
+               FirebaseFirestore.getInstance().collection(RANDEVULAR)
+                   .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+                   .orderBy(RANDEVU_ID, Query.Direction.DESCENDING)
+                   .limit(1)
+                   .get()
+                   .addOnSuccessListener {
+                       it?.let {
+
+                           var yeniRandevuId=0
+
+                           if(it.isEmpty) yeniRandevuId=1
+                           else{
+                               for (document in it){
+                                   val sonRandevu= document.toObject(RandevuDTO::class.java)
+                                   yeniRandevuId= sonRandevu.randevuId+1
+                               }
+                           }
+                           val randevuMap = mapOf<String,Any>(
+                               RANDEVU_ID to yeniRandevuId
+                           )
+                           val randevu= Randevu(yeniRandevuId,personel!!.firmaKodu,personel!!,musteri,hizmet!!, hizmet!!.fiyat,randevuTime)
+                           FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
+                               .update(randevuMap)
+
+                       }
+
+                   }.addOnFailureListener {
+                       it.printStackTrace()
+                   }
+
             }
 
-            findNavController().popBackStack()
+               findNavController().popBackStack()
            AppUtil.longToast(requireContext(),"Yeni Randevu Eklendi..!")
 
-           }
+         }
     }
-
-
-       /* binding.dateText.setOnClickListener {
-
-            val datePicker =
-                MaterialDatePicker.Builder.datePicker()
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build()
-            datePicker.addOnPositiveButtonClickListener {
-                val date = Date(it)
-          binding.dateText.setText(sdf.format(date))
-
-            }
-            datePicker.show(childFragmentManager, "tag")
-        }*/
 
 
     }
@@ -250,23 +276,10 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
                         while ( baslangicSaatiCalendar.time<bitisCal.time) {
                             randevuSaatleri.add(baslangicSaatiCalendar.time)
                             baslangicSaatiCalendar.add(Calendar.MINUTE,personel!!.personelCalismaDakika)
-                            println("WHİLE içi başlangic ttime : ${saatSdf.format(baslangicSaatiCalendar.time)} , bitisTime : ${saatSdf.format(bitisCal.time)} ")
+                           // println("WHİLE içi başlangic ttime : ${saatSdf.format(baslangicSaatiCalendar.time)} , bitisTime : ${saatSdf.format(bitisCal.time)} ")
 
                         }
-                        /*val yeniRandevuSaatleri = mutableListOf<RandevuSaati>()
-                        randevuSaatleri.forEach {
-                            val dolumu = randevuSaatleri.contains(it)
-                            yeniRandevuSaatleri.add(RandevuSaati(it,dolumu) )
-                        }
-                        saatAdapter.itemList = yeniRandevuSaatleri
-                        saatAdapter.notifyDataSetChanged()*/
 
-                        //Recycler içindeki personele verilebilecek randevu saatleri:
-                        /*  val randevuSaatleriString = mutableListOf<String>()
-
-                          randevuSaatleri.forEach {
-                              randevuSaatleriString.add(saatSdf.format(it))
-                          }*/
 
                         //Sorgu-> Seçili Tarih yani (1 gün) olacağını ayarla:
 

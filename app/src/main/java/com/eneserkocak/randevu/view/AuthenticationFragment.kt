@@ -15,15 +15,19 @@ import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 
 import com.eneserkocak.randevu.Util.UserUtil
+import com.eneserkocak.randevu.Util.toTimestamp
 import com.eneserkocak.randevu.databinding.FragmentAuthenticationBinding
 import com.eneserkocak.randevu.model.*
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.Source
 import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 import kotlin.properties.Delegates
 
@@ -40,13 +44,15 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.slaytText.isSelected=true
+
         auth= FirebaseAuth.getInstance()
 
         val currentUser= auth.currentUser
         val uid = currentUser?.uid
         if (currentUser != null){
 
-      //BURASI YENİ ÇALIŞMAYABİLİR.....
+
             val sharedPref = AppUtil.getSharedPreferences(requireContext())
             val firmaKoduAl = sharedPref.getInt(FIRMA_KODU, 0)
             UserUtil.firmaKodu =firmaKoduAl
@@ -56,9 +62,13 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
         findNavController().navigate(R.id.girisFragment)
      }
 
-
+        if (UserUtil.firmaKodu==101) binding.kayitOlBtn.visibility=View.VISIBLE
+        else binding.kayitOlBtn.visibility=View.GONE
 
         binding.kayitOlBtn.setOnClickListener {
+
+            val cal = Calendar.getInstance()
+            val skt= cal.time.toTimestamp()
 
             val email= binding.epostaText.text.toString().trim()
             val password= binding.parolaText.text.toString()
@@ -110,6 +120,7 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
                 yeniFirma.put(EMAIL,email)
                 yeniFirma.put(SIFRE,password)
                 yeniFirma.put(KULLANICILAR,kullanicilarArray)
+                yeniFirma.put(SKT,skt)
 
                 FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
                                 .set(yeniFirma)
@@ -122,7 +133,7 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
                       yeniKullanici.put(UID,uid)
                       yeniKullanici.put(SIFRE,password)
                       yeniKullanici.put(EMAIL,email)
-             yeniKullanici.put(PATRON,true)
+                 yeniKullanici.put(PATRON,true)
 
 
                 FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
@@ -142,12 +153,16 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
         }
 
         binding.girisYapBtn.setOnClickListener {
+
+            val cal = Calendar.getInstance()
+            val tarih= cal.time.toTimestamp()
+
             val email= binding.epostaText.text.toString().trim()
             val password= binding.parolaText.text.toString()
 
 
             if (email.equals("") || password.equals("")){
-                Toast.makeText(requireContext(),"E mail adresi ve şifrenizi giriniz..!", Toast.LENGTH_LONG).show()
+                Toast.makeText(requireContext(),"İşletmeniz için tanımlanan e mail ve şifrenizi giriniz..!", Toast.LENGTH_LONG).show()
             }else{
                 auth.signInWithEmailAndPassword(email,password).addOnSuccessListener {
 
@@ -164,6 +179,30 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
                      //   findNavController().navigate(R.id.authenticationFragment)
                         return@addOnSuccessListener
                     }
+
+               FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
+                .get()
+                .addOnSuccessListener {
+                    it?.let {
+
+                        val firma = it.toObject(Firma::class.java)
+
+                        firma?.let {
+                        val skt = it.skt
+
+                       if (skt < tarih){
+
+//                    AppUtil.longToast(requireContext(),"Üyelik süreniz dolmuştur..!")
+        //                   findNavController().navigate(R.id.authenticationFragment)
+                       auth.signOut()
+                           findNavController().navigate(R.id.authenticationFragment)
+
+                    }
+                  }
+
+                    }
+
+                }
 
 
                     for (firma in document){
@@ -292,7 +331,7 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
         textArray.add(binding.textView31)
         textArray.add(binding.textView32)
         textArray.add(binding.textView33)
-       // textArray.add(binding.textView34)
+        textArray.add(binding.textView34)
         textArray.add(binding.textView35)
         textArray.add(binding.textView36)
         textArray.add(binding.textView37)
@@ -317,10 +356,13 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
                 }
 
                 val random= Random()
-                val randomIndex= random.nextInt(16)
+                val randomIndex= random.nextInt(17)
                 textArray[randomIndex].visibility=View.VISIBLE
 
                 handler.postDelayed(runnable,1000)
+
+                
+
             }
 
         }

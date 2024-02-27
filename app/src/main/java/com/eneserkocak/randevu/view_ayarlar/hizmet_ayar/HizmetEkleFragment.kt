@@ -101,9 +101,9 @@ class HizmetEkleFragment: DialogFragment() {
         binding.layoutAciklama.setEndIconOnClickListener {
             askSpeechInput(119)
         }
-        binding.layoutHizmFiyat.setEndIconOnClickListener {
+       /* binding.layoutHizmFiyat.setEndIconOnClickListener {
             askSpeechInput(120)
-        }
+        }*/
 
     }
 
@@ -116,7 +116,7 @@ class HizmetEkleFragment: DialogFragment() {
             when (requestCode){
                 118-> binding.hizmetAdi.setText(result?.get(0).toString())
                 119-> binding.aciklama.setText(result?.get(0).toString())
-                120-> binding.fiyat.setText(result?.get(0).toString())
+               // 120-> binding.fiyat.setText(result?.get(0).toString())
 
             }
         }

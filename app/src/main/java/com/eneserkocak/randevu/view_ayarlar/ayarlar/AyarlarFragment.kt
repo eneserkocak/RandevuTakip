@@ -51,6 +51,10 @@ class AyarlarFragment : BaseFragment<FragmentAyarlarBinding>(R.layout.fragment_a
             navigate(R.id.persHesapListeFragment)
         }
 
+        binding.uyelik.setOnClickListener {
+            navigate(R.id.uyelikBilgileriFragment)
+        }
+
         binding.destek.setOnClickListener {
             navigate(R.id.destekFragment)
         }

@@ -8,11 +8,12 @@ import java.util.*
 
 
 data class Randevu(
+    val randevuId : Int =0,
     val firmaKodu:Int,
     val personel: Personel,
     val musteri: Musteri,
     val hizmet: Hizmet,
-    val randevuGeliri:Int=0,
+    var randevuGeliri:Int=0,
     val randevuTime : Timestamp=Timestamp.now(),
     var randevuDurumu:String="",
     var randevuNotu:String="",

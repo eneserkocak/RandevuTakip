@@ -31,18 +31,7 @@ const val YENI_MUSTERI_EKLE = "YeniMusteriEkle"
 class MusteriFragment() : BaseFragment<FragmentMusteriListeBinding>(R.layout.fragment_musteri_liste) {
 
     var musteriListesi= listOf<Musteri>()
-
-
-    val adapter = MusteriRecyclerAdapter(){
-
-
-        viewModel.secilenMusteri.value = it
-
-        findNavController().navigate(R.id.musteriDuzenleFragment)
-
-
-    }
-
+    lateinit var adapter: MusteriRecyclerAdapter
    // private lateinit var db:FirebaseFirestore
 
     private lateinit var searchView: SearchView
@@ -52,7 +41,10 @@ class MusteriFragment() : BaseFragment<FragmentMusteriListeBinding>(R.layout.fra
         super.onViewCreated(view, savedInstanceState)
 
 
-
+        adapter = MusteriRecyclerAdapter(){
+            viewModel.secilenMusteri.value = it
+            findNavController().navigate(R.id.musteriDuzenleFragment)
+        }
     binding.musteriRecycler.layoutManager= LinearLayoutManager(requireContext())
     binding.musteriRecycler.adapter=adapter
 
@@ -75,11 +67,12 @@ class MusteriFragment() : BaseFragment<FragmentMusteriListeBinding>(R.layout.fra
 
       getData(){
           musteriListesi = it
-         /* musteriListesi.sortedByDescending{
-              it.musteriAdi
-          }*/
 
-          adapter.musteriListesiniGuncelle(musteriListesi)
+         val list= musteriListesi.sortedBy{
+              it.musteriAdi
+          }
+
+          adapter.musteriListesiniGuncelle(list)
       }
 
         search()

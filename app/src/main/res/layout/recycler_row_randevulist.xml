@@ -4,10 +4,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
+
         <variable
             name="randevu"
             type="com.eneserkocak.randevu.model.Randevu" />
-
 
         <import type="com.eneserkocak.randevu.model.SabitlerKt"/>
 
@@ -74,7 +74,6 @@
                     android:id="@+id/hizmet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:text="@{randevu.hizmet.hizmetAdi}"
@@ -230,7 +229,7 @@
                     android:layout_marginStart="5dp"
                     android:drawableLeft="@drawable/lira_16_yesil"
                     android:drawableEnd="@drawable/lira_16_yesil"
-                   app:randevuDurumu="@{randevu}"
+                    app:randevuGelir="@{randevu}"
                     android:textColor="#068176"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/textView30"

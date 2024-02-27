@@ -358,4 +358,53 @@
     </style>
 
 
+
+    <style name="uyelikBilgileriFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+    </style>
+
+
+
+
+    <style name="gelenAramaDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+    </style>
+
+
+
+
 </resources>

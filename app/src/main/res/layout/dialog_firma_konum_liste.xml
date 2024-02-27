@@ -26,6 +26,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="Firma Konum Listesi"
+                android:background="#068176"
+                android:textColor="@color/white"
                 android:gravity="center_vertical"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -37,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/firmaKonumListRecycler">
 
 

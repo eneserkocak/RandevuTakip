@@ -4,6 +4,7 @@ import com.google.firebase.Timestamp
 import java.util.*
 
 data class RandevuDTO(
+    val randevuId:Int=0,
     val firmaKodu: Int = 0,
     val personelId: Int=0,
     val musteriId : Int = 0,

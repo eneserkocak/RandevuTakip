@@ -15,7 +15,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         android:paddingBottom="10dp"
         tools:context=".view_ayarlar.ayarlar.AyarlarFragment">
 
@@ -286,7 +285,7 @@
             android:layout_marginEnd="20dp"
             android:background="@drawable/maps_konum_btn_bg"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gunOzeti">
+            app:layout_constraintTop_toBottomOf="@+id/raporlar">
 
 
             <TextView
@@ -352,14 +351,50 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/destek"
+            android:id="@+id/uyelik"
             android:layout_width="150dp"
             android:layout_height="100dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/maps_konum_btn_bg"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/raporlar">
+            app:layout_constraintTop_toBottomOf="@+id/gunOzeti">
+
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="Üyelik\nBilgileri"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"></TextView>
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/user"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/destek"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/maps_konum_btn_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/uyelik">
 
 
             <TextView

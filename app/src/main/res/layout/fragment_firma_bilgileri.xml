@@ -47,36 +47,36 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:id="@+id/layoutTel"
-            android:layout_marginTop="15dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:hint="TELEFON (0**********)"
-            app:helperText="Karakter*"
+            android:textSize="20sp"
             app:counterEnabled="true"
             app:counterMaxLength="11"
-            app:helperTextTextColor="#A81207"
-
-            android:textSize="20sp"
-            app:startIconDrawable="@drawable/phones"
-            app:endIconMode="custom"
             app:endIconDrawable="@drawable/voice"
+
+            app:endIconMode="custom"
+            app:helperText="11 karakter giriniz*"
+            app:helperTextTextColor="#A81207"
+            app:startIconDrawable="@drawable/phones"
 
             >
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/telefonNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/telefonNo"
                 android:inputType="number"
 
                 />
 
 
         </com.google.android.material.textfield.TextInputLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

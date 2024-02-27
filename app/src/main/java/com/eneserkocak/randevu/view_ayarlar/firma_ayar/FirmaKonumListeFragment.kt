@@ -30,11 +30,8 @@ class FirmaKonumListeFragment : DialogFragment() {
     lateinit var dao: FirmaMapsDao
     private var firmaKonumList= listOf<Konum>()
 
-    val adapter= FirmaKonumListAdapter(){
-        viewModel.secilenKonum.value=it
-        val action = FirmaKonumListeFragmentDirections.actionFirmaKonumListeFragmentToFirmaMapsFragment(MAPS_LISTE)
-        findNavController().navigate(action)
-    }
+    lateinit var adapter: FirmaKonumListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +44,11 @@ class FirmaKonumListeFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val adapter= FirmaKonumListAdapter(){
+            viewModel.secilenKonum.value=it
+            val action = FirmaKonumListeFragmentDirections.actionFirmaKonumListeFragmentToFirmaMapsFragment(MAPS_LISTE)
+            findNavController().navigate(action)
+        }
 
         dao = FirmaMapsDatabase.getInstance(requireContext())!!.firmaMapsDao()
         firmaKonumList = dao.getAll()
@@ -61,7 +63,13 @@ class FirmaKonumListeFragment : DialogFragment() {
         binding.firmaKonumListRecycler.layoutManager=LinearLayoutManager(requireContext())
         binding.firmaKonumListRecycler.adapter=adapter
 
-        adapter.konumListGuncelle(firmaKonumList)
+        val list= firmaKonumList.sortedBy {
+            it.firmaAdi
+        }
+        adapter.konumListGuncelle(list)
+
+        // yukarıda sıralama yapmadan önceki hali
+       // adapter.konumListGuncelle(firmaKonumList)
 
 
     }

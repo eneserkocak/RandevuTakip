@@ -61,7 +61,11 @@ class MusteriSecFragment : DialogFragment() {
 
         getData(){
             musteriListesi = it
-            adapter.musteriListesiniGuncelle(it)
+
+            val list=musteriListesi.sortedBy {
+                it.musteriAdi
+            }
+            adapter.musteriListesiniGuncelle(list)
         }
 
 

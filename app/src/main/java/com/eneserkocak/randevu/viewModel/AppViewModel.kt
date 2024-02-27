@@ -51,6 +51,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
         val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR)
             .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .get()
+
         viewModelScope.launch(Dispatchers.IO ) {
 
         var indirilenRandevular = queryRef.await().toObjects(RandevuDTO::class.java)
@@ -96,7 +97,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
            )*/
        //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
            val indirilenRandevu=Randevu(
-
+               randevu.randevuId,
                randevu.firmaKodu,
                personel!!,
                musteri!!,
@@ -126,6 +127,10 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
        }
      }
    }
+
+    fun randevuListesiniGuncelle(){
+       randevuListesi.value = randevuListesi.value
+    }
 
 
 
@@ -173,6 +178,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
   //COURİTİNE İÇİNDE İLGİLİ SINIFLARDAN (HİZMET, MUSTERİ VB) ÇEKTİĞİMİZ VERİLERİ AŞAĞIDA RANDEVU MODEL İNE ÇEVİRİYORUZ.
 //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
                     val indirilenRandevu=Randevu(
+                        randevu.randevuId,
                         randevu.firmaKodu,
                         personel!!,
                         musteri!!,
@@ -264,6 +270,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
 
    //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
                     val indirilenRandevu=Randevu(
+                       randevu.randevuId,
                         randevu.firmaKodu,
                         personel!!,
                         musteri!!,
@@ -350,6 +357,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                     //COURİTİNE İÇİNDE İLGİLİ SINIFLARDAN (HİZMET, MUSTERİ VB) ÇEKTİĞİMİZ VERİLERİ AŞAĞIDA RANDEVU MODEL İNE ÇEVİRİYORUZ.
 //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
                     val indirilenRandevu=Randevu(
+                        randevu.randevuId,
                         randevu.firmaKodu,
                         personel!!,
                         musteri!!,

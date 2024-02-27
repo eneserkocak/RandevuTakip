@@ -37,8 +37,8 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
     lateinit var personel: Personel
 
     var raporRandevuListesi = listOf<Randevu>()
+    lateinit var adapter: RaporlarAdapter
 
-    val adapter=RaporlarAdapter()
     val personelRaporListesi = mutableListOf<PersonelRandevu>()
 
     lateinit var gider: Gider
@@ -47,7 +47,7 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        adapter=RaporlarAdapter()
 
         binding.raporlarRecycler.layoutManager=LinearLayoutManager(requireContext())
         binding.raporlarRecycler.adapter=adapter
@@ -173,7 +173,11 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
                         personelRaporListesi.add(filterRandevuPersonel(it))
                     }
                 }
-                    adapter.persRandListesiniGuncelle(personelRaporListesi)
+                    val list=personelRaporListesi.sortedBy {
+                        it.personel.personelAdi
+                    }
+
+                    adapter.persRandListesiniGuncelle(list)
 
             }
     }

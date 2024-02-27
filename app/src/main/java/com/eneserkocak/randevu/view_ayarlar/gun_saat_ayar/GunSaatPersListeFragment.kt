@@ -18,16 +18,16 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class GunSaatPersListeFragment : BaseFragment<FragmentGunSaatPersListeBinding>(R.layout.fragment_gun_saat_pers_liste) {
 
-    val adapter=GunSaatPersListAdapter(){
-        viewModel.secilenPersonel.value=it
-
-    }
+    lateinit var adapter: GunSaatPersListAdapter
     var personelList= listOf<Personel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        adapter=GunSaatPersListAdapter(){
+            viewModel.secilenPersonel.value=it
 
+        }
 
         binding.gunSaatPersListRecycler.layoutManager=LinearLayoutManager(requireContext())
         binding.gunSaatPersListRecycler.adapter=adapter
@@ -35,7 +35,10 @@ class GunSaatPersListeFragment : BaseFragment<FragmentGunSaatPersListeBinding>(R
 
         getData(){
             personelList = it
-            adapter.personelListesiniGuncelle(it)
+            val list=personelList.sortedBy {
+                it.personelAdi
+            }
+            adapter.personelListesiniGuncelle(list)
         }
 
     }

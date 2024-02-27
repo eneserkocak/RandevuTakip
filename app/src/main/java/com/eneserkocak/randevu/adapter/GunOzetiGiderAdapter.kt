@@ -4,8 +4,10 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
@@ -39,7 +41,8 @@ class GunOzetiGiderAdapter:RecyclerView.Adapter<GunOzetiGiderAdapter.GunOzetiGid
 
         holder.binding.giderSilBtn.setOnClickListener {
               // AppUtil.giderSil(gider,{})
-            giderSilDialog(holder.itemView.context,position)
+            giderSilDialog(holder.itemView.context,position,it)
+
         }
 
     }
@@ -55,7 +58,7 @@ class GunOzetiGiderAdapter:RecyclerView.Adapter<GunOzetiGiderAdapter.GunOzetiGid
         notifyDataSetChanged()
     }
 
-    fun giderSilDialog(context: Context, position: Int){
+    fun giderSilDialog(context: Context, position: Int,view: View){
 
         val alert = AlertDialog.Builder(context)
         alert.setMessage("Gider kaydı silinsin mi?")
@@ -72,6 +75,9 @@ class GunOzetiGiderAdapter:RecyclerView.Adapter<GunOzetiGiderAdapter.GunOzetiGid
                         notifyItemRemoved(position)
                         notifyItemRangeChanged(position, giderList.size)
                         AppUtil.longToast(context,"Gider kaydı silindi..")
+
+                        Navigation.findNavController(view).popBackStack()
+                        Navigation.findNavController(view).navigate(R.id.gunOzetiGiderFragment)
                     }
                     .addOnFailureListener {
                         it.printStackTrace()

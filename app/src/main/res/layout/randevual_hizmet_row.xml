@@ -50,7 +50,7 @@
                 android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="1dp"
                 android:text="@{String.valueOf(hizmet.fiyat)}"
                 android:textSize="14sp"
                 android:drawableEnd="@drawable/lira"

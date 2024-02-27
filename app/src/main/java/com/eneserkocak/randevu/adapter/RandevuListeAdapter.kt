@@ -1,45 +1,29 @@
 package com.eneserkocak.randevu.adapter
 
-import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.graphics.Color
-import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.databinding.DialogRandevuIptalBinding
 import com.eneserkocak.randevu.databinding.DialogRandevuTamamlaBinding
-import com.eneserkocak.randevu.databinding.DialogSmsGonderBinding
 
 import com.eneserkocak.randevu.databinding.RecyclerRowRandevulistBinding
 import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.viewModel.AppViewModel
-import com.eneserkocak.randevu.view_ayarlar.gun_saat_ayar.GunSaatPersListeFragmentDirections
-import com.eneserkocak.randevu.view_randevuListesi.RandevuListesiFragmentDirections
 import com.google.firebase.firestore.FirebaseFirestore
 
-class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adapter<RandevuListeAdapter.RandevuListViewHolder>() {
+class RandevuListeAdapter(val viewModel: AppViewModel,val secilenRandevu: (Randevu)->Unit):RecyclerView.Adapter<RandevuListeAdapter.RandevuListViewHolder>() {
 
-    //ROW İÇİ GELİRGOSTER TEXT =  android:text="@{String.valueOf(randevu.randevuGeliri)}"
 
-    var randevuGeliri:Int=0
-    var veresiyeTutari:Int=0
+    var mRandevuGeliri:Int=0
+    var vRandevuGeliri:Int=0
+    var  veresiyeTutari:Int=0
     val randevuListesi = arrayListOf<Randevu>()
     class RandevuListViewHolder(val binding:RecyclerRowRandevulistBinding):RecyclerView.ViewHolder(binding.root) {
 
@@ -54,7 +38,7 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
 
         val randevu = randevuListesi[position]
         holder.binding.randevu = randevu
-
+    //   val yeniRandevu= randevu.copy()
 
 
 
@@ -101,28 +85,28 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
             val dialog = AlertDialog.Builder(it.context).setView(binding.root).show()
 
 
-            lateinit var randevuDurumu:String
-            lateinit var randevuGelirTuru:String
+            lateinit var mRandevuDurumu:String
+            lateinit var mRandevuGelirTuru:String
 
-            //PEŞİN TAMAMLA
+            //NAKİT TAMAMLA
     binding.dialogTamamlaBtn.setOnClickListener {
 
-//eğer randevu geliri girmeden tamamlaya basarsak randGelir text string geliyo ınt e ceviremediği için çöküyor
+            //eğer randevu geliri girmeden tamamlaya basarsak randGelir text string geliyo ınt e ceviremediği için çöküyor
 
                 var gelir =binding.randGelir.text
 
-                randevuGeliri= if (gelir!!.isEmpty()) randevu.hizmet.fiyat
+                mRandevuGeliri= if (gelir!!.isEmpty()) randevu.hizmet.fiyat
                 else binding.randGelir.text.toString().toInt()
 
-                randevuDurumu="Randevu Tamamlandı"
-                randevuGelirTuru= NAKIT
+                mRandevuDurumu="Randevu Tamamlandı"
+                mRandevuGelirTuru= NAKIT
 
 
 
                 val randevuMap = mapOf<String,Any>(
-                    RANDEVU_GELIRI to randevuGeliri,
-                    RANDEVU_DURUMU to randevuDurumu,
-                    RANDEVU_GELIR_TURU to randevuGelirTuru
+                    RANDEVU_GELIRI to mRandevuGeliri,
+                    RANDEVU_DURUMU to mRandevuDurumu,
+                    RANDEVU_GELIR_TURU to mRandevuGelirTuru
 
                 )
 
@@ -130,15 +114,26 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
                 FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
                     .update(randevuMap)
                     .addOnSuccessListener {
-                        randevu.randevuDurumu = TAMAMLANDI
-                        notifyDataSetChanged()
+
+             //RANDEVU TAMAMLANINCA ..GELİR ÇIK GİR YAPMADAN GELMİYORDU.AŞAĞIDA VİEWMODEL I GÜNCELLE..SORUN ORTADAN KALKACAK
+                     randevu.apply {
+                                this.randevuGeliri=mRandevuGeliri
+                                this.randevuDurumu=mRandevuDurumu
+                                this.randevuGelirTuru=mRandevuGelirTuru
+                            }
+                        viewModel.randevuListesiniGuncelle()
                     }
 
                  AppUtil.longToast(it.context,"Randevu Tamamlandı.")
                 dialog.dismiss()
+
             }
 
             //VERESİYE TAMAMLA
+
+            lateinit var vRandevuDurumu:String
+            lateinit var vRandevuGelirTuru:String
+
     binding.dialogVeresiyeBtn.setOnClickListener {
 
         val alert = AlertDialog.Builder(holder.itemView.context)
@@ -149,33 +144,39 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
 
                 var gelir =binding.randGelir.text
 
-                randevuGeliri= if (gelir!!.isEmpty()) randevu.hizmet.fiyat
+                vRandevuGeliri= if (gelir!!.isEmpty()) randevu.hizmet.fiyat
                 else binding.randGelir.text.toString().toInt()
 
-                veresiyeTutari=randevuGeliri
+                veresiyeTutari=vRandevuGeliri
 
                 /* veresiyeTutari=  if (gelir!!.isEmpty()) randevu.hizmet.fiyat
                   else binding.randGelir.text.toString().toInt()*/
 
-                randevuDurumu="Randevu Tamamlandı"
-                randevuGelirTuru= VERESIYE
+                vRandevuDurumu="Randevu Tamamlandı"
+                vRandevuGelirTuru= VERESIYE
 
                 val randevuMap = mapOf<String,Any>(
-                    RANDEVU_GELIRI to randevuGeliri,
-                    RANDEVU_DURUMU to randevuDurumu,
-                    RANDEVU_GELIR_TURU to randevuGelirTuru,
+                    RANDEVU_GELIRI to vRandevuGeliri,
+                    RANDEVU_DURUMU to vRandevuDurumu,
+                    RANDEVU_GELIR_TURU to vRandevuGelirTuru,
                     VERESIYE_TUTARI to veresiyeTutari
                 )
 
                 FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
                     .update(randevuMap)
                     .addOnSuccessListener {
-                        randevu.randevuDurumu = TAMAMLANDI
-                        notifyDataSetChanged()
+                      randevu.apply {
+                              this.randevuGeliri = vRandevuGeliri
+                              this.randevuDurumu=vRandevuDurumu
+                              this.randevuGelirTuru=vRandevuGelirTuru
+                              this.veresiyeTutari=veresiyeTutari
+                          }
+                        viewModel.randevuListesiniGuncelle()
+
                     }
 
          //VERESİYE TAMAMLANIRSA MUSTERİ CLASS musteriVeresiye =TRUE YAP
-               val mustDocument = UserUtil.firmaKodu.toString()+"-"+randevu.musteri.musteriId.toString()
+                val mustDocument = UserUtil.firmaKodu.toString()+"-"+randevu.musteri.musteriId.toString()
                 val musteriVeresiye= true
 
                 val musteriMap= mapOf<String,Any>(
@@ -189,8 +190,6 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
 
                AppUtil.longToast(it.context,"Randevu Tamamlandı.")
                 dialog!!.dismiss()
-
-
 
 
             }
@@ -207,37 +206,6 @@ class RandevuListeAdapter(val secilenRandevu: (Randevu)->Unit):RecyclerView.Adap
 
         alert.show()
 
-
-
-      /*  var gelir =binding.randGelir.text
-
-        randevuGeliri= if (gelir!!.isEmpty()) randevu.hizmet.fiyat
-        else binding.randGelir.text.toString().toInt()
-
-        veresiyeTutari=randevuGeliri
-
-      *//* veresiyeTutari=  if (gelir!!.isEmpty()) randevu.hizmet.fiyat
-        else binding.randGelir.text.toString().toInt()*//*
-
-        randevuDurumu="Randevu Tamamlandı"
-        randevuGelirTuru= VERESIYE
-
-        val randevuMap = mapOf<String,Any>(
-            RANDEVU_GELIRI to randevuGeliri,
-            RANDEVU_DURUMU to randevuDurumu,
-            RANDEVU_GELIR_TURU to randevuGelirTuru,
-            VERESIYE_TUTARI to veresiyeTutari
-        )
-
-        FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
-            .update(randevuMap)
-            .addOnSuccessListener {
-                randevu.randevuDurumu = TAMAMLANDI
-                notifyDataSetChanged()
-            }
-
-        AppUtil.longToast(it.context,"Randevu Tamamlandı.")
-        dialog.dismiss()*/
 
     }
 

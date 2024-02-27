@@ -28,7 +28,7 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
     lateinit var cal: Calendar
     var tamRandevuListesi = listOf<Randevu>()
-    val adapter = GunOzetiAdapter()
+    lateinit var adapter: GunOzetiAdapter
     var filtreRandevuListesi = listOf<Randevu>()
     var veresiyeRandListesi = listOf<Randevu>()
     var filtreVeresiyeListesi= listOf<Randevu>()
@@ -37,6 +37,8 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+         adapter = GunOzetiAdapter()
 
         binding.gunOzetiRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.gunOzetiRecycler.adapter = adapter
@@ -104,7 +106,12 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
                 //adapter.randevuListesiniGuncelle(it)
 
                 binding.toplamRandCount.text=filtreRandevuListesi.size.toString()
-                adapter.randevuListesiniGuncelle(filtreRandevuListesi)
+
+                val list=filtreRandevuListesi.sortedBy {
+                    it.randevuTime
+                }
+
+                adapter.randevuListesiniGuncelle(list)
 
                 val size= tamRandevuListesi.size
                 println("size: ${size}")

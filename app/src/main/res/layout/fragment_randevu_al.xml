@@ -124,7 +124,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="25dp"
+                    android:layout_marginStart="4dp"
                     android:text="Personel"
+                    android:textStyle="bold"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -151,6 +153,8 @@
                     android:layout_marginTop="10dp"
                     android:text="Hizmetler"
                     android:textSize="14sp"
+                    android:layout_marginStart="4dp"
+                    android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"></TextView>
@@ -173,6 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="Randevu Tarihi"
+                    android:textStyle="bold"
+                    android:layout_marginStart="4dp"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -183,6 +189,7 @@
                     android:layout_height="35dp"
                     android:background="@drawable/qrtext_bg"
                     android:orientation="horizontal"
+                    android:layout_marginTop="5dp"
                     android:padding="5dp">
 
 
@@ -222,6 +229,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="Randevu Saati"
+                    android:layout_marginStart="4dp"
+                    android:textStyle="bold"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -240,7 +249,7 @@
 
         <TextView
             android:id="@+id/randevuOlusturBtn"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="5dp"

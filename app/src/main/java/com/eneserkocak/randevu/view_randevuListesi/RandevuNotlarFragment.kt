@@ -65,6 +65,18 @@ class RandevuNotlarFragment : DialogFragment()  {
 
             FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
                 .update(randevuMap)
+      //RANDEVUYA NOT EKLEYİNCE.ÇIK GİR YAPMADAN NOTU GÖSTERMİYORDU..AŞAĞIDAKİ KOD İLE VİEWMODEL CANLI VERİYİ GÜNCELLLE..
+                .addOnSuccessListener {
+                    viewModel.randevuListesi.value!!.find { it.randevuId==randevu.randevuId }
+                        ?.apply {
+                            this.randevuNotu = randevuNotu
+
+                        }
+                    viewModel.randevuListesi.value =  viewModel.randevuListesi.value
+
+                }
+
+
 
 
             dismiss()

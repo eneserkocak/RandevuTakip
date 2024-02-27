@@ -30,7 +30,7 @@ const val GIDER_ADI="giderAdi"
 const val GIDER_TUTAR="giderTutar"
 const val GIDER_TARİH="giderTarih"
 
-
+const val RANDEVU_ID="randevuId"
 const val RANDEVU_TIME ="randevuTime"
 const val RANDEVU_GELIRI= "randevuGeliri"
 const val RANDEVU_DURUMU= "randevuDurumu"
@@ -51,6 +51,7 @@ const val FIRMA_ID = "firmaId"
 const val FIRMA_KODU="firmaKodu"
 const val EMAIL="email"
 const val SIFRE="sifre"
+const val SKT= "skt"
 
 const val UID="uid"
 const val FIRMA_ADI = "firmaAdi"

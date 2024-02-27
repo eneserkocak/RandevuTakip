@@ -51,11 +51,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:hint="TELEFON (0**********)"
-                app:helperText="Karakter*"
+                app:helperText="11 karakter giriniz*"
                 app:counterEnabled="true"
                 app:counterMaxLength="11"
                 app:helperTextTextColor="#A81207"
                 android:textSize="20sp"
+
                 app:startIconDrawable="@drawable/phones"
                 app:endIconMode="custom"
                 app:endIconDrawable="@drawable/voice"
@@ -65,6 +66,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/musteriTel"
+                    android:inputType="number"
 
                     />
 

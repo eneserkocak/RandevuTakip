@@ -1,6 +1,7 @@
 package com.eneserkocak.randevu.Util
 
 import android.graphics.Color
+import android.icu.text.Transliterator.Position
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -52,8 +53,7 @@ object BindingAdapter {
           TAMAMLANDI -> R.drawable.bg_randevu_tamamlandi
           IPTAL_EDILDI -> R.drawable.bg_randevu_iptal
           else -> R.drawable.home_ktphn_rectangle
-          //"#C5F6C8"
-          //"#EFCDCB"
+
       }
 
       materialCardView.setBackgroundResource(bgResId)
@@ -168,17 +168,7 @@ object BindingAdapter {
     }
 
 
-    @JvmStatic
-    @BindingAdapter("app:randevuVeresiyeTextGoster")
-    fun randevuVeresiyeTextGoster(textView: TextView, randevu: Randevu){
-        if (randevu.randevuGelirTuru  == VERESIYE){
-            textView.visibility=View.VISIBLE
-            textView.setText("Veresiye geçildi")
-            textView.setTextColor(Color.parseColor("#A81207"))
-        }else{
-            textView.visibility=View.GONE
-        }
-    }
+
 
     @JvmStatic
     @BindingAdapter("app:persYetkiGoster")
@@ -204,18 +194,29 @@ object BindingAdapter {
     }
 
     @JvmStatic
-    @BindingAdapter("app:randevuDurumu")
-    fun randevuDurumu(textView: TextView, randevu: Randevu){
-        if (randevu.randevuDurumu== TAMAMLANDI){
-            textView.setText(randevu.randevuGeliri.toString())
+    @BindingAdapter("app:randevuGelir")
+    fun randevuGelir(textView: TextView, randevu: Randevu){
+        if (randevu.randevuDurumu == TAMAMLANDI){
+            val gelir=randevu.randevuGeliri.toString()
+            textView.setText(gelir)
 
         }else{
             textView.setText("0")
         }
     }
 
+    @JvmStatic
+    @BindingAdapter("app:randevuVeresiyeTextGoster")
+    fun randevuVeresiyeTextGoster(textView: TextView, randevu: Randevu){
+        if (randevu.randevuGelirTuru  == VERESIYE){
+            textView.visibility=View.VISIBLE
+            textView.setText("Veresiye geçildi")
+            textView.setTextColor(Color.parseColor("#A81207"))
+        }else{
+            textView.visibility=View.GONE
+        }
+    }
 
-
-
+    
 
 }

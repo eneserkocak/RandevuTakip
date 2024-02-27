@@ -21,13 +21,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 class HizmetListeFragment : BaseFragment<FragmentHizmetListeBinding>(R.layout.fragment_hizmet_liste) {
 
     var hizmetList= listOf<Hizmet>()
-    val adapter= HizmetListeRecyclerAdapter(){
-        viewModel.secilenHizmet.value=it
-    }
+    lateinit var adapter: HizmetListeRecyclerAdapter
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        adapter= HizmetListeRecyclerAdapter(){
+            viewModel.secilenHizmet.value=it
+        }
 
         binding.hizmetEkleBtn.setOnClickListener {
 
@@ -54,7 +56,10 @@ class HizmetListeFragment : BaseFragment<FragmentHizmetListeBinding>(R.layout.fr
 
         getData(){
             hizmetList = it
-            adapter.hizmetListesiniGuncelle(it)
+            val list=hizmetList.sortedBy {
+                it.hizmetAdi
+            }
+            adapter.hizmetListesiniGuncelle(list)
             //adapter.notifyDataSetChanged()
         }
 

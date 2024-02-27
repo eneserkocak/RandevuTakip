@@ -1,11 +1,14 @@
 package com.eneserkocak.randevu.view
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
@@ -37,8 +40,9 @@ class MainActivity : AppCompatActivity(),NavController.OnDestinationChangedListe
 
         setNavController()
 
-
-
+        checkPermissionLog()
+        checkPermissionContacs()
+        checkPermissionState()
 
 
         binding.cikisBtn.setOnClickListener {
@@ -125,4 +129,22 @@ class MainActivity : AppCompatActivity(),NavController.OnDestinationChangedListe
 
 
     }
+
+    private fun checkPermissionLog(){
+        if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_CALL_LOG) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_CALL_LOG),101)
+        }
+    }
+    private fun checkPermissionContacs(){
+        if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_CONTACTS),102)
+        }
+    }
+    private fun checkPermissionState(){
+        if (ContextCompat.checkSelfPermission(this,android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_PHONE_STATE),103)
+        }
+    }
+
+
 }
