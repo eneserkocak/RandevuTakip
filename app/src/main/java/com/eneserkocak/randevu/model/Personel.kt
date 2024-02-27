@@ -12,17 +12,19 @@ import kotlinx.parcelize.Parcelize
 
 
 data class Personel(
-    val firmaId: Int = 0,
+    val firmaKodu: Int = 0,
     val personelId: Int=0,
     val personelAdi: String ="",
     val personelTel: String="",
     val personelMail:String= "",
     val personelUnvan:String= "",
-   // var personelGorsel:String="",
-
-    var personelRandDur:Boolean = false,
+    var personelYetki:Boolean=false,
+    var personelHesap:Boolean =false,
+    var personelRandDur:Boolean = true,
     val personelCalismaGun:List<CalismaGun> = AppUtil.defaultCalismaGunListesi(),
-    var personelCalismaDakika: Int = 0,
+    var personelCalismaDakika: Int = 60,
+
+
 
 
 ) {}

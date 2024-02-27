@@ -31,7 +31,7 @@ import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
-//Extension function: Aşağıda filtrede iki tarafıda tarih değerlerini alıp, eşleştirmek için yaptık:UTİL DE
+//Extension function: Aşağıda filtrede iki tarafıda tarih değerlerini alıp, eşleştirmek için yaptım:UTİL DE
 
 /*fun Date.toTarih(): Date {
     val sdf = SimpleDateFormat("dd.MM.yyyy")
@@ -48,58 +48,81 @@ class RandevuListesiFragment : BaseFragment<FragmentRandevuListesiBinding>(R.lay
 
 
 
+
     val adapter= RandevuListeAdapter(){
         viewModel.secilenRandevu.value=it
 
 
     }
 
-
+    val cal = Calendar.getInstance()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    binding.randevuListRecycler.layoutManager=LinearLayoutManager(requireContext())
-    binding.randevuListRecycler.adapter=adapter
 
 
-            //Seçili güne ait randevu bulunmamaktadır..!
-
+        binding.randevuListRecycler.layoutManager = LinearLayoutManager(requireContext())
+        binding.randevuListRecycler.adapter = adapter
 
 
         binding.calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             val cal = Calendar.getInstance().apply {
-                set(year,month,dayOfMonth)
+                set(year, month, dayOfMonth)
                 //.apply yerine
                 //cal.set(year,month,dayOfmonth) ta yapabilirdik..
 
 
             }
 
+            filtreRandevuListesi =
+                randevuListesi.filter { it.randevuTime.toDate().toTarih() == cal.time.toTarih() }
+            adapter.randevuListesiniGuncelle(filtreRandevuListesi)
 
-             filtreRandevuListesi = randevuListesi.filter { it.randevuTime.toDate().toTarih() == cal.time.toTarih()}
-             adapter.randevuListesiniGuncelle(filtreRandevuListesi)
+            println(randevuListesi)
 
-                println(randevuListesi)
-
-            if (filtreRandevuListesi.size==0){
-                binding.bilgiText.setText("Seçili güne ait randevu bulunmamaktadır..!")
+            if (filtreRandevuListesi.size == 0) {
+                binding.bilgiText.setText("Seçilen güne ait randevu bulunmamaktadır..!")
                 binding.bilgiText.setTextColor(Color.parseColor("#C53D3D"))
-                binding.bilgiText.visibility=View.VISIBLE
-                binding.randevuListRecycler.visibility=View.GONE
-            }else{
-                binding.bilgiText.visibility=View.GONE
-                binding.randevuListRecycler.visibility=View.VISIBLE
+                binding.bilgiText.visibility = View.VISIBLE
+                binding.randevuListRecycler.visibility = View.GONE
+            } else {
+                binding.bilgiText.visibility = View.GONE
+                binding.randevuListRecycler.visibility = View.VISIBLE
             }
-
         }
 
-    viewModel.randVerileriGetir()
-        viewModel.randevuListesi.observe(viewLifecycleOwner){
+        viewModel.randVerileriGetir()
+        viewModel.randevuListesi.observe(viewLifecycleOwner) {
             it?.let {
                 randevuListesi = it
-                //adapter.randevuListesiniGuncelle(it)
+
+
+                val cal = Calendar.getInstance()
+                val sdf = SimpleDateFormat("dd.MM.yyyy")
+                sdf.format(cal.time)
+
+                    val randList = randevuListesi.filter {
+                    it.randevuTime.toDate().toTarih() == cal.time.toTarih()
+
+                }
+
+                adapter.randevuListesiniGuncelle(randList)
+
+                if (randList.size==0){
+                    binding.bilgiText.setText("Seçilen güne ait randevu bulunmamaktadır..!")
+                    binding.bilgiText.setTextColor(Color.parseColor("#C53D3D"))
+                    binding.bilgiText.visibility = View.VISIBLE
+                    binding.randevuListRecycler.visibility = View.GONE
+                }else{
+                    binding.bilgiText.visibility = View.GONE
+                    binding.randevuListRecycler.visibility = View.VISIBLE
+                }
+
+
             }
-         }
-     }
+        }
+    }
+
+
   }

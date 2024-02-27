@@ -50,7 +50,7 @@
                     android:id="@+id/textView19"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-
+                    android:textAllCaps="false"
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="35dp"
                     android:text="@{randevu.musteri.musteriAdi}"
@@ -63,7 +63,7 @@
                     android:id="@+id/personelAdiText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:textAllCaps="false"
                     android:layout_marginStart="5dp"
                     android:text="@{randevu.personel.personelAdi}"
                     android:textSize="12sp"
@@ -79,6 +79,7 @@
                     android:layout_marginTop="15dp"
                     android:text="@{randevu.hizmet.hizmetAdi}"
                     android:textSize="12sp"
+                    android:textAllCaps="false"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView10"></TextView>
 
@@ -158,19 +159,18 @@
                     app:layout_constraintEnd_toEndOf="parent"></TextView>
 
 
-
                 <TextView
                     android:id="@+id/notBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginEnd="20dp"
                     android:text="Notlar"
                     android:textColor="#068176"
                     android:textSize="16sp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/smsBtn"></TextView>
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
                 <TextView
@@ -193,6 +193,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
                     android:text="SMS Gönder"
+                    app:smsTextVisibility="@{randevu}"
                     android:textColor="#068176"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -203,7 +204,7 @@
                     android:id="@+id/smsIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    app:smsIconVisibility="@{randevu}"
                     android:drawableEnd="@drawable/sms"
                     android:textSize="14sp"
                     app:layout_constraintEnd_toStartOf="@+id/smsBtn"
@@ -229,7 +230,7 @@
                     android:layout_marginStart="5dp"
                     android:drawableLeft="@drawable/lira_16_yesil"
                     android:drawableEnd="@drawable/lira_16_yesil"
-                    android:text="@{String.valueOf(randevu.randevuGeliri)}"
+                   app:randevuDurumu="@{randevu}"
                     android:textColor="#068176"
                     android:textSize="16sp"
                     app:layout_constraintStart_toEndOf="@+id/textView30"
@@ -247,6 +248,21 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toTopOf="@+id/randTamamlaBtn"
                     app:layout_constraintEnd_toEndOf="parent"></TextView>
+
+
+                <TextView
+                    android:id="@+id/veresiyeBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+
+                    android:layout_marginBottom="50dp"
+                    android:textColor="#A81207"
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:randevuVeresiyeTextGoster="@{randevu}"></TextView>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

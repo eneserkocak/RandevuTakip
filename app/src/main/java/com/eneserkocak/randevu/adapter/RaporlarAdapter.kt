@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.PictureUtil
 import com.eneserkocak.randevu.databinding.GunOzetiRowBinding
 
 import com.eneserkocak.randevu.databinding.RaporlarRowBinding
@@ -31,6 +32,7 @@ class RaporlarAdapter:RecyclerView.Adapter<RaporlarAdapter.RaporlarViewHolder>()
 
         val randevu = persRandevuList[position]
         holder.binding.randevu=randevu
+
     }
 
     override fun getItemCount(): Int {

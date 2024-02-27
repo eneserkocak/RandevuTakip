@@ -1,18 +1,25 @@
 package com.eneserkocak.randevu.view_musteri
 
+import android.app.Activity
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.SearchView
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.MusteriRecyclerAdapter
 import com.eneserkocak.randevu.databinding.DialogMusteriDuzenleBinding
 
 
 import com.eneserkocak.randevu.databinding.FragmentMusteriListeBinding
+import com.eneserkocak.randevu.model.FIRMA_KODU
 import com.eneserkocak.randevu.model.MUSTERILER
 import com.eneserkocak.randevu.model.Musteri
 import com.eneserkocak.randevu.view.BaseFragment
@@ -27,6 +34,7 @@ class MusteriFragment() : BaseFragment<FragmentMusteriListeBinding>(R.layout.fra
 
 
     val adapter = MusteriRecyclerAdapter(){
+
 
         viewModel.secilenMusteri.value = it
 
@@ -67,18 +75,24 @@ class MusteriFragment() : BaseFragment<FragmentMusteriListeBinding>(R.layout.fra
 
       getData(){
           musteriListesi = it
-          /*musteriListesi.sortedByDescending{
+         /* musteriListesi.sortedByDescending{
               it.musteriAdi
           }*/
+
           adapter.musteriListesiniGuncelle(musteriListesi)
       }
 
         search()
+
+
     }
+
 
     fun getData(musteriler : (List<Musteri>)->Unit){
 
-   FirebaseFirestore.getInstance().collection(MUSTERILER).get().addOnSuccessListener {
+   FirebaseFirestore.getInstance().collection(MUSTERILER)
+       .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+       .get().addOnSuccessListener {
            it?.let {
                val musteriListesi =  it.toObjects(Musteri::class.java)
                musteriler.invoke(musteriListesi)

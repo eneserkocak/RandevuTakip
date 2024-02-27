@@ -10,8 +10,9 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:padding="5dp"
+        android:background="@drawable/ilac_row_bg"
         android:orientation="vertical"
         >
         
@@ -19,7 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/ilac_row_bg"
+            android:layout_marginTop="9dp"
+
             >
             
 
@@ -27,7 +29,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="2.5"
                 android:layout_gravity="center_vertical"
                 android:textAllCaps="true"
                 android:text="@{gider.giderAdi}"
@@ -38,7 +40,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="1.5"
                 android:textColor="#068176"
                 android:textAlignment="viewEnd"
                 android:layout_gravity="center_vertical"

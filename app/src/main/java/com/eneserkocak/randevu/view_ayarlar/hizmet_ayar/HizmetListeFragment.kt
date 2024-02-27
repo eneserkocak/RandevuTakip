@@ -7,6 +7,8 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.HizmetListeRecyclerAdapter
 
 import com.eneserkocak.randevu.databinding.FragmentHizmetListeBinding
@@ -60,7 +62,9 @@ class HizmetListeFragment : BaseFragment<FragmentHizmetListeBinding>(R.layout.fr
 
     fun getData(hizmetler : (List<Hizmet>)->Unit){
 
-        FirebaseFirestore.getInstance().collection(HIZMETLER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(HIZMETLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
             it?.let {
                 val hizmetList =  it.toObjects(Hizmet::class.java)
                 hizmetler.invoke(hizmetList)

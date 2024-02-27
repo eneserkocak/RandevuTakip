@@ -1,16 +1,16 @@
 package com.eneserkocak.randevu.view_ayarlar.firma_ayar
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64.DEFAULT
-import android.util.Base64.encodeToString
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -23,16 +23,17 @@ import com.bumptech.glide.Glide
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 import com.eneserkocak.randevu.Util.PictureUtil
+import com.eneserkocak.randevu.Util.UserUtil
+
 import com.eneserkocak.randevu.databinding.FragmentFirmaBilgileriBinding
 import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.view.BaseFragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
-import java.io.ByteArrayOutputStream
-
-import java.util.Base64
+import java.util.*
 
 
 class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.layout.fragment_firma_bilgileri) {
@@ -47,33 +48,34 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
     private var downloadUrl:String=""
     lateinit var girilenFirma: Firma
 
-    //FİRMA ID SİNİ RANDEVU CLAS TAN AL
-    lateinit var randevu: Randevu
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewModel=viewModel
-
         registerLauncher()
 
         PictureUtil.firmaGorselIndir(requireContext(),binding.imageView)
-       /* if (binding.imageView.drawable==null){
-            binding.gorselEkleBtn.setText("Görsel Ekle")
-        }else{
-            binding.gorselEkleBtn.setText("Görseli Değiştir")
-        }*/
 
-        //aşağıda Shared a kaydettik. Xml içinde göstermek için BURADA al, Ayrıca Griş Fragment ta al
-        val sharedPref = AppUtil.getSharedPreferences(requireContext())
-        val firmaAdiAl = sharedPref.getString(FIRMA_ADI, "boş")
-        val telNoAl = sharedPref.getString(FIRMA_TEL, "boş")
-        val adresAl = sharedPref.getString(FIRMA_ADRES, "boş")
+        val firmaKodu=UserUtil.firmaKodu.toString()
+        binding.firmaKodu.setText(firmaKodu)
 
-        binding.firmaIsmi.setText(firmaAdiAl.toString())
-        binding.telefonNo.setText(telNoAl.toString())
-        binding.adres.setText(adresAl.toString())
+
+        FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
+            .get()
+            .addOnSuccessListener {
+                it?.let {
+                    val secilenFirma=it.toObject(Firma::class.java)
+
+                    if (secilenFirma != null) {
+                       // println("FIRMA BILGILER: ${secilenFirma.firmaAdi}")
+                        binding.firmaIsmi.setText(secilenFirma.firmaAdi)
+                        binding.telefonNo.setText(secilenFirma.firmaTel)
+                        binding.adres.setText(secilenFirma.firmaAdres)
+                    }
+                }
+            }
+
 
 
         binding.gorselEkleBtn.setOnClickListener {
@@ -81,27 +83,9 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
            gorselIzin()
         }
 
-
         binding.firmaAyarKaydetBtn.setOnClickListener {
 
-    //GÖRSEL İ BİTMAP E CEVİRDİK.BYTE DİZİSİNE CEVİRİP SHARED PREF İLE KAYDEDİP ALACAKTIK.ANCAK ÇÖZEMEDİĞİM İÇİN FİREBASE LE YAP
-            /*if (selectedBitmap !=null){
-
-                val kucukBitmap= kucukBitmapOlustur(selectedBitmap!!,300)
-                println(kucukBitmap)
-                //görsel i byte dizisine çevirme:
-                val outputStream= ByteArrayOutputStream()
-                kucukBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
-                 val byteArray= outputStream.toByteArray()
-
-                //BYTE ARRAY i aldık..Bunu Base 64 ü kullnarak String e cevirim shared ile kaydet
-                //Sonra aldığın yerde tekrar Base64 ü kullanarak bİTMAP A döndür AMA NASILLLL???
-
-             //   val string = Base64.encodeToString(byteArray, Base64.DEFAULT)
-
-            }*/
-            val firmaId=1
-            val imageName= "${firmaId}.jpg"
+            val imageName= "${UserUtil.firmaKodu}.jpg"
 
             storage= Firebase.storage
             val reference= storage.reference
@@ -109,7 +93,6 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
             val imageReference= reference.child("Firma_image").child(imageName)
 
 
-            //Burada Storage a kaydedilen Görselin URL (download Url) sini alıp-> Firestora kaydedeceğiz.:
             if (selectedPicture != null){
                 imageReference.putFile(selectedPicture!!).addOnSuccessListener {
                     val uploadPictureRef= storage.reference.child("Firma_image").child(imageName)
@@ -125,29 +108,85 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
                 }
             }
 
-
             val firmaAdi=binding.firmaIsmi.text.toString()
-            val telNo= binding.telefonNo.text.toString()
+            val telNo= binding.telefonNo.text.toString().filterNot { it.isWhitespace() }
             val adres= binding.adres.text.toString()
 
+             girilenFirma = Firma(UserUtil.firmaKodu,"","",firmaAdi,telNo,adres)
 
-             girilenFirma = Firma(firmaAdi,telNo,adres)
 
-            viewModel.kaydedilenFirma.value= girilenFirma
 
-            val sharedPreferences = AppUtil.getSharedPreferences(requireContext())
+            val firmaMap = mapOf<String,Any>(
+                FIRMA_ADI to firmaAdi,
+                FIRMA_TEL to telNo,
+                FIRMA_ADRES to adres
+            )
+
+            FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
+                .update(firmaMap)
+                .addOnSuccessListener {
+                    AppUtil.longToast(requireContext(),"Firma Bilgileri Kaydedildi.")
+                }
+
+
+            /*  FirebaseFirestore.getInstance().collection(FIRMALAR).document(AppUtil.firmaDocumentPath(girilenFirma))
+               *//* .collection(KULLANICILAR)
+                .document(AppUtil.secondFirmaDocumentPath(girilenFirma))*//*
+                .update(firmaMap)
+                .addOnSuccessListener {
+
+                    AppUtil.longToast(requireContext(),"Firma Bilgileri Kaydedildi.")
+                    viewModel.kaydedilenAuthFirma.value=girilenFirma
+
+                }*/
+
+
+          /*  val sharedPreferences = AppUtil.getSharedPreferences(requireContext())
 
             sharedPreferences.edit().putString(FIRMA_ADI,firmaAdi).apply()
             sharedPreferences.edit().putString(FIRMA_TEL,telNo).apply()
-            sharedPreferences.edit().putString(FIRMA_ADRES,adres).apply()
+            sharedPreferences.edit().putString(FIRMA_ADRES,adres).apply()*/
 
 
            // firmaDao.insert(firma)
             findNavController().navigate(R.id.girisFragment)
+   }
+
+        binding.layoutFirmaAdi.setEndIconOnClickListener {
+            askSpeechInput( 102)
+        }
+        binding.layoutTel.setEndIconOnClickListener {
+            askSpeechInput(103)
+        }
+        binding.layoutAdres.setEndIconOnClickListener {
+            askSpeechInput(104)
+        }
+
 
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if ( resultCode==Activity.RESULT_OK){
+            val result=data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
 
+            when (requestCode){
+                102-> binding.firmaIsmi.setText(result?.get(0).toString())
+                103-> binding.telefonNo.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+                104-> binding.adres.setText(result?.get(0).toString())
+            }
+        }
+    }
+    private fun askSpeechInput(requestCode:Int) {
+        if (!SpeechRecognizer.isRecognitionAvailable(requireContext())){
+            AppUtil.longToast(requireContext(),"Konuşma tanıma kullanılamıyor..!")
+        }else{
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Kaydetmek istediğinizi söyleyin..!")
+            startActivityForResult(i,requestCode)
+        }
     }
 
     private fun gorselIzin(){
@@ -183,11 +222,7 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
                 activityResaultLauncher.launch(intentToGallery)
             }
         }
-
     }
-
-
-
     private fun registerLauncher(){
 
         activityResaultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ result->
@@ -236,7 +271,7 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
         return Bitmap.createScaledBitmap(image,width,height,true)
      }
 
-//REGİSTER LAUNCHER -->>BİTMAP İÇİN ---FİREBASE İ KULLANACAĞIMIZ İÇİN YUKARDAKİNİ KULLAN
+//AŞAĞIDAKİ REGİSTER LAUNCHER -->>BİTMAP İÇİN ---FİREBASE İ KULLANACAĞIM İÇİN YUKARDAKİNİ KULLAN
     /*private fun registerLauncher() {
      activityResaultLauncher =registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
 
@@ -278,6 +313,24 @@ class FirmaBilgileriFragment : BaseFragment<FragmentFirmaBilgileriBinding>(R.lay
                     }
 
             }*/
+
+
+    //GÖRSEL İ BİTMAP E CEVİRDİM.BYTE DİZİSİNE CEVİRİP SHARED PREF İLE KAYDEDİP ALACAKTIM.ANCAK FİREBASE LE YAPTIM
+    /*if (selectedBitmap !=null){
+
+        val kucukBitmap= kucukBitmapOlustur(selectedBitmap!!,300)
+        println(kucukBitmap)
+        //görsel i byte dizisine çevirme:
+        val outputStream= ByteArrayOutputStream()
+        kucukBitmap.compress(Bitmap.CompressFormat.PNG,50,outputStream)
+         val byteArray= outputStream.toByteArray()
+
+        //BYTE ARRAY i aldık..Bunu Base 64 ü kullnarak String e cevirim shared ile kaydet
+        //Sonra aldığın yerde tekrar Base64 ü kullanarak bİTMAP A döndür AMA NASILLLL???
+
+     //   val string = Base64.encodeToString(byteArray, Base64.DEFAULT)
+
+    }*/
 
 
 }

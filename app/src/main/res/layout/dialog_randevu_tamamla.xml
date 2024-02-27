@@ -23,11 +23,19 @@
         android:padding="8dp"
         >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Randevu Tamamla"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textStyle="bold"
 
+            android:textAlignment="center"></TextView>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>
 
         <TextView
@@ -35,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
             android:textAlignment="center"
-            android:text="Randevu geliri girmemeniz durumunda, hizmet ücreti esas alınır..!"></TextView>
+            android:text="Randevu geliri girmemeniz durumunda, Randevu Geliri olarak, Hizmet Ücreti esas alınır..!"></TextView>
 
         <ImageView
             android:id="@+id/imageView14"
@@ -44,62 +52,89 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/indicator" />
 
-        <TextView
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutRandTamamla"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Randevu Geliri"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"></TextView>
+            android:layout_marginTop="5dp"
+            android:hint="RANDEVU GELİRİ"
+            android:textSize="20sp"
+            app:startIconDrawable="@drawable/lira_24" app:endIconMode="custom"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/randGelir"
+                android:inputType="number"
+
+                />
 
 
-        <EditText
-            android:id="@+id/randGelir"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Boş bırakabilirsiniz..!"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:text=""
-            android:inputType="number"
-            android:textSize="16sp"></EditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:layout_marginTop="10dp">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
+                android:id="@+id/dialogTamamlaBtn"
+                android:layout_width="match_parent"
+
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
+
+                android:background="@drawable/maps_btn_bg"
                 android:clickable="true"
                 android:gravity="center_vertical"
+
+                android:text="Nakit Tamamla \n( Ücret Nakit Alındı )"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+
+
+            <TextView
+                android:id="@+id/dialogVeresiyeBtn"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/maps_konum_btn_bg"
+                android:clickable="true"
+                android:gravity="center_vertical"
+
+                android:text="Veresiye Tamamla \n( Ücreti Hesaba Geç )"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:clickable="true"
+                android:gravity="center"
                 android:text="Vazgeç"
                 android:id="@+id/vazgecBtn"
-
+                android:layout_gravity="center"
                 android:textSize="16sp"
                 android:background="@drawable/maps_cancel_btn_bg"
                 android:textAlignment="center"
                 android:textColor="@color/white"
                 android:textStyle="bold"></TextView>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="35dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="Tamamla"
-                android:id="@+id/dialogTamamlaBtn"
 
-                android:textSize="16sp"
-                android:background="@drawable/maps_btn_bg"
-                android:textColor="@color/white"
-                android:textAlignment="center"
-                android:textStyle="bold"></TextView>
 
 
         </LinearLayout>

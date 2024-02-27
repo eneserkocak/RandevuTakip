@@ -22,104 +22,161 @@
         tools:context=".view_ayarlar.personel_ayar.PerDuzenleFragment">
 
 
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Personel Adı"
-            android:layout_marginTop="10dp"
-            android:textSize="20sp"
-
-            android:textStyle="bold"></TextView>
-
-
-
-            <EditText
-                android:id="@+id/persIsmi"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPersAdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
                 android:layout_marginTop="5dp"
+                android:hint="AD SOYAD"
                 android:textSize="20sp"
-                android:textColorHint="#5E5858"
-                android:text="@{viewModel.secilenPersonel.personelAdi}"
-                tools:text=" "
-                tools:ignore="TouchTargetSizeCheck" />
+                app:startIconDrawable="@drawable/person"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Telefon Numarası"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/persIsmi"
+                    android:text="@{viewModel.secilenPersonel.personelAdi}"
+                    />
 
-        <EditText
-            android:id="@+id/persTel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textColorHint="#5E5858"
-            android:text="@{viewModel.secilenPersonel.personelTel}"
-            tools:text="0506235216 "
-            tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="E-Mail"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <EditText
-            android:id="@+id/persMail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textColorHint="#5E5858"
-            tools:text="@{viewModel.secilenPersonel.personelMail}"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPersTel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="TELEFON (0**********)"
+                app:helperText="Karakter*"
+                app:counterEnabled="true"
+                app:counterMaxLength="11"
+                app:helperTextTextColor="#A81207"
+                android:textSize="20sp"
+                app:startIconDrawable="@drawable/phones"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
 
-            tools:ignore="TouchTargetSizeCheck" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/persTel"
+                    android:text="@{viewModel.secilenPersonel.personelTel}"
+                    />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ünvan"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
 
-        <EditText
-            android:id="@+id/persUnvan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textColorHint="#5E5858"
-            tools:text="@{viewModel.secilenPersonel.personelUnvan}"
-            tools:ignore="TouchTargetSizeCheck" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPersEposta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="E-MAİL"
+                android:textSize="20sp"
+                app:startIconDrawable="@drawable/email"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/persMail"
+                    android:text="@{viewModel.secilenPersonel.personelMail}"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutPersUnvan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:hint="UNVAN"
+                android:textSize="20sp"
+                app:startIconDrawable="@drawable/unvan"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/persUnvan"
+                    android:text="@{viewModel.secilenPersonel.personelUnvan}"
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Personelin Yetki Durumunu Seçin..! "
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#A81207"
+                android:layout_marginTop="10dp"
+
+                ></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+
+                <RadioGroup
+                    android:id="@+id/RadioGrupPers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/yoneticiBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Yönetici" />
+
+                    <RadioButton
+                        android:id="@+id/personelBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Personel" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="5dp">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:adjustViewBounds="true"
                 android:layout_width="140dp"
                 android:layout_height="200dp"
-                app:srcCompat="@drawable/rsim_ekle"
+                app:srcCompat="@drawable/musteri"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -130,12 +187,13 @@
 
             <TextView
                 android:layout_width="120dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:text="Görsel Ekle"
                 android:textAlignment="center"
                 android:id="@+id/gorselEkleBtn"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="0dp"
                 android:layout_gravity="center"
                 android:textColor="@color/white"
                 android:background="@drawable/maps_btn_bg"
@@ -145,10 +203,11 @@
             <TextView
                 android:id="@+id/personelGnclle"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/maps_btn_bg"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:text="Bilgileri Güncelle"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
@@ -156,13 +215,13 @@
             <TextView
 
                 android:text="Vazgeç"
-
+                android:textSize="16sp"
                 android:id="@+id/vazgecBtn"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:background="@drawable/maps_cancel_btn_bg"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:textColor="#FFFFFF"
                 />
 

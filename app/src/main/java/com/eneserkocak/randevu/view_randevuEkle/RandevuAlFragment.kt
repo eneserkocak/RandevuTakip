@@ -6,10 +6,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
-import com.eneserkocak.randevu.Util.AppUtil
-import com.eneserkocak.randevu.Util.PictureUtil
-import com.eneserkocak.randevu.Util.toTarih
-import com.eneserkocak.randevu.Util.toTimestamp
+import com.eneserkocak.randevu.Util.*
 import com.eneserkocak.randevu.adapter.RandHizmGostAdapter
 
 import com.eneserkocak.randevu.adapter.RandPersGostAdapter
@@ -163,7 +160,7 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
                 val randevuTime =   secilenRandevuSaati!!.saat.toTimestamp()
 
                 val randevuMap = mapOf<String,Any>(
-                    FIRMA_ID to personel!!.firmaId,
+                    FIRMA_KODU to personel!!.firmaKodu,
                     PERSONEL_ID to personel!!.personelId,
                     MUSTERI_ID to musteri.musteriId,
                     HIZMET_ID to hizmet!!.hizmetId,
@@ -172,7 +169,7 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
 
                    )
 
-                val randevu = Randevu(personel!!.firmaId,personel!!,musteri,hizmet!!, hizmet!!.fiyat,randevuTime)
+                val randevu = Randevu(personel!!.firmaKodu,personel!!,musteri,hizmet!!, hizmet!!.fiyat,randevuTime)
                 //FirebaseFirestore.getInstance().collection(RANDEVULAR).add(randevuMap)
 
               FirebaseFirestore.getInstance().collection(RANDEVULAR).document(AppUtil.randevuDocumentPath(randevu))
@@ -283,7 +280,7 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
 
 
                         FirebaseFirestore.getInstance().collection(RANDEVULAR)
-                            .whereEqualTo(FIRMA_ID,personel!!.firmaId)
+                            .whereEqualTo(FIRMA_KODU,personel!!.firmaKodu)
                             .whereEqualTo(PERSONEL_ID,personel!!.personelId)
                             //AŞAĞIDAKİ FİLTREYİ KALDIRINCA PERSONELİN TÜM RANDEVULARI GELİYOR, RANDEVU LİST DATE e
                             .whereGreaterThanOrEqualTo(RANDEVU_TIME,sorguBaslangicTimestamp)
@@ -320,6 +317,7 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
 
         FirebaseFirestore.getInstance().collection(PERSONELLER)
             //Firebase den sadece PERSONEL_RAND DUR u TRUE olanları getir
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .whereEqualTo(PERSONEL_RANDDUR,true)
             .get().addOnSuccessListener {
             it?.let {
@@ -336,7 +334,10 @@ class RandevuAlFragment() : BaseFragment<FragmentRandevuAlBinding>(R.layout.frag
     //FİREBASE DEN HİZMET LİSTESİNİ ÇEK:
     fun takeData(hizmetler : (List<Hizmet>)->Unit){
 
-        FirebaseFirestore.getInstance().collection(HIZMETLER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(HIZMETLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .whereEqualTo(HIZMET_GOR_DUR,true)
+            .get().addOnSuccessListener {
             it?.let {
                 val hizmetList =  it.toObjects(Hizmet::class.java)
                 hizmetler.invoke(hizmetList)

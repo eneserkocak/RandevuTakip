@@ -1,6 +1,10 @@
 package com.eneserkocak.randevu.view_ayarlar.gider_ekle
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +14,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
+
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.Util.toTimestamp
 import com.eneserkocak.randevu.databinding.DialogGiderEkleBinding
 import com.eneserkocak.randevu.model.*
@@ -48,15 +54,18 @@ class GiderEkleFragment : DialogFragment() {
         val giderAdi=binding.giderAdi.text.toString()
         val tutar=binding.giderTutar.text.toString()
 
+    //MİKROFONDAN 12500 GİBİBİ RAKAM SÖYLEYİNCE ORTAYA NOKTA KOYUYOR (12.500) VE ÇÖKÜYOR..ENGELLEMEK İÇİN AŞAĞIDAKİ KOD::
+        val gider=tutar.replace(Regex("[^a-zA-Z0-9\\s]"), "")
+
             if (tutar.isEmpty() || giderAdi.isEmpty()){
                 AppUtil.longToast(requireContext(),"Gider adı ve tutarı girilmeden gider eklenemez!..")
                 return@setOnClickListener
             }
 
-            val giderTutar=tutar.toInt()
+            val giderTutar=gider.toInt()
 
             FirebaseFirestore.getInstance().collection(GIDERLER)
-                .whereEqualTo(FIRMA_ID,1)
+                .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
                 .orderBy(GIDER_ID, Query.Direction.DESCENDING)
                 .limit(1)
                 .get()
@@ -71,7 +80,7 @@ class GiderEkleFragment : DialogFragment() {
                                 yeniGiderId= sonGider.giderId+1
                             }
                         }
-                        val gider= Gider(1,yeniGiderId,giderAdi,giderTutar,tarih)
+                        val gider= Gider(UserUtil.firmaKodu,yeniGiderId,giderAdi,giderTutar,tarih)
 
                         viewModel.secilenGider.value=gider
                         giderEkle(gider)
@@ -87,7 +96,41 @@ class GiderEkleFragment : DialogFragment() {
         binding.vazgecBtn.setOnClickListener {
             findNavController().popBackStack()
         }
+
+        binding.layoutGiderAdi.setEndIconOnClickListener {
+            askSpeechInput(124)
+        }
+        binding.layoutGiderFiyat.setEndIconOnClickListener {
+            askSpeechInput(125)
+        }
+
   }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if ( resultCode== Activity.RESULT_OK){
+            val result=data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+
+            when (requestCode){
+                124-> binding.giderAdi.setText(result?.get(0).toString())
+                125-> binding.giderTutar.setText(result?.get(0).toString())
+
+
+            }
+        }
+    }
+    private fun askSpeechInput(requestCode:Int) {
+        if (!SpeechRecognizer.isRecognitionAvailable(requireContext())){
+            AppUtil.longToast(requireContext(),"Konuşma tanıma kullanılamıyor..!")
+        }else{
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Kaydetmek istediğinizi söyleyin..!")
+            startActivityForResult(i,requestCode)
+        }
+    }
 
     fun giderEkle(gider:Gider){
         AppUtil.giderKaydet(gider){

@@ -43,6 +43,22 @@ class AyarlarFragment : BaseFragment<FragmentAyarlarBinding>(R.layout.fragment_a
             navigate(R.id.giderEkleFragment)
         }
 
+        binding.borclularBtn.setOnClickListener {
+            navigate(R.id.borclularFragment)
+        }
+
+        binding.hesapYonetimi.setOnClickListener {
+            navigate(R.id.persHesapListeFragment)
+        }
+
+        binding.destek.setOnClickListener {
+            navigate(R.id.destekFragment)
+        }
+
+
+
+
+
 
 
     }

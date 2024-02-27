@@ -15,8 +15,8 @@ object PictureUtil {
 
     //FİRMA LOGO EKLE
     fun firmaGorselIndir(context: Context, imageView: ImageView){
-        val firmaId=1
-        val imageName= "${firmaId}.jpg"
+        val firmaKodu=UserUtil.firmaKodu
+        val imageName= "${firmaKodu}.jpg"
         // GÖRSELLERİ STORAGE DAN ÇEK
         val storageRef = FirebaseStorage.getInstance().reference.child("Firma_image").child(imageName)
         storageRef.downloadUrl.addOnSuccessListener {
@@ -32,7 +32,7 @@ object PictureUtil {
     }
     //MUSTERİ GÖRSEL EKLE
     fun gorselIndir(musteri: Musteri, context: Context, imageView: ImageView){
-        val imageName= "${musteri.musteriId}.jpg"
+        val imageName= "${UserUtil.firmaKodu}-${musteri.musteriId}.jpg"
         // GÖRSELLERİ STORAGE DAN ÇEK
         val storageRef = FirebaseStorage.getInstance().reference.child("Musteri_images").child(imageName)
         storageRef.downloadUrl.addOnSuccessListener {
@@ -49,7 +49,7 @@ object PictureUtil {
     //MUSTERİ GÖRSEL SİL
 
     fun musterigorseliSil(musteri: Musteri, context: Context, isSuccees:(Boolean)->Unit){
-        val imageName= "${musteri.musteriId}.jpg"
+        val imageName= "${UserUtil.firmaKodu}-${musteri.musteriId}.jpg"
         // GÖRSELLERİ SİL
         FirebaseStorage.getInstance().reference.child("Musteri_images").child(imageName)
             .delete().addOnSuccessListener {
@@ -67,10 +67,12 @@ object PictureUtil {
     //PERSONEL GÖRSEL EKLE
 
     fun gorseliAl(personel: Personel, context: Context, imageView: ImageView){
-        val imageName= "${personel.personelId}.jpg"
+        val imageName= "${UserUtil.firmaKodu}-${personel.personelId}.jpg"
         // GÖRSELLERİ STORAGE DAN ÇEK
         val storageRef = FirebaseStorage.getInstance().reference.child("Personel_images").child(imageName)
         storageRef.downloadUrl.addOnSuccessListener {
+
+
             Glide.with(context)
                 .load(it)
                 .transform(CircleCrop())
@@ -85,7 +87,7 @@ object PictureUtil {
     //PERSONEL GÖRSEL SİL
 
     fun gorseliSil(personel: Personel, context: Context, isSuccees:(Boolean)->Unit){
-        val imageName= "${personel.personelId}.jpg"
+        val imageName= "${UserUtil.firmaKodu}-${personel.personelId}.jpg"
         // GÖRSELLERİ SİL
         FirebaseStorage.getInstance().reference.child("Personel_images").child(imageName)
             .delete().addOnSuccessListener {

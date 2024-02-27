@@ -5,9 +5,12 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.PersonelRecyclerAdapter
 
 import com.eneserkocak.randevu.databinding.FragmentPersonelListeBinding
+import com.eneserkocak.randevu.model.FIRMA_KODU
 
 import com.eneserkocak.randevu.model.PERSONELLER
 import com.eneserkocak.randevu.model.Personel
@@ -22,7 +25,9 @@ class PersonelListeFragment : BaseFragment<FragmentPersonelListeBinding>(R.layou
     var personelListesi= listOf<Personel>()
 
     val adapter = PersonelRecyclerAdapter(){
+
         viewModel.secilenPersonel.value=it
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,7 +53,9 @@ class PersonelListeFragment : BaseFragment<FragmentPersonelListeBinding>(R.layou
 
     fun getData(personeller: (List<Personel>)->Unit){
 
-        FirebaseFirestore.getInstance().collection(PERSONELLER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(PERSONELLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
             it?.let {
                 if (!it.isEmpty) {
                     val personelListesi =  it.toObjects(Personel::class.java)

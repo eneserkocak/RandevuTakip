@@ -1,35 +1,69 @@
 package com.eneserkocak.randevu.view
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.os.Handler
+import android.os.Looper
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
+import android.widget.TextView
 import androidx.navigation.fragment.findNavController
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 import com.eneserkocak.randevu.Util.PictureUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.databinding.FragmentGirisBinding
 import com.eneserkocak.randevu.model.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Source
 
 
 class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris) {
 
     private lateinit var auth : FirebaseAuth
 
+    var firmaListesi= listOf<Firma>()
+
+
+
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        auth= Firebase.auth
 
 
+    //ARRAY LİSTEDE ID Sİ OLMAYAN....SİLİNEN KULLANICILARI ATMAK İÇİN...
 
-       // replaceFragment(GirisFragment())
+        auth= FirebaseAuth.getInstance()
+
+        val userId=auth.currentUser?.uid
+
+        FirebaseFirestore.getInstance().collection(FIRMALAR).whereArrayContains("kullanicilar",userId!!)
+            .get(Source.SERVER)
+            .addOnSuccessListener { document->
+
+
+                if (document.isEmpty || document ==null){
+                    AppUtil.longToast(requireContext(),"Sisteme giriş yetkiniz yoktur..!")
+                    auth.signOut()
+                      findNavController().navigate(R.id.authenticationFragment)
+
+                }
+            }
+
+//PATRON KONTROLÜ
+        FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString()).collection(
+            KULLANICILAR).document(userId).get().addOnSuccessListener {
+                it?.let {
+
+                    val patronMu = it.get("patron").toString().toBoolean()
+                    if (!patronMu){
+                        binding.ayarlar.visibility=View.GONE
+                    } else{
+                        binding.ayarlar.visibility=View.VISIBLE
+                    }
+                }
+        }
 
         /*val db = Room.databaseBuilder(requireContext(), FirmaDatabase::class.java, "Firma").allowMainThreadQueries().build()
         val firmaDao = db.firmaDao()
@@ -48,57 +82,69 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
             navigate(R.id.musteriListeFragment)
         }
 
+
+
         binding.randevular.setOnClickListener {
-            //navigate(R.id.randevuListesiFragment)
            findNavController().navigate(R.id.randevuListesiFragment)
         }
 
-                val sharedPref = AppUtil.getSharedPreferences(requireContext())
+        getData(){
+            firmaListesi = it
+
+
+           val firma= firmaListesi.get(0)
+
+
+           // println("firma adı: ${firma.firmaAdi}")
+
+            UserUtil.firmaIsim=firma.firmaAdi
+
+            binding.firmaAdiText.setText(firma.firmaAdi)
+            binding.firmaTelText.setText(firma.firmaTel)
+            binding.firmaAdresText.setText(firma.firmaAdres)
+       
+
+        }
+
+        /*     val sharedPref = AppUtil.getSharedPreferences(requireContext())
                 val firmaAdiAl = sharedPref.getString(FIRMA_ADI, "boş")
                 val telNoAl = sharedPref.getString(FIRMA_TEL, "boş")
                 val adresAl = sharedPref.getString(FIRMA_ADRES, "boş")
 
-
                 binding.firmaAdiText.setText(firmaAdiAl.toString())
                 binding.firmaTelText.setText(telNoAl.toString())
-                binding.firmaAdresText.setText(adresAl.toString())
+                binding.firmaAdresText.setText(adresAl.toString())*/
+
 
                 PictureUtil.firmaGorselIndir(requireContext(),binding.firmaLogoImage)
 
 
-             //   binding.firmaLogoImage.setImageBitmap()
+    }
+    fun getData(firmalar: (List<Firma>)->Unit){
 
-   /* binding.bottomNavigationView.setOnItemSelectedListener {
+        FirebaseFirestore.getInstance().collection(FIRMALAR)
+           .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
+                it?.let {
+                    if (!it.isEmpty) {
+                        val firmaListesi =  it.toObjects(Firma::class.java)
+                        firmalar.invoke(firmaListesi)
+                    }
 
-        when(it.itemId){
-
-            R.id.anasayfa -> replaceFragment(GirisFragment())
-            R.id.randevuEkle-> replaceFragment(RandevuAlFragment())
-            R.id.randevuList-> replaceFragment(RandevuListesiFragment())
-            R.id.ayarlar-> replaceFragment(AyarlarFragment())
-            R.id.musteriler-> replaceFragment(MusteriFragment())
-
-            else->{
-
+                }
+                //println()
             }
-        }
-        true
-    }*/
+            .addOnFailureListener {
+                println(it)
+            }
 
-    }
 
-    private fun replaceFragment(fragment:Fragment){
-
-        val fragmentManager=requireActivity().supportFragmentManager
-        val fragmentTransaction=fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.linearLayout,fragment)
-        fragmentTransaction.commit()
     }
 
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    /*override fun onCreate(savedInstanceState: Bundle?) {
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
@@ -115,7 +161,7 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
         auth.signOut()
         findNavController().navigate(R.id.authenticationFragment)
         return super.onOptionsItemSelected(item)
-    }
+    }*/
 }
 
 

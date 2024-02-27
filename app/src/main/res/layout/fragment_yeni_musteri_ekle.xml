@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -21,112 +21,128 @@
 
 
 
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutMustAdi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Müşteri Adı"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="0dp"
+                android:hint="AD SOYAD"
                 android:textSize="20sp"
+                app:startIconDrawable="@drawable/person"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
 
-                android:textStyle="bold"></TextView>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/musteriIsmi"
 
-            <EditText
-                android:id="@+id/musteriIsmi"
-                android:hint="Müşteri ismi giriniz.!"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:textColorHint="#EBEBEB"
+                    />
 
-                tools:text="Ali "
-                tools:ignore="TouchTargetSizeCheck" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Telefon Numarası"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <EditText
-                android:id="@+id/musteriTel"
-                android:hint="Müşteri Tel Numarası giriniz.!"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:inputType="number"
-                android:textColorHint="#EBEBEB"
-                tools:text="0506235216 "
-                tools:ignore="TouchTargetSizeCheck" />
-
-            <TextView
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutMustTel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="E-Mail"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
+                android:hint="TELEFON (0**********)"
+                app:helperText="Karakter*"
+                app:counterEnabled="true"
+                app:counterMaxLength="11"
+                app:helperTextTextColor="#A81207"
                 android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+                app:startIconDrawable="@drawable/phones"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
 
-            <EditText
-                android:id="@+id/musteriMail"
-                android:hint="Müşteri e-mail giriniz.!"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:textColorHint="#EBEBEB"
-                tools:ignore="TouchTargetSizeCheck" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/musteriTel"
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Adres"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+                    />
 
-            <EditText
-                android:id="@+id/musteriAdres"
-                android:hint="Müşteri adresini giriniz.!"
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:textColorHint="#EBEBEB"
-                tools:text="ali@test.com  "
-                tools:ignore="TouchTargetSizeCheck" />
 
-            <TextView
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutMustEposta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Notlar"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="15dp"
+                android:hint="E-MAİL"
                 android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+                app:startIconDrawable="@drawable/email"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
 
-            <EditText
-                android:id="@+id/musteriNot"
-                android:hint="Müşteri için not giriniz.!"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/musteriMail"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutMustAdres"
                 android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:background="@drawable/ilac_row_bg"
-                android:gravity="center_vertical"
-                android:layout_marginTop="5dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="ADRES"
                 android:textSize="20sp"
-                android:textColorHint="#EBEBEB"
-                tools:text="ali@test.com  "
-                tools:ignore="TouchTargetSizeCheck" />
+                app:startIconDrawable="@drawable/location"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/musteriAdres"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:id="@+id/layoutMustNot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="NOT (şahsi)"
+                android:textSize="20sp"
+                app:startIconDrawable="@drawable/not"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/voice"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/musteriNot"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -143,16 +159,17 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
-                    app:srcCompat="@drawable/rsim_ekle"></ImageView>
+                    app:srcCompat="@drawable/musteri"></ImageView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:layout_width="180dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:gravity="center"
                 android:text="Görsel Ekle"
+                android:textSize="16sp"
                 android:textAlignment="center"
                 android:id="@+id/gorselEkleBtn"
                 android:layout_marginTop="5dp"
@@ -164,14 +181,15 @@
 
             <TextView
                 android:id="@+id/musteriEkleBtn"
-                android:text="Müşteri Ekle"
+                android:text="Müşteriyi Kaydet"
+                android:textSize="16sp"
                 android:textAlignment="center"
                 android:gravity="center"
                android:background="@drawable/maps_btn_bg"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="35dp" />
+                android:layout_height="40dp" />
 
 
 
@@ -179,9 +197,10 @@
                 android:id="@+id/vazgecBtn"
                 android:layout_marginTop="5dp"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:background="@drawable/maps_cancel_btn_bg"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:textColor="#FFFFFF"
                 android:text="Vazgeç" />
 

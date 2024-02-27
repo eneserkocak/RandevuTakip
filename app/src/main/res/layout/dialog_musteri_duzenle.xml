@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         tools:context=".view_musteri.MusteriDuzenleFragment">
 
         <LinearLayout
@@ -40,9 +40,10 @@
 
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:background="@drawable/rsim_ekle"
+                android:layout_height="130dp"
+                android:background="@drawable/musteri"
                 android:layout_weight="3"
+                android:layout_gravity="center"
                 android:scaleType="fitXY"
                 android:adjustViewBounds="true"
                 android:id="@+id/musteriGorsel">
@@ -51,59 +52,83 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:padding="4dp"
-                android:layout_weight="2"
+                android:layout_height="130dp"
                 android:layout_gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_weight="2"
+                android:orientation="vertical"
+                android:padding="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="@drawable/maps_konum_btn_bg"
+                    android:orientation="vertical"
                     android:padding="2dp">
 
 
+                    <TextView
+                        android:id="@+id/musteriAdiText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textSize="16sp"
+                        android:textStyle="bold">
 
-                <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/musteriAdiText"
-                android:textSize="16sp"
-                android:textAlignment="center"
-                android:textAllCaps="true"
-                android:textStyle="bold">
+                    </TextView>
 
-                </TextView>
+                    <TextView
+                        android:id="@+id/musteriTelText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textAlignment="center"
+                        android:textSize="12sp">
 
-                <TextView
-                    android:id="@+id/musteriTelText"
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/musteriMailText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
+                        android:textAlignment="center"
+                        android:textAllCaps="false"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:textAlignment="center"
-                    android:textSize="12sp">
+                    android:orientation="horizontal"
+                    >
 
-                </TextView>
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:id="@+id/mustAraBtn"
+                        android:layout_marginLeft="40dp"
+                        android:layout_marginTop="5dp"
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:textAlignment="center"
-                    android:layout_marginTop="3dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/musteriMailText"
-                    android:textSize="12sp"
-                    android:textAllCaps="false">
+                        android:src="@drawable/phones"></ImageView>
 
-                </TextView>
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:id="@+id/whastsAppBtn"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/whatsapp"></ImageView>
+
+
+
 
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
 
 
         </LinearLayout>
@@ -111,43 +136,43 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:padding="8dp"
             android:layout_height="60dp"
-            android:orientation="horizontal">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:id="@+id/notlarBtn"
-            android:layout_height="40dp"
-            android:background="@{clickedButton != ClickedButton.Notlar ?  @drawable/home_ktphn_rectangle :  @drawable/bg_selected_btn }"
-            android:layout_weight="1">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="NOTLAR"
-                android:textAlignment="center"
-
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></TextView>
+            android:orientation="horizontal"
+            android:padding="8dp">
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notlarBtn"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@{clickedButton != ClickedButton.Notlar ?  @drawable/home_ktphn_rectangle :  @drawable/bg_selected_btn }">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NOTLAR"
+                    android:textAlignment="center"
+
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></TextView>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
                 android:id="@+id/randevularBtn"
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@{clickedButton != ClickedButton.Randevular ?  @drawable/home_ktphn_rectangle :  @drawable/bg_selected_btn }"
-                android:layout_weight="1">
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@{clickedButton != ClickedButton.Randevular ?  @drawable/home_ktphn_rectangle :  @drawable/bg_selected_btn }">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -204,10 +229,10 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:clickable="true"
-                android:text="Müşteriyi Ara"
-                android:id="@+id/mustAraBtn"
+                android:text="Müşteri Hesap"
+                android:id="@+id/mustHesapBtn"
                 android:layout_marginTop="2dp"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:background="@drawable/maps_konum_btn_bg"
                 android:textAlignment="center"
                 android:textStyle="bold"></TextView>
@@ -221,7 +246,7 @@
                 android:text="Konum Gönder"
                 android:id="@+id/konumGndrBtn"
                 android:layout_marginTop="2dp"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:background="@drawable/maps_konum_btn_bg"
                 android:textAlignment="center"
                 android:textStyle="bold"></TextView>
@@ -245,7 +270,7 @@
             android:text="Müşteriyi Düzenle"
             android:id="@+id/mustBlgDznlBtn"
 
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:background="@drawable/maps_btn_bg"
             android:textColor="@color/white"
             android:textAlignment="center"
@@ -261,7 +286,7 @@
             android:text="Müşteriyi Sil"
             android:id="@+id/musteriSilBtn"
 
-            android:textSize="14sp"
+            android:textSize="16sp"
            android:background="@drawable/maps_cancel_btn_bg"
             android:textAlignment="center"
             android:textColor="@color/white"

@@ -25,10 +25,12 @@
             map:layout_constraintVertical_bias="0.0"
             tools:layout="@layout/fragment_firma_maps" />
 
+
+
         <EditText
             android:id="@+id/placeText"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="5dp"
             android:ems="10"
             android:hint="Firma ismi giriniz!.."
@@ -43,12 +45,12 @@
         <TextView
             android:id="@+id/saveButton"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="5dp"
             android:background="@drawable/maps_btn_bg"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"
-            android:text="KONUM EKLE"
+            android:text="Konum Ekle"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -60,12 +62,12 @@
         <TextView
             android:id="@+id/deleteButton"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
            android:background="@drawable/maps_cancel_btn_bg"
             android:gravity="center_vertical"
-            android:text="KONUMU SİL"
+            android:text="Konumu Sil"
             android:textAlignment="center"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
@@ -76,13 +78,13 @@
         <TextView
             android:id="@+id/konumGonderBtn"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:background="@drawable/maps_konum_btn_bg"
             android:gravity="center_vertical"
 
-            android:text="KONUMU MÜŞTERİYE GÖNDER"
+            android:text="Konumu Müşteriye Gönder"
             android:textAlignment="center"
-            android:textColor="#090809"
+            android:textColor="#090909"
             android:textSize="16sp"
             android:layout_marginBottom="5dp"
             map:layout_constraintBottom_toTopOf="@+id/deleteButton"

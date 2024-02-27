@@ -1,6 +1,7 @@
 package com.eneserkocak.randevu.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,6 +30,23 @@ class GunOzetiAdapter:RecyclerView.Adapter<GunOzetiAdapter.GunOzetiViewHolder>()
     override fun onBindViewHolder(holder: GunOzetiViewHolder, position: Int) {
             val randevu = randevuList[position]
             holder.binding.randevu=randevu
+
+       holder.binding.bottomIcon.setOnClickListener {
+
+            if (holder.binding.gunOzetiDetayLayout.visibility== View.GONE){
+                    holder.binding.gunOzetiDetayLayout.visibility=View.VISIBLE
+                    holder.binding.bottomIcon.setBackgroundResource(R.drawable.up_btn)
+
+            }else if (holder.binding.gunOzetiDetayLayout.visibility==View.VISIBLE){
+                holder.binding.gunOzetiDetayLayout.visibility=View.GONE
+               holder.binding.bottomIcon.setBackgroundResource(R.drawable.bottom_btn)
+
+                return@setOnClickListener
+            }
+       }
+
+
+
 
     }
 

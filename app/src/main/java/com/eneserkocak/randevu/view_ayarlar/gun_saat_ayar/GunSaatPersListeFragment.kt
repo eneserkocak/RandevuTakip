@@ -5,9 +5,12 @@ import android.view.View
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.GunSaatPersListAdapter
 
 import com.eneserkocak.randevu.databinding.FragmentGunSaatPersListeBinding
+import com.eneserkocak.randevu.model.FIRMA_KODU
 import com.eneserkocak.randevu.model.PERSONELLER
 import com.eneserkocak.randevu.model.Personel
 import com.eneserkocak.randevu.view.BaseFragment
@@ -29,7 +32,6 @@ class GunSaatPersListeFragment : BaseFragment<FragmentGunSaatPersListeBinding>(R
         binding.gunSaatPersListRecycler.layoutManager=LinearLayoutManager(requireContext())
         binding.gunSaatPersListRecycler.adapter=adapter
 
-        //adapter.personelListesiniGuncelle(personelList)
 
         getData(){
             personelList = it
@@ -39,7 +41,9 @@ class GunSaatPersListeFragment : BaseFragment<FragmentGunSaatPersListeBinding>(R
     }
     fun getData(personeller: (List<Personel>)->Unit){
 
-        FirebaseFirestore.getInstance().collection(PERSONELLER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(PERSONELLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
             it?.let {
                 val personelListesi =  it.toObjects(Personel::class.java)
                 personeller.invoke(personelListesi)

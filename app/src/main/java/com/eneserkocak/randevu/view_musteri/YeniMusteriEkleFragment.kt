@@ -1,12 +1,15 @@
 package com.eneserkocak.randevu.view_musteri
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -18,12 +21,11 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
+
 import com.eneserkocak.randevu.Util.PictureUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.databinding.FragmentYeniMusteriEkleBinding
-import com.eneserkocak.randevu.model.FIRMA_ID
-import com.eneserkocak.randevu.model.MUSTERILER
-import com.eneserkocak.randevu.model.MUSTERI_ID
-import com.eneserkocak.randevu.model.Musteri
+import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.view.BaseFragment
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.FirebaseFirestore
@@ -32,7 +34,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
 import io.grpc.Context.Storage
-import java.util.UUID
+import java.util.*
 
 
 class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.layout.fragment_yeni_musteri_ekle) {
@@ -45,6 +47,7 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
 
     lateinit var gelinenYer : String
     lateinit var musteri: Musteri
+    var mustVeresiye:Boolean?=null
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,16 +72,35 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
                     PictureUtil.gorselIndir(it,requireContext(),binding.imageView)
 
                 binding.musteriIsmi.setText(it.musteriAdi)
-                binding.musteriTel.setText(it.musteriTel)
+                binding.musteriTel.setText(it.musteriTel.filterNot { it.isWhitespace() })
                 binding.musteriMail.setText(it.musteriMail)
                 binding.musteriAdres.setText(it.musteriAdres)
                 binding.musteriNot.setText(it.musteriNot)
 
+
+                    //MUSTERİ DÜZENLE VOICE ASSISTANT :
+                    binding.layoutMustAdi.setEndIconOnClickListener {
+                        askSpeechInput( 105)
+                    }
+                    binding.layoutMustTel.setEndIconOnClickListener {
+                        askSpeechInput(106)
+                    }
+                    binding.layoutMustEposta.setEndIconOnClickListener {
+                        askSpeechInput(107)
+                    }
+                    binding.layoutMustAdres.setEndIconOnClickListener {
+                        askSpeechInput(108)
+                    }
+                    binding.layoutMustNot.setEndIconOnClickListener {
+                        askSpeechInput(109)
+                    }
+
                 //Müşteri Düzenle Buton:
                 binding.musteriEkleBtn.setOnClickListener {
 
+                    val image= "${musteri.firmaKodu}-${musteri.musteriId}.jpg"
+                    //val image="${musteri.musteriId}.jpg"
 
-                    val image="${musteri.musteriId}.jpg"
 
 
                     storage= Firebase.storage
@@ -102,13 +124,18 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
                         }
                     }
 
-                    val isim =binding.musteriIsmi.text.toString()
-                    val tel =binding.musteriTel.text.toString()
+                    val isim =binding.musteriIsmi.text.toString().toLowerCase()
+                    val tel =binding.musteriTel.text.toString().filterNot { it.isWhitespace() }
                     val mail =binding.musteriMail.text.toString()
                     val adres =binding.musteriAdres.text.toString()
                     val not =binding.musteriNot.text.toString()
 
-                    val musteri=Musteri(musteri.firmaId,musteri.musteriId,isim,tel,mail,adres,not)
+                    if (musteri.musteriVeresiye==true)  mustVeresiye=true
+                    else mustVeresiye=false
+
+
+
+                    val musteri=Musteri(musteri.firmaKodu,musteri.musteriId,isim,tel,mail,adres,not,"", mustVeresiye!!)
 
                     AppUtil.musteriKaydet(musteri){
                         if (it){
@@ -137,15 +164,9 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
             viewModel.secilenMusteri.observe(viewLifecycleOwner){
                 it?.let {
                     musteri=it
-//YENİ MÜŞT EKLERKEN yukarıdaki gibi secilenMust yi observe edersek 2 adet görsel ekliyor..FAKAT
-//AŞAĞIDA JPG ye VERECEĞİMİZ ID ->>>MUST DUZENLEDEKİ ID İLE AYNI OLMAK ZORUNDA
-//FAKAT BURDA MÜŞTERİYİ YENİ OLUŞTURUYORUZ..ID Yİ NASIL VERECEĞİZZZ
 
-            //Görsel Storage kaydetme işlemi:
-            /*val uuid= UUID.randomUUID()
-            val imageName= "$uuid.jpg"*/
 
-            val image="${musteri.musteriId}.jpg"
+                    val image= "${musteri.firmaKodu}-${musteri.musteriId}.jpg"
             storage= Firebase.storage
             val reference= storage.reference
                     val imageReference= reference.child("Musteri_images").child(image)
@@ -170,8 +191,8 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
                 }
             }
 
-            val mustIsim = binding.musteriIsmi.text.toString()
-            val mustTel = binding.musteriTel.text.toString()
+            val mustIsim = binding.musteriIsmi.text.toString().toLowerCase()
+            val mustTel = binding.musteriTel.text.toString().filterNot { it.isWhitespace() }
             val mustMail = binding.musteriMail.text.toString()
             val mustAdres = binding.musteriAdres.text.toString()
             val mustNot = binding.musteriNot.text.toString()
@@ -186,7 +207,7 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
             }
 
             FirebaseFirestore.getInstance().collection(MUSTERILER)
-                .whereEqualTo(FIRMA_ID,1)
+                .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
                 .orderBy(MUSTERI_ID, Query.Direction.DESCENDING)
                 .limit(1)
                 .get()
@@ -201,7 +222,7 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
 
                             }
                         }
-                        val yeniMusteri= Musteri(1,yeniMusteriId,mustIsim,mustTel,mustMail,mustAdres,mustNot,mustGorsel)
+                        val yeniMusteri= Musteri(UserUtil.firmaKodu,yeniMusteriId,mustIsim,mustTel,mustMail,mustAdres,mustNot,mustGorsel)
                         viewModel.secilenMusteri.value=yeniMusteri
                         musteriEkle(yeniMusteri)
 
@@ -223,9 +244,56 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
             gorselIzin()
         }
 
+    //MÜŞTERİ EKLE VOICE ASSISTANT:
+        binding.layoutMustAdi.setEndIconOnClickListener {
+            askSpeechInput( 105)
+        }
+        binding.layoutMustTel.setEndIconOnClickListener {
+            askSpeechInput(106)
+        }
+        binding.layoutMustEposta.setEndIconOnClickListener {
+            askSpeechInput(107)
+        }
+        binding.layoutMustAdres.setEndIconOnClickListener {
+            askSpeechInput(108)
+        }
+        binding.layoutMustNot.setEndIconOnClickListener {
+            askSpeechInput(109)
+        }
+
 
 
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if ( resultCode== Activity.RESULT_OK){
+            val result=data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
+
+            when (requestCode){
+                105-> binding.musteriIsmi.setText(result?.get(0).toString())
+                106-> binding.musteriTel.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+                107-> binding.musteriMail.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+                108-> binding.musteriAdres.setText(result?.get(0).toString())
+                109-> binding.musteriNot.setText(result?.get(0).toString())
+            }
+        }
+    }
+    private fun askSpeechInput(requestCode:Int) {
+        if (!SpeechRecognizer.isRecognitionAvailable(requireContext())){
+            AppUtil.longToast(requireContext(),"Konuşma tanıma servisi kullanılamıyor..!")
+        }else{
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Kaydetmek istediğinizi söyleyin..!")
+            startActivityForResult(i,requestCode)
+        }
+    }
+
+
+
 
     fun musteriEkle(musteri: Musteri) {
         AppUtil.musteriKaydet(musteri) {
@@ -233,7 +301,7 @@ class YeniMusteriEkleFragment : BaseFragment<FragmentYeniMusteriEkleBinding>(R.l
                 Toast.makeText(requireContext(), "Yeni Müşteri Eklendi", Toast.LENGTH_LONG).show()
 
                 findNavController().popBackStack()
-               navigate(R.id.musteriListeFragment)
+             //  navigate(R.id.musteriListeFragment)
             } else
                 Toast.makeText(requireContext(), "HATA", Toast.LENGTH_LONG).show()
         }

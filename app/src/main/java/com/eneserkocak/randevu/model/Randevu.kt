@@ -8,7 +8,7 @@ import java.util.*
 
 
 data class Randevu(
-    val firmaId:Int,
+    val firmaKodu:Int,
     val personel: Personel,
     val musteri: Musteri,
     val hizmet: Hizmet,
@@ -16,6 +16,8 @@ data class Randevu(
     val randevuTime : Timestamp=Timestamp.now(),
     var randevuDurumu:String="",
     var randevuNotu:String="",
+    var randevuGelirTuru:String="",
+    var veresiyeTutari:Int=0
 
     ) {}
 

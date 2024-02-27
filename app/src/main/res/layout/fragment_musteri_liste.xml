@@ -19,8 +19,6 @@
             android:layout_height="wrap_content"
 
             android:layout_marginTop="10dp"
-
-            android:background="@drawable/search_bg"
             android:queryHint="İsim ile arayınız"
             android:searchHintIcon="@drawable/search_icon"
             android:textSize="8sp"
@@ -28,7 +26,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:searchIcon="@drawable/search_icon" />
+
+           />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/musteriRecycler"

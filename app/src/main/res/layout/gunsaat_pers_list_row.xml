@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -39,9 +40,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:text='@{personel.personelRandDur ? "Randevuya Açık" : "Randevuya Kapalı"}'
 
-                android:textColor="#068176"
+                app:persRanDurGoster="@{personel}"
+
                 android:gravity="center_vertical"
                 android:textAlignment="viewEnd"
                 android:textSize="14sp"></TextView>

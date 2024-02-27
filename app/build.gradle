@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'kotlin-kapt'
-apply plugin:  'kotlin-parcelize'
+apply plugin: 'kotlin-parcelize'
 
 apply plugin: 'com.google.gms.google-services'
 apply plugin: 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
@@ -103,6 +103,7 @@ dependencies {
     
 
     implementation 'com.google.mlkit:translate:17.0.1'
+
 
 
 

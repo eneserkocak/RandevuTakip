@@ -21,6 +21,7 @@ import com.eneserkocak.randevu.viewModel.AppViewModel
 
 const val MAPS_LISTE = "MapsListe"
 const val FIRMA_AYAR_FRAGMENT = "FirmaAyarFragment"
+
 class FirmaKonumListeFragment : DialogFragment() {
 
     lateinit var binding: DialogFirmaKonumListeBinding

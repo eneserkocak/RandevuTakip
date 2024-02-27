@@ -10,8 +10,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.MusteriSecRecyclerAdapter
 import com.eneserkocak.randevu.databinding.DialogMusteriSecBinding
+import com.eneserkocak.randevu.model.FIRMA_KODU
 import com.eneserkocak.randevu.model.MUSTERILER
 import com.eneserkocak.randevu.model.Musteri
 import com.eneserkocak.randevu.viewModel.AppViewModel
@@ -78,7 +81,9 @@ class MusteriSecFragment : DialogFragment() {
 
     fun getData(musteriler : (List<Musteri>)->Unit){
 
-        FirebaseFirestore.getInstance().collection(MUSTERILER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(MUSTERILER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
             it?.let {
                 val musteriListesi =  it.toObjects(Musteri::class.java)
                 musteriler.invoke(musteriListesi)

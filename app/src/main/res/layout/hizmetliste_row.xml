@@ -66,16 +66,26 @@
 
                 />
 
-
-         <!--   <ImageView
-                android:id="@+id/hizmetSilBtn"
+            <ImageView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
                 android:layout_weight="0.5"
-                android:background="@drawable/delete"
-                android:gravity="center_vertical"
-                android:visibility="gone"></ImageView>-->
+                android:background="@drawable/rightly_icon">
+
+            </ImageView>
+
+
+
+
+            <!--   <ImageView
+                   android:id="@+id/hizmetSilBtn"
+                   android:layout_width="0dp"
+                   android:layout_height="match_parent"
+                   android:layout_gravity="center_vertical"
+                   android:layout_weight="0.5"
+                   android:background="@drawable/delete"
+                   android:gravity="center_vertical"
+                   android:visibility="gone"></ImageView>-->
 
 
         </LinearLayout>

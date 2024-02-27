@@ -150,13 +150,55 @@
         </LinearLayout>
 
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/gunOzetiRecycler"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:padding="8dp"/>
+            android:orientation="vertical"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gunOzetiRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="7"
+                android:padding="8dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/maps_konum_btn_bg"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="250dp"
+                    android:layout_height="match_parent"
+
+                    android:text="Toplam Veresiye    :"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"></TextView>
+
+                <TextView
+                    android:id="@+id/toplamVeresiyeCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:drawableEnd="@drawable/lira_24"
+                    android:drawableLeft="@drawable/lira_24"
+                    ></TextView>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
 
     </LinearLayout>

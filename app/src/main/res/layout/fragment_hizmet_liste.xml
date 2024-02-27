@@ -6,39 +6,42 @@
     <data>
 
     </data>
-    <ScrollView
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:context=".view_ayarlar.personel_ayar.PersonelListeFragment" >
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/hizmetListeRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
+            android:layout_height="0dp"
             android:layout_marginTop="10dp"
-            tools:context=".view_ayarlar.hizmet_ayar.HizmetListeFragment">
+            app:layout_constraintBottom_toTopOf="@+id/hizmetEkleBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1"
+            tools:layout_editor_absoluteX="8dp">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/hizmetListeRecycler"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></androidx.recyclerview.widget.RecyclerView>
+        </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/hizmetEkleBtn"
-                android:layout_width="120dp"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="30dp"
-                android:text="Hizmet Ekle"
-                android:gravity="center_vertical"
-                android:textAlignment="center"
-                android:background="@drawable/maps_btn_bg"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/hizmetListeRecycler"></TextView>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <TextView
+            android:id="@+id/hizmetEkleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/maps_btn_bg"
+            android:gravity="center"
+            android:text="Hizmet Ekle"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

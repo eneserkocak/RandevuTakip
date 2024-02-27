@@ -2,15 +2,16 @@
     <!-- Base application theme. -->
     <style name="Theme.Randevu" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">#03A9F4</item>
-        <item name="colorPrimaryVariant">@color/purple_200</item>
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
         <!-- Customize your theme here. -->
         <item name="android:fontFamily">@font/nexa_font_family</item>
 
@@ -22,6 +23,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="hizmetEkleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -29,7 +43,20 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
+
         <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="musteriSecFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -38,6 +65,20 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="firmaAyarFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -46,6 +87,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="hizmetDuzenleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -54,14 +108,40 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="randevuTamamlaFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
-        <item name="android:windowMinWidthMajor">60%</item>
-        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="windowMinWidthMinor">90%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="firmaKonumListeFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -70,6 +150,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="randevuIptalFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -78,6 +171,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="randevuNotlarFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -86,6 +192,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="personelRandevularFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -94,6 +213,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="giderEkleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -102,6 +234,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="gunOzetiSecFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -110,6 +255,19 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
     <style name="smsGonderFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
@@ -118,6 +276,85 @@
         <item name="android:windowMinWidthMajor">60%</item>
         <item name="windowMinWidthMinor">60%</item>-->
         <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+    </style>
+
+
+
+    <style name="persHesapListeFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+    </style>
+
+    <style name="personelEkleFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
+    </style>
+
+
+    <style name="smsBorcFragmentFullScreenDialogStyle" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:windowMinWidthMajor">60%</item>
+        <item name="windowMinWidthMinor">60%</item>-->
+        <item name="android:windowBackground">@color/white</item>
+
+        <item name="colorPrimary">@color/app_color</item>
+        <item name="colorPrimaryVariant">@color/app_color</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/app_color</item>
+        <item name="colorSecondaryVariant">@color/app_color</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">@color/app_color</item>
+        <item name="android:colorBackgroundFloating">@color/app_color</item>
+        <!-- Customize your theme here. -->
+        <item name="android:fontFamily">@font/nexa_font_family</item>
     </style>
 
 

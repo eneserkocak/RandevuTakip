@@ -10,26 +10,27 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:padding="5dp"
         android:orientation="vertical"
+        android:background="@drawable/ilac_row_bg"
+
         >
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@drawable/ilac_row_bg"
+           android:layout_marginTop="7dp"
+
             >
             
             <TextView
                 android:layout_width="0dp"
                 android:textSize="14sp"
                 android:gravity="center"
-                android:layout_marginStart="2dp"
-
                 android:layout_gravity="center_vertical"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.8"
                 android:textColor="#A81207"
                 app:saatiYazdir="@{randevu.randevuTime}"
@@ -38,17 +39,29 @@
 
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_height="match_parent"
+                android:layout_weight="2.7"
                 android:layout_gravity="center_vertical"
                 android:textAllCaps="true"
                 android:text="@{randevu.personel.personelAdi}"
                 android:textSize="14sp"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="1dp"
                 ></TextView>
+
+            <TextView
+                android:id="@+id/bottomIcon"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.3"
+                android:background="@drawable/bottom_btn"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:textSize="14sp"
+                ></TextView>
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:textColor="#068176"
                 android:textAlignment="viewEnd"
@@ -58,7 +71,7 @@
                 ></TextView>
             <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.3"
                 android:drawableStart="@drawable/lira_14_yesil"
                 android:layout_gravity="center_vertical"
@@ -67,7 +80,155 @@
             
             
         </LinearLayout>
-        
+
+
+        <LinearLayout
+            android:id="@+id/gunOzetiDetayLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:text="Müşteri"
+                    android:textSize="14sp"></TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text=":"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="@{randevu.musteri.musteriAdi}"
+                    android:textSize="14sp"></TextView>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:text="Hizmet"
+                    android:textSize="14sp"></TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text=":"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp">
+
+                </TextView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="@{randevu.hizmet.hizmetAdi}"
+                    android:textSize="14sp"></TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:text="Randevu Notu"
+                    android:textSize="14sp"></TextView>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text=":"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp">
+
+                </TextView>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="@{randevu.randevuNotu}"
+                    android:textSize="14sp"></TextView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.4"
+                    android:text="Gelir Türü"
+                    android:textSize="14sp"></TextView>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:text=":"
+                    android:textAlignment="viewStart"
+                    android:textSize="14sp">
+
+                </TextView>
+
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2.5"
+                    android:text="@{randevu.randevuGelirTuru}"
+                    android:textSize="14sp"></TextView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
         
 
     </LinearLayout>

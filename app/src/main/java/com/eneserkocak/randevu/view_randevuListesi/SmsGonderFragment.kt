@@ -15,12 +15,11 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 
 import com.eneserkocak.randevu.R
-import com.eneserkocak.randevu.Util.AppUtil
-import com.eneserkocak.randevu.Util.toSaat
-import com.eneserkocak.randevu.Util.toTarih
-import com.eneserkocak.randevu.Util.toTimestamp
+import com.eneserkocak.randevu.Util.*
 import com.eneserkocak.randevu.databinding.DialogRandevuNotlarBinding
 import com.eneserkocak.randevu.databinding.DialogSmsGonderBinding
+import com.eneserkocak.randevu.model.FIRMA_ADI
+import com.eneserkocak.randevu.model.Firma
 import com.eneserkocak.randevu.model.Randevu
 
 import com.eneserkocak.randevu.view.BaseFragment
@@ -35,6 +34,7 @@ class SmsGonderFragment : DialogFragment() {
     val viewModel: AppViewModel by activityViewModels()
     lateinit var randevu:Randevu
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,13 +48,13 @@ class SmsGonderFragment : DialogFragment() {
 
         checkPermission()
 
+
     //WHATSAPP MESAJI GÖNDER:
 
         viewModel.secilenRandevu.observe(viewLifecycleOwner){
             it?.let {
 
                     randevu=it
-
 
         binding.dialogWhtspSmsBtn.setOnClickListener {
 
@@ -70,9 +70,12 @@ class SmsGonderFragment : DialogFragment() {
                 val musteriAdi=randevu.musteri.musteriAdi.uppercase()
                 val musteriTel= "+90${randevu.musteri.musteriTel}"
 
+                val firmaAdi=UserUtil.firmaIsim.uppercase()
+                val hizmetAdi=randevu.hizmet.hizmetAdi.uppercase()
+
             if(musteriTel.length==14){
 
-                val url = "https://api.whatsapp.com/send?phone=$musteriTel&text=Sayın $musteriAdi, $randevuTarih günü, saat: $randevuSaat 'da randevu kaydınız oluşturulmuştur.Bizi tercih ettiğiniz için teşekkür eder, İyi günler dileriz."
+                val url = "https://api.whatsapp.com/send?phone=$musteriTel&text=Sayın $musteriAdi, $randevuTarih günü, saat: $randevuSaat 'da, '$hizmetAdi', için randevu kaydınız oluşturulmuştur.Bizi tercih ettiğiniz için teşekkür eder, İyi günler dileriz...$firmaAdi"
                 val i = Intent(Intent.ACTION_VIEW)
                 i.data = Uri.parse(url)
                 context?.startActivity(i)
@@ -103,7 +106,15 @@ class SmsGonderFragment : DialogFragment() {
 
                     val mustAdi=randevu.musteri.musteriAdi.uppercase()
                     val mustTel= "${randevu.musteri.musteriTel}"
-                    val smsMesaj= "Sayın $mustAdi, $randTarih günü, saat: $randSaat 'da randevu kaydınız oluşturulmuştur.Bizi tercih ettiğiniz için teşekkür eder, İyi günler dileriz."
+
+                    val firmaAdi=UserUtil.firmaIsim.uppercase()
+                    val hizmetAdi=randevu.hizmet.hizmetAdi.uppercase()
+
+                    println("FIRMA ADI, SMS: ${firmaAdi}")
+
+                    val smsMesaj= "Sayın $mustAdi, $randTarih günü, saat: $randSaat 'da, '$hizmetAdi', için randevu kaydınız oluşturulmuştur.Bizi tercih ettiğiniz için teşekkür eder, İyi günler dileriz...$firmaAdi"
+
+
 
             if(mustTel.length==11){
                    val smsIntent=Intent(Intent.ACTION_VIEW)
@@ -130,6 +141,7 @@ class SmsGonderFragment : DialogFragment() {
                 binding.vazgecBtn.setOnClickListener {
                     findNavController().popBackStack()
                 }
+
             }
         }
 

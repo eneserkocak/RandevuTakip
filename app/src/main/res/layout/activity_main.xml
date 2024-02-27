@@ -8,23 +8,91 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.MainActivity">
+
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/materialToolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-
+            android:background="@color/app_color"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleCentered="true"
-            app:titleTextColor="#081C34" />
+            app:titleTextColor="#FFFFFF">
+
+
+
+            <LinearLayout
+                android:id="@+id/girisDestination"
+                android:layout_width="310dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginEnd="2dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+                    android:padding="8dp"
+                    android:layout_gravity="center_vertical"
+
+                    android:text="Randevu Takip"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    ></TextView>
+
+                <ImageView
+                    android:id="@+id/whatsappBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="45dp"
+                    android:layout_margin="2dp"
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/whatsapp" />
+
+                <ImageView
+                    android:id="@+id/kullaniciRehberiBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/kilavuz" />
+
+                <ImageView
+                    android:id="@+id/uygulamaHakkindaBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/info" />
+
+
+
+                <ImageView
+                    android:id="@+id/cikisBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+
+                    android:padding="8dp"
+                    app:srcCompat="@drawable/exit_to_app" />
+            </LinearLayout>
+
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
@@ -35,11 +103,23 @@
             app:defaultNavHost="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/materialToolbar"
+            app:layout_constraintVertical_bias="1.0"
             app:navGraph="@navigation/randevu_graph"
-            tools:layout="@layout/fragment_authentication" />
+            tools:layout="@layout/fragment_giris" />
+
+        <!--  <com.google.android.material.bottomnavigation.BottomNavigationView
+              android:id="@+id/bottomNavigationView"
+              android:layout_width="match_parent"
+              app:menu="@menu/bottom_nav"
+              android:layout_height="wrap_content"
+              app:layout_constraintBottom_toBottomOf="parent">
+
+          </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 
+  -->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

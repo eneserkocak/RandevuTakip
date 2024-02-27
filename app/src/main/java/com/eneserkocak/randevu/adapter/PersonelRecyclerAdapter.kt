@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
@@ -37,8 +38,11 @@ class PersonelRecyclerAdapter(val secilenPersonel: (Personel)->Unit):RecyclerVie
 
             secilenPersonel.invoke(personel)
 
-            val action =PersonelListeFragmentDirections.actionPersonelListeFragmentToPersonelRandevularFragment()
-            Navigation.findNavController(it).navigate(action)
+           findNavController(it).popBackStack()
+            findNavController(it).navigate(R.id.personelRandevularFragment)
+           /* val action =PersonelListeFragmentDirections.actionPersonelListeFragmentToPersonelRandevularFragment()
+            Navigation.findNavController(it).navigate(action)*/
+
         }
 
 

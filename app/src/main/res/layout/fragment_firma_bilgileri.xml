@@ -22,90 +22,97 @@
         android:padding="10dp"
         tools:context=".view_ayarlar.firma_ayar.FirmaBilgileriFragment">
 
-        <TextView
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutFirmaAdi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Firma Adı"
             android:layout_marginTop="5dp"
+            android:hint="FİRMA ADI"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            app:startIconDrawable="@drawable/person"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
 
-        <EditText
-            android:id="@+id/firmaIsmi"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/firmaIsmi"
+
+
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutTel"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:layout_marginTop="5dp"
-            android:text="@{viewModel.kaydedilenFirma.firmaAdi}"
+            android:hint="TELEFON (0**********)"
+            app:helperText="Karakter*"
+            app:counterEnabled="true"
+            app:counterMaxLength="11"
+            app:helperTextTextColor="#A81207"
+
             android:textSize="20sp"
-            android:textColorHint="#5E5858"
+            app:startIconDrawable="@drawable/phones"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/telefonNo"
+                android:inputType="number"
+
+                />
 
 
+        </com.google.android.material.textfield.TextInputLayout>
 
-            tools:ignore="TouchTargetSizeCheck" />
 
-        <TextView
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutAdres"
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Telefon Numarası"
-            android:layout_marginTop="5dp"
+            android:hint="FİRMA ADRESİ"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            app:startIconDrawable="@drawable/location"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
 
-        <EditText
-            android:id="@+id/telefonNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.kaydedilenFirma.telefonNumarasi}"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:inputType="number"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:textColorHint="#5E5858"
-            tools:text="0506235216 "
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/adres"
 
-            tools:ignore="TouchTargetSizeCheck" />
+                />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Firma Adresi"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
 
-        <EditText
-            android:id="@+id/adres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.kaydedilenFirma.adres}"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:textColorHint="#5E5858"
-            tools:text="çağpınar sokak no3  "
-            tools:ignore="TouchTargetSizeCheck" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Firma Logosu"
-            android:layout_marginTop="5dp"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="0dp">
 
             <ImageView
                 android:id="@+id/imageView"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
+                android:layout_marginTop="10dp"
                 app:srcCompat="@drawable/firm_logo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,10 +123,11 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:layout_width="120dp"
-            android:layout_height="35dp"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
             android:gravity="center"
-            android:text="Görsel Ekle"
+            android:text="Firma Logosu Ekle"
+            android:textSize="16sp"
             android:textAlignment="center"
             android:id="@+id/gorselEkleBtn"
             android:layout_marginTop="5dp"
@@ -130,16 +138,50 @@
 
 
         <TextView
-            android:text="Kaydet"
             android:id="@+id/firmaAyarKaydetBtn"
-            android:textAlignment="center"
-            android:gravity="center"
-            android:background="@drawable/maps_btn_bg"
-            android:textColor="@color/white"
-            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="35dp" />
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_btn_bg"
+            android:gravity="center"
+            android:text="Kaydet"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_konum_btn_bg"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="Firma Kodunuz  :"
+                android:textAlignment="center"
+                android:textColor="#A81207"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+
+            <TextView
+                android:id="@+id/firmaKodu"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:textColor="#A81207"
+
+                ></TextView>
+
+        </LinearLayout>
 
 
     </LinearLayout>

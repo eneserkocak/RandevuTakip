@@ -1,6 +1,7 @@
 package com.eneserkocak.randevu.view_ayarlar.personel_ayar
 
 import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
@@ -9,6 +10,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.speech.RecognizerIntent
+import android.speech.SpeechRecognizer
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
@@ -39,6 +42,7 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
     private lateinit var storage: FirebaseStorage
     private var downloadUrl:String=""
     lateinit var personel  :Personel
+
     //private var downloadUrl:Uri?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,12 +52,23 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
 
         registerLauncher()
 
+
+
         viewModel.secilenPersonel.observe(viewLifecycleOwner){ secilenPersonel->
             secilenPersonel?.let {
                 personel = it
                 PictureUtil.gorseliAl(personel,requireContext(),binding.imageView)
 
+                val checkedId = if (!personel.personelYetki) R.id.personelBtn else R.id.yoneticiBtn
+                binding.RadioGrupPers.check(checkedId)
 
+                binding.RadioGrupPers.setOnCheckedChangeListener { group, checkedId ->
+                    if (R.id.yoneticiBtn == checkedId) personel.personelYetki = true
+                    else personel.personelYetki = false
+                }
+
+                if (personel.personelHesap==true)
+                    personel.personelHesap=true
 
          /*  binding.apply {
                persIsmi.setText(it.personelAdi.toString())
@@ -62,26 +77,16 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
               persUnvan.setText(persUnvan.text.toString())
            }*/
 
-
-
-
       binding.personelGnclle.setOnClickListener {
 
-          //Görsel Storage kaydetme işlemi:
-          //val uuid= UUID.randomUUID()
-         // val imageName= "$uuid.jpg"
 
-
-          val imageName= "${personel.personelId}.jpg"
+          val imageName= "${personel.firmaKodu}-${personel.personelId}.jpg"
 
           storage= Firebase.storage
           val reference= storage.reference
 
           val imageReference= reference.child("Personel_images").child(imageName)
 
-
-
-          //Burada Storage a kaydedilen Görselin URL (download Url) sini alıp-> Firestora kaydedeceğiz.:
           if (selectedPicture != null){
               imageReference.putFile(selectedPicture!!).addOnSuccessListener {
                   val uploadPictureRef= storage.reference.child("Personel_images").child(imageName)
@@ -96,14 +101,15 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
                   AppUtil.longToast(requireContext(),it.localizedMessage)
         }
       }
-          val isim = binding.persIsmi.text.toString()
-          val tel = binding.persTel.text.toString()
+
+          val isim = binding.persIsmi.text.toString().toLowerCase()
+          val tel = binding.persTel.text.toString().filterNot { it.isWhitespace() }
           val mail = binding.persMail.text.toString()
           val unvan = binding.persUnvan.text.toString()
 
 
+            val personel= Personel(personel.firmaKodu,personel.personelId,isim,tel,mail,unvan,personel.personelYetki,personel.personelHesap)
 
-          val personel = Personel(personel.firmaId,personel.personelId,isim,tel,mail,unvan)
 
 
           AppUtil.personelKaydet(personel){
@@ -112,6 +118,10 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
                   findNavController().popBackStack()
              }
            }
+
+
+
+
         }
      }
    }
@@ -124,32 +134,48 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
              gorselIzin()
         }
 
+        binding.layoutPersAdi.setEndIconOnClickListener {
+            askSpeechInput( 113)
+        }
+        binding.layoutPersTel.setEndIconOnClickListener {
+            askSpeechInput(114)
+        }
+        binding.layoutPersEposta.setEndIconOnClickListener {
+            askSpeechInput(115)
+        }
+        binding.layoutPersUnvan.setEndIconOnClickListener {
+            askSpeechInput(116)
+        }
+
 
 
     }
-    //PERSONEL SİLME Yİ PERS RANDEVULAR FRAGMENT A ALDIM
-    /*private fun personelSilDialog(){
 
-        val alert =AlertDialog.Builder(requireContext())
-        alert.setMessage("Personel silinsin mi?")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-        alert.setPositiveButton("EVET", object :DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                //Firebase den silme işlemi yap
-                AppUtil.personelSil(personel,{})
-                PictureUtil.gorseliSil(personel,requireContext(),{})
-                AppUtil.longToast(requireContext(),"personel silindi")
-                findNavController().popBackStack()
+        if ( resultCode== Activity.RESULT_OK){
+            val result=data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS)
 
+            when (requestCode){
+                113-> binding.persIsmi.setText(result?.get(0).toString())
+                114-> binding.persTel.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+                115-> binding.persMail.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+                116-> binding.persUnvan.setText(result?.get(0).toString())
             }
-        })
-        alert.setNegativeButton("HAYIR", object :DialogInterface.OnClickListener{
-            override fun onClick(dialog: DialogInterface?, which: Int) {
-                findNavController().popBackStack()
-            }
-        })
-        alert.show()
-    }*/
+        }
+    }
+    private fun askSpeechInput(requestCode:Int) {
+        if (!SpeechRecognizer.isRecognitionAvailable(requireContext())){
+            AppUtil.longToast(requireContext(),"Konuşma tanıma kullanılamıyor..!")
+        }else{
+            val i = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+            i.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault())
+            i.putExtra(RecognizerIntent.EXTRA_PROMPT,"Kaydetmek istediğinizi söyleyin..!")
+            startActivityForResult(i,requestCode)
+        }
+    }
 
     private fun gorselIzin(){
         if (Build.VERSION.SDK_INT>= Build.VERSION_CODES.TIRAMISU){
@@ -213,3 +239,28 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
         }
     }
 }
+
+
+//PERSONEL SİLME Yİ PERS RANDEVULAR FRAGMENT A ALDIM
+/*private fun personelSilDialog(){
+
+    val alert =AlertDialog.Builder(requireContext())
+    alert.setMessage("Personel silinsin mi?")
+
+    alert.setPositiveButton("EVET", object :DialogInterface.OnClickListener{
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            //Firebase den silme işlemi yap
+            AppUtil.personelSil(personel,{})
+            PictureUtil.gorseliSil(personel,requireContext(),{})
+            AppUtil.longToast(requireContext(),"personel silindi")
+            findNavController().popBackStack()
+
+        }
+    })
+    alert.setNegativeButton("HAYIR", object :DialogInterface.OnClickListener{
+        override fun onClick(dialog: DialogInterface?, which: Int) {
+            findNavController().popBackStack()
+        }
+    })
+    alert.show()
+}*/

@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 import com.eneserkocak.randevu.databinding.HizmetlisteRowBinding
-import com.eneserkocak.randevu.model.Hizmet
-import com.eneserkocak.randevu.model.Personel
+import com.eneserkocak.randevu.model.*
 
 import com.eneserkocak.randevu.view_ayarlar.hizmet_ayar.HizmetListeFragmentDirections
+import com.google.firebase.firestore.FirebaseFirestore
 
 class HizmetListeRecyclerAdapter(val secilenHizmet: (Hizmet)->Unit):RecyclerView.Adapter<HizmetListeRecyclerAdapter.HizmetDuzenleViewHolder>() {
 
@@ -33,6 +33,8 @@ class HizmetListeRecyclerAdapter(val secilenHizmet: (Hizmet)->Unit):RecyclerView
     override fun onBindViewHolder(holder: HizmetDuzenleViewHolder, position: Int) {
         val hizmet = hizmetListesi[position]
         holder.binding.hizmet = hizmet
+
+
 
         holder.itemView.setOnClickListener {
 

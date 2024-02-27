@@ -10,12 +10,16 @@ import com.eneserkocak.randevu.databinding.GunsaatPersListRowBinding
 import com.eneserkocak.randevu.model.Hizmet
 import com.eneserkocak.randevu.model.Personel
 import com.eneserkocak.randevu.view_ayarlar.gun_saat_ayar.GunSaatPersListeFragmentDirections
+import com.google.firebase.database.collection.LLRBNode.Color
 
 class GunSaatPersListAdapter(val secilenPersonel: (Personel)->Unit):RecyclerView.Adapter<GunSaatPersListAdapter.GunSaatPersListViewHolder>() {
 
     val personelList= arrayListOf<Personel>()
 
+
+
     class GunSaatPersListViewHolder(val binding: GunsaatPersListRowBinding):RecyclerView.ViewHolder(binding.root) {
+
 
     }
 
@@ -23,12 +27,21 @@ class GunSaatPersListAdapter(val secilenPersonel: (Personel)->Unit):RecyclerView
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<GunsaatPersListRowBinding>(inflater,R.layout.gunsaat_pers_list_row,parent,false)
         return GunSaatPersListViewHolder(binding)
+
     }
 
     override fun onBindViewHolder(holder: GunSaatPersListViewHolder, position: Int) {
 
         val personel= personelList[position]
         holder.binding.personel=personel
+
+        if (holder.binding.randevuyaAcik.text=="Randevuya Açık"){
+            holder.binding.randevuyaAcik.setTextColor(android.graphics.Color.parseColor("#068176"))
+        }else{
+            holder.binding.randevuyaAcik.setTextColor(android.graphics.Color.parseColor("#A81207"))
+        }
+
+        //android:text='@{personel.personelRandDur ? "Randevuya Açık" : "Randevuya Kapalı"}'
 
     holder.itemView.setOnClickListener {
         secilenPersonel.invoke(personel)

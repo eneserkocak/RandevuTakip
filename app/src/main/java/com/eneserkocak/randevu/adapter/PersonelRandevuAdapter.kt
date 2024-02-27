@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -39,6 +40,22 @@ class PersonelRandevuAdapter:RecyclerView.Adapter<PersonelRandevuAdapter.Randevu
 
        val randevu = randevuList[position]
         holder.binding.personelRandevu = randevu
+
+
+
+
+        holder.binding.switchBtn.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked){
+                holder.binding.personelDetayiLayout.visibility= View.VISIBLE
+            }else{
+                holder.binding.personelDetayiLayout.visibility= View.GONE
+            }
+
+        }
+
+
+
 
         holder.binding.deleteButton.setOnClickListener {
 
@@ -81,22 +98,6 @@ class PersonelRandevuAdapter:RecyclerView.Adapter<PersonelRandevuAdapter.Randevu
                         it.printStackTrace()
 
                     }
-
-
-
-
-
-
-
-
-
-                //findNavController () içinde görünüm istiyor..
-                /*findNavController(it).popBackStack()
-               findNavController(it).navigate(R.id.musteriDuzenleFragment)*/
-
-                //Aşğıdaki navigate i koymayınca dialog kapanıyor fakat liste fragment ta çık gir yapmadan müşt silinmiyor
-                //findNavController().navigate(R.id.musteriListeFragment)
-
             }
         })
         alert.setNegativeButton("HAYIR", object : DialogInterface.OnClickListener{

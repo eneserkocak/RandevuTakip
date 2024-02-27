@@ -51,6 +51,16 @@ class MusteriDuzRandAdapter: RecyclerView.Adapter<MusteriDuzRandAdapter.MusteriR
          holder.binding.musteriRandevu = randevu
 
 
+        holder.binding.switchBtn.setOnCheckedChangeListener { buttonView, isChecked ->
+
+            if (isChecked){
+                holder.binding.musteriDetayiLayout.visibility= View.VISIBLE
+            }else{
+                holder.binding.musteriDetayiLayout.visibility= View.GONE
+            }
+
+        }
+
 
        holder.binding.deleteButton.setOnClickListener {
 
@@ -62,6 +72,9 @@ class MusteriDuzRandAdapter: RecyclerView.Adapter<MusteriDuzRandAdapter.MusteriR
     override fun getItemCount(): Int {
         return randevuList.size
     }
+
+
+
     fun musteriRandevuListesiniGuncelle(yeniMusteriRandListesi: List<Randevu>) {
 
         randevuList.clear()

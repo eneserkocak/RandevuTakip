@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
+import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.Util.toTarih
 import com.eneserkocak.randevu.adapter.GunOzetiAdapter
 import com.eneserkocak.randevu.adapter.GunOzetiGiderAdapter
@@ -39,7 +41,8 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
         val tarih = sdf.format(cal.time)
         binding.dateText.setText(tarih)
 
-
+       /* println("GUN OZETİ UID: ${UserUtil.uid}")
+        println("GUN OZETİ FIRMA KODU: ${UserUtil.firmaKodu}")*/
 
         getData() {
             filtreGiderListesi = it
@@ -80,7 +83,9 @@ class GunOzetiGiderFragment : BaseFragment<FragmentGunOzetiGiderBinding>(R.layou
 
     fun getData(giderler: (List<Gider>) -> Unit) {
 
-        FirebaseFirestore.getInstance().collection(GIDERLER).get().addOnSuccessListener {
+        FirebaseFirestore.getInstance().collection(GIDERLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get().addOnSuccessListener {
             it?.let {
                 val giderList = it.toObjects(Gider::class.java)
 

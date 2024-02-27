@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
             name="viewModel"
             type="com.eneserkocak.randevu.viewModel.AppViewModel" />
+
+
     </data>
 
     <ScrollView
@@ -28,7 +31,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="PERSONEL     :"
+                    app:gunSaatDuzPersYetki="@{viewModel.secilenPersonel}"
                     android:textSize="16sp"
                    android:layout_gravity="center_vertical"
                     android:textStyle="bold"></TextView>
@@ -145,24 +148,46 @@
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/saatText"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/layoutDakika"
                     android:layout_width="0dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.5"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="1"
-                    android:ems="10"
 
-                    android:textAlignment="center"></EditText>
+
+                    android:hint="Dakika Giriniz (rakamla)"
+                    android:textSize="20sp"
+                    app:startIconDrawable="@drawable/saat"
+                    app:endIconMode="custom"
+                    app:endIconDrawable="@drawable/voice"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/saatText"
+                        android:inputType="number"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+
+                        />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
 
                 <TextView
                     android:id="@+id/kaydetBtn"
                     android:layout_width="0dp"
-                    android:layout_height="35dp"
+                    android:layout_height="45dp"
                     android:textColor="@color/white"
                     android:layout_weight="1"
                     android:background="@drawable/maps_btn_bg"
                     android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
                     android:text="Kaydet"
                     android:textAlignment="center"
                     android:textSize="16sp" />

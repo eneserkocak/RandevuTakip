@@ -23,12 +23,21 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Giderler"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textAlignment="center"></TextView>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>
 
         <TextView
@@ -45,54 +54,59 @@
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/indicator" />
 
-        <TextView
+
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutGiderAdi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-
-            android:text="Gider Türü"
-
+            android:hint="GİDER TÜRÜ (ör:kira,yakıt)"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            app:startIconDrawable="@drawable/pencil"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
 
-        <EditText
-            android:id="@+id/giderAdi"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/giderAdi"
+
+                />
+
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutGiderFiyat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:hint="Ör: Yakıt,kira vb"
-
-            android:textColorHint="#EBEBEB"
-
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Gider Fiyatı "
-
+            android:hint="GİDER TUTARI (rakam giriniz)"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            app:startIconDrawable="@drawable/lira_24"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/giderTutar"
+                android:inputType="number"
+
+                />
 
 
-        <EditText
-            android:id="@+id/giderTutar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textCursorDrawable="@drawable/lira"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:inputType="number"
-
-
-            android:textColorHint="#5E5858"
-
-            android:textSize="20sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,6 +137,7 @@
                 android:layout_weight="1"
                android:background="@drawable/maps_btn_bg"
                 android:gravity="center"
+                android:textSize="16sp"
                 android:text="Gider Ekle"
                 android:textAlignment="center"
                 android:textColor="@color/white" />

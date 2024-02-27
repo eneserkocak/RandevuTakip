@@ -32,6 +32,8 @@ class MusteriRecyclerAdapter(val secilenMusteri: (Musteri)->Unit):RecyclerView.A
         val musteri = musteriListesi[position]
         holder.binding.musteri= musteri
 
+
+
         holder.itemView.setOnClickListener {
 
             secilenMusteri.invoke(musteri)

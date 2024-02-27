@@ -20,11 +20,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
 import com.eneserkocak.randevu.Util.PictureUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.MusteriDuzRandAdapter
 import com.eneserkocak.randevu.databinding.DialogMusteriDuzenleBinding
 import com.eneserkocak.randevu.db_firmaMaps.FirmaMapsDao
 import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.viewModel.AppViewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 const val MUSTERI_DUZENLE = "MusteriDuzenle"
@@ -66,7 +69,6 @@ class MusteriDuzenleFragment : DialogFragment() {
         binding.mustDuznRandevuRecycler .layoutManager=LinearLayoutManager(requireContext())
         binding.mustDuznRandevuRecycler.adapter=adapter
 
-       // adapter.musteriRandevuListesiniGuncelle(it)
 
 
         //Firma nın konumunu ROOM dan burada aldık: Tek bir Konum Kaydedeceğimiz için ROOM İPTAL->SHARED la YAPACAM
@@ -80,6 +82,7 @@ class MusteriDuzenleFragment : DialogFragment() {
                 PictureUtil.gorselIndir(it,requireContext(),binding.musteriGorsel)
 
 
+
             }
         }
 
@@ -89,8 +92,7 @@ class MusteriDuzenleFragment : DialogFragment() {
             it?.let {
 
                 filtreRandevuListesi = it.filter { it.musteri.musteriAdi==secMusteri.musteriAdi}
-              // filtreRandevuListesiLD= it.filter { it.musteri.musteriAdi==secMusteri.musteriAdi}
-                //adapter.randevuListesiniGuncelle(it)
+
 
          if (filtreRandevuListesi.isNotEmpty()){
                 binding.mustDuznRandevuRecycler.visibility=View.VISIBLE
@@ -104,20 +106,33 @@ class MusteriDuzenleFragment : DialogFragment() {
    }
 
 
-/*
-        val sharedPref = AppUtil.getSharedPreferences(requireContext())
-        val firmaAdiAl = sharedPref.getString(FIRMA_ISIM, "boş")
-        var firmaLat= sharedPref.getString(FIRMA_LAT, "boş")
-        var firmaLng = sharedPref.getString(FIRMA_LNG, "boş")
+        binding.whastsAppBtn.setOnClickListener {
 
-        val latitude = firmaLat!!
-        val longitude= firmaLng!!*/
+                val musteriTel= "+90${secMusteri.musteriTel}"
+
+                if(musteriTel.length==14){
+
+                    val url = "https://api.whatsapp.com/send?phone=$musteriTel"
+                    val i = Intent(Intent.ACTION_VIEW)
+                    i.data = Uri.parse(url)
+                    context?.startActivity(i)
+
+                    AppUtil.longToast(requireContext(),"Müşteriyle whatsapp ile iletişime geçiliyor..!")
+
+                }else{
+                    AppUtil.longToast(requireContext(),"Müşteriye ait telefon numarası kayıtlı değil veya hatalı kaydedilmiş.")
+                }
+
+
+
+        }
 
         binding.konumGndrBtn.setOnClickListener {
 
             findNavController().navigate(R.id.firmaKonumListeFragment)
 
         }
+
         binding.musteriSilBtn.setOnClickListener {
 
 
@@ -173,6 +188,12 @@ class MusteriDuzenleFragment : DialogFragment() {
         binding.mustAraBtn.setOnClickListener {
 
             musteriAraDialog()
+        }
+
+        binding.mustHesapBtn.setOnClickListener {
+
+            findNavController().navigate(R.id.musteriCariFragment)
+
         }
 
     }
@@ -255,3 +276,12 @@ class MusteriDuzenleFragment : DialogFragment() {
         alert.show()
     }
 }
+
+/*
+        val sharedPref = AppUtil.getSharedPreferences(requireContext())
+        val firmaAdiAl = sharedPref.getString(FIRMA_ISIM, "boş")
+        var firmaLat= sharedPref.getString(FIRMA_LAT, "boş")
+        var firmaLng = sharedPref.getString(FIRMA_LNG, "boş")
+
+        val latitude = firmaLat!!
+        val longitude= firmaLng!!*/

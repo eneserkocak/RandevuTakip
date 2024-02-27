@@ -23,82 +23,88 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="8dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="5dp"
         tools:context=".view_ayarlar.hizmet_ayar.HizmetEkleFragment">
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-
-            android:text="Hizmet Türü"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            android:textStyle="bold"></TextView>
-
-        <EditText
-            android:id="@+id/hizmetAdi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ilac_row_bg"
+            android:layout_height="40dp"
+            android:text="Hizmet Ekle"
             android:gravity="center_vertical"
-            android:hint="Ör: Saç Kesim"
-            android:textAlignment="center"
-            android:textColorHint="#EBEBEB"
-
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Açıklama"
-            android:textAlignment="center"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            android:textStyle="bold"
 
-        <EditText
-            android:id="@+id/aciklama"
+            android:textAlignment="center"></TextView>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutHizmAdi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:hint="Boş Bırakılabilir"
-            android:textAlignment="center"
-            android:textColorHint="#EBEBEB"
-
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="Hizmet Fiyatı "
-            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:hint="HİZMET TÜRÜ (ör:saç kesim)"
             android:textSize="20sp"
-            android:textStyle="bold"></TextView>
+            app:startIconDrawable="@drawable/hizmet"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/hizmetAdi"
+                />
 
 
-        <EditText
-            android:id="@+id/fiyat"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutAciklama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:textCursorDrawable="@drawable/lira"
+            android:layout_marginTop="15dp"
+            android:hint="AÇIKLAMA (isteğe bağlı)"
+            android:textSize="20sp"
+            app:startIconDrawable="@drawable/not"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/aciklama"
+
+                />
 
 
+        </com.google.android.material.textfield.TextInputLayout>
 
-            android:background="@drawable/ilac_row_bg"
-            android:gravity="center_vertical"
-            android:hint="Fiyat Kullanmıyorsanız Boş Bırakın"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:id="@+id/layoutHizmFiyat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="HİZMET FİYATI (rakam giriniz)"
+            android:textSize="20sp"
             android:inputType="number"
+            app:startIconDrawable="@drawable/lira_24"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/voice"
+            >
 
-            android:textAlignment="center"
-            android:textColorHint="#EBEBEB"
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fiyat"
+                android:inputType="number"
+                />
 
-            android:textSize="20sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,12 +116,13 @@
             <TextView
                 android:id="@+id/hzmtKaydetBtn"
                 android:layout_width="0dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_weight="1"
                android:background="@drawable/maps_btn_bg"
                 android:gravity="center"
-                android:text="KAYDET"
+                android:text="Kaydet"
+                android:textSize="16sp"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
 

@@ -32,6 +32,8 @@ class RandPersGostAdapter(val secilenPersonel : (Personel)->Unit):RecyclerView.A
 
         val personel= personelListesi[position]
         holder.binding.personel = personel
+
+
         PictureUtil.gorseliAl(personel,holder.itemView.context,holder.binding.persImage)
 
 
@@ -57,6 +59,16 @@ class RandPersGostAdapter(val secilenPersonel : (Personel)->Unit):RecyclerView.A
     override fun getItemCount(): Int {
         return personelListesi.size
     }
+
+ //RECYCLER İÇİNDE GÖRSELLER KARIŞIYORDU..AŞAĞIDAKİ 2 FONKSİYONU KOYUNCA ..DÜZELDİ......
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+    override fun getItemViewType(position: Int): Int {
+        return position
+    }
+
+
     fun personelListesiniGuncelle(yeniPersonelListesi: List<Personel>){
 
         personelListesi.clear()

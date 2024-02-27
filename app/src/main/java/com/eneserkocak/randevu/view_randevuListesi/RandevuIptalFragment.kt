@@ -16,6 +16,7 @@ import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.viewModel.AppViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 
+            // BURASI İPTALLLLL......DİALOG A ÇEVİRDİM...
 
 class RandevuIptalFragment : DialogFragment() {
 

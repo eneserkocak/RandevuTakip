@@ -76,7 +76,7 @@ class FirmaMapsFragment : BaseFragment<FragmentFirmaMapsBinding>(R.layout.fragme
 
 
             findNavController().popBackStack()
-            AppUtil.longToast(requireContext(),"Konum kaydedildi. Eklenen konumlar, Müşteriler -> Konum Gönder menüsünde görülür.. ")
+            AppUtil.longToast(requireContext(),"Konum kaydedildi. Kaydedilen konumlar, Müşteriler -> Konum Gönder menüsünde görülür.. ")
 
 
             //Firmanın  birden fazla konumu oabilir.Bu nedenle SHARED İPTAL->  ROOM LA KAYDEDECEĞİM::::
@@ -113,14 +113,6 @@ class FirmaMapsFragment : BaseFragment<FragmentFirmaMapsBinding>(R.layout.fragme
                         i.data = Uri.parse(url)
                         context?.startActivity(i)
 
-
-                       /* val uri = "https://www.google.com/maps/?q=$lat,$long"
-                        val sharingIntent = Intent(Intent.ACTION_SEND)
-                        sharingIntent.type = "text/plain"
-                        sharingIntent.putExtra(Intent.EXTRA_TEXT, uri)
-                        startActivity(Intent.createChooser (sharingIntent, "${firmaIsim}"))*/
-
-
                     }
                 }
 
@@ -131,6 +123,8 @@ class FirmaMapsFragment : BaseFragment<FragmentFirmaMapsBinding>(R.layout.fragme
 
 
         }
+
+
     override fun onMapReady(googleMap: GoogleMap) {
 
         mMap = googleMap

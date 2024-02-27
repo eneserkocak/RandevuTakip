@@ -27,14 +27,14 @@
            />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Randevuları görüntülemek için tarih seçiniz..!"
-            android:textColor="#068176"
-            android:textAlignment="center"
             android:id="@+id/bilgiText"
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="#068176"
             android:textSize="14sp"
-            ></TextView>
+            android:visibility="gone"></TextView>
 
 
         <androidx.recyclerview.widget.RecyclerView

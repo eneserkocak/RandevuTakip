@@ -27,11 +27,20 @@
         android:padding="8dp"
         >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Randevu İptal"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
+            android:textAlignment="center"></TextView>
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>
 
         <TextView

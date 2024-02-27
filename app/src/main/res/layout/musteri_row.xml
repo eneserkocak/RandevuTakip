@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:padding="8dp"
         android:gravity="center_vertical"
         android:background="@drawable/ilac_row_bg"
         android:orientation="vertical">
@@ -19,28 +19,41 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
 
             android:orientation="horizontal">
 
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:src="@drawable/musterii"
+                >
+
+
+            </ImageView>
+
         <TextView
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_weight="6.5"
             android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:textSize="14sp"
             android:textAllCaps="true"
+            android:layout_marginStart="5dp"
             android:text="@{musteri.musteriAdi}"
             android:textStyle="bold">
 
 
         </TextView>
 
-            <TextView
+           <!-- <TextView
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:gravity="center_vertical"
                 android:textSize="14sp"
                 android:textAlignment="viewEnd"
                 android:textAllCaps="true"
@@ -48,7 +61,16 @@
                 android:textStyle="bold">
 
 
-            </TextView>
+            </TextView>-->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/rightly_icon">
+
+            </ImageView>
 
         </LinearLayout>
 

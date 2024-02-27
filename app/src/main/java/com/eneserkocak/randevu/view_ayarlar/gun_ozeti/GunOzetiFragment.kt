@@ -30,6 +30,8 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
     var tamRandevuListesi = listOf<Randevu>()
     val adapter = GunOzetiAdapter()
     var filtreRandevuListesi = listOf<Randevu>()
+    var veresiyeRandListesi = listOf<Randevu>()
+    var filtreVeresiyeListesi= listOf<Randevu>()
 
 
 
@@ -38,8 +40,6 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
         binding.gunOzetiRecycler.layoutManager = LinearLayoutManager(requireContext())
         binding.gunOzetiRecycler.adapter = adapter
-
-
 
 
         cal = Calendar.getInstance()
@@ -51,68 +51,25 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
         randevuOzet()
 
+        veresiyeRandevuOzet()
+
         binding.nextDate.setOnClickListener {
             cal.add(Calendar.DAY_OF_YEAR, 1)
             binding.dateText.text = sdf.format(cal.time)
 
             randevuOzet()
+
+            veresiyeRandevuOzet()
         }
         binding.backDate.setOnClickListener {
             cal.add(Calendar.DAY_OF_YEAR, -1)
             binding.dateText.text = sdf.format(cal.time)
 
             randevuOzet()
+
+            veresiyeRandevuOzet()
         }
 
-      /*  binding.dateText.setOnClickListener {
-
-            val myFormat = "dd.MM.yyyy"
-            val sdf = SimpleDateFormat(myFormat)
-            val datePicker =
-                MaterialDatePicker.Builder.datePicker()
-                    .setTitleText("SON KULLANIM TARİHİ")
-                    .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-                    .build()
-            datePicker.addOnPositiveButtonClickListener {
-                val date = Date(it)
-                binding.dateText.setText(sdf.format(date))
-                randevuOzet()
-            }
-            datePicker.show(childFragmentManager, "tag")
-
-        }*/
-
-
-    /* viewModel.tamamlananRandVerileriGetir()
-        viewModel.tamamlananRandevuListesi.observe(viewLifecycleOwner){
-            it?.let {
-
-                tamRandevuListesi = it
-
-
-         filtreRandevuListesi = tamRandevuListesi.filter {
-                        it.randevuTime.toDate().toTarih() == cal.time.toTarih() }
-
-                    var gelir= 0
-         filtreRandevuListesi.forEach {
-                        gelir=gelir+it.randevuGeliri
-                        binding.toplamGelirCount.text= gelir.toString()
-
-                    }
-
-                println("RANDEVULİST:  ${tamRandevuListesi}")
-                //adapter.randevuListesiniGuncelle(it)
-
-         binding.toplamRandCount.text=filtreRandevuListesi.size.toString()
-         adapter.randevuListesiniGuncelle(filtreRandevuListesi)
-
-                val size= tamRandevuListesi.size
-                println("size: ${size}")
-
-                println("filtre: ${filtreRandevuListesi.size}")
-
-            }
-        }*/
 
     }
     //RANDEVU ÖZETİ VERİLERİNİ : SEÇİLİ TARİHE GÖRE GÖSTERMEK İÇİN AŞAĞIDA FONK İÇİNDE YAP-> tarih setOnClicList altlarında çağır
@@ -124,10 +81,11 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
                 tamRandevuListesi = it
 
+                tamRandevuListesi?.let {
 
                 filtreRandevuListesi = tamRandevuListesi.filter {
                     it.randevuTime.toDate().toTarih() == cal.time.toTarih() }
-
+                }
 
                 if (filtreRandevuListesi.isEmpty()) {binding.toplamGelirCount.setText("0")
 
@@ -140,6 +98,8 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
 
                 }
            }
+
+
                 println("RANDEVULİST:  ${tamRandevuListesi}")
                 //adapter.randevuListesiniGuncelle(it)
 
@@ -150,6 +110,37 @@ class GunOzetiFragment : BaseFragment<FragmentGunOzetiBinding>(R.layout.fragment
                 println("size: ${size}")
 
                 println("filtre: ${filtreRandevuListesi.size}")
+
+            }
+        }
+    }
+
+
+    fun veresiyeRandevuOzet(){
+        viewModel.veresiyeRandVerileriGetir()
+        viewModel.veresiyeTamamlananRandevuListesi.observe(viewLifecycleOwner){
+            it?.let {
+
+               veresiyeRandListesi = it
+
+                veresiyeRandListesi?.let {
+
+                    filtreVeresiyeListesi = veresiyeRandListesi.filter {
+                        it.randevuTime.toDate().toTarih() == cal.time.toTarih() }
+                }
+
+                if (filtreVeresiyeListesi.isEmpty()) {binding.toplamVeresiyeCount.setText("0")
+
+                }else{
+
+                    var veresiye= 0
+                    filtreVeresiyeListesi.forEach {
+                        veresiye=veresiye+it.veresiyeTutari
+                        binding.toplamVeresiyeCount.text= veresiye.toString()
+
+                    }
+                }
+
 
             }
         }

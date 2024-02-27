@@ -1,12 +1,11 @@
 package com.eneserkocak.randevu.Util
 
+import android.graphics.Color
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.eneserkocak.randevu.R
-import com.eneserkocak.randevu.model.IPTAL_EDILDI
-import com.eneserkocak.randevu.model.Randevu
-import com.eneserkocak.randevu.model.TAMAMLANDI
+import com.eneserkocak.randevu.model.*
 import com.google.android.material.card.MaterialCardView
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
@@ -53,6 +52,8 @@ object BindingAdapter {
           TAMAMLANDI -> R.drawable.bg_randevu_tamamlandi
           IPTAL_EDILDI -> R.drawable.bg_randevu_iptal
           else -> R.drawable.home_ktphn_rectangle
+          //"#C5F6C8"
+          //"#EFCDCB"
       }
 
       materialCardView.setBackgroundResource(bgResId)
@@ -85,9 +86,131 @@ object BindingAdapter {
     fun randevuIptTextGoster(textView: TextView, randevu: Randevu){
         if (randevu.randevuDurumu== IPTAL_EDILDI){
             textView.visibility=View.VISIBLE
-            textView.setText("İptal Edildi")
+            textView.setText("Randevu İptal Edildi")
         }else{
             textView.visibility=View.GONE
+        }
+    }
+    @JvmStatic
+    @BindingAdapter("app:smsTextVisibility")
+    fun smsTextVisibility(textView: TextView, randevu: Randevu){
+        if (randevu.randevuDurumu== TAMAMLANDI || randevu.randevuDurumu== IPTAL_EDILDI){
+            textView.visibility=View.GONE
+        }else{
+            textView.visibility=View.VISIBLE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:smsIconVisibility")
+    fun smsIconVisibility(textView: TextView, randevu: Randevu){
+        if (randevu.randevuDurumu== TAMAMLANDI || randevu.randevuDurumu== IPTAL_EDILDI){
+            textView.visibility=View.GONE
+        }else{
+            textView.visibility=View.VISIBLE
+        }
+    }
+
+
+
+
+
+    @JvmStatic
+    @BindingAdapter("app:persRanDurGoster")
+    fun persRanDurGoster(textView: TextView, personel: Personel){
+        if (personel.personelRandDur==true){
+            textView.setTextColor(Color.parseColor("#068176"))
+            textView.setText("Randevuya Açık")
+        }else{
+            textView.setTextColor(Color.parseColor("#A81207"))
+            textView.setText("Randevuya Kapalı")
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:persHesapDurGoster")
+    fun persHesapDurGoster(textView: TextView, personel: Personel){
+        if (personel.personelHesap==true || personel.personelYetki==true){
+            textView.setTextColor(Color.parseColor("#068176"))
+            textView.setText("Hesabı Var")
+        }else{
+            textView.setTextColor(Color.parseColor("#A81207"))
+            textView.setText("Hesabı Yok")
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:mustRanDurumu")
+    fun mustRanDurumu(textView: TextView, musteriRandevu: Randevu){
+        if (musteriRandevu.randevuDurumu== TAMAMLANDI){
+            textView.setTextColor(Color.parseColor("#068176"))
+            textView.setText("Tamamlandı")
+        }else if(musteriRandevu.randevuDurumu== IPTAL_EDILDI){
+            textView.setTextColor(Color.parseColor("#A81207"))
+            textView.setText("İptal Edildi")
+        }else{
+            textView.setText("")
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:persRanDurumu")
+    fun persRanDurumu(textView: TextView, personelRandevu: Randevu){
+        if (personelRandevu.randevuDurumu== TAMAMLANDI){
+            textView.setTextColor(Color.parseColor("#068176"))
+            textView.setText("Tamamlandı")
+        }else if(personelRandevu.randevuDurumu== IPTAL_EDILDI){
+            textView.setTextColor(Color.parseColor("#A81207"))
+            textView.setText("İptal Edildi")
+        }else{
+            textView.setText("")
+        }
+    }
+
+
+    @JvmStatic
+    @BindingAdapter("app:randevuVeresiyeTextGoster")
+    fun randevuVeresiyeTextGoster(textView: TextView, randevu: Randevu){
+        if (randevu.randevuGelirTuru  == VERESIYE){
+            textView.visibility=View.VISIBLE
+            textView.setText("Veresiye geçildi")
+            textView.setTextColor(Color.parseColor("#A81207"))
+        }else{
+            textView.visibility=View.GONE
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:persYetkiGoster")
+    fun persYetkiGoster(textView: TextView, personel: Personel){
+        if (personel.personelYetki==true ){
+            textView.setTextColor(Color.parseColor("#A81207"))
+            textView.setText("Yönetici")
+        }else{
+            textView.setTextColor(Color.parseColor("#068176"))
+            textView.setText("Personel")
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:gunSaatDuzPersYetki")
+    fun gunSaatDuzPersYetki(textView: TextView, personel: Personel){
+        if (personel.personelYetki  == true){
+            textView.setText("PERSONEL (Yönetici)")
+
+        }else{
+            textView.setText("PERSONEL")
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:randevuDurumu")
+    fun randevuDurumu(textView: TextView, randevu: Randevu){
+        if (randevu.randevuDurumu== TAMAMLANDI){
+            textView.setText(randevu.randevuGeliri.toString())
+
+        }else{
+            textView.setText("0")
         }
     }
 

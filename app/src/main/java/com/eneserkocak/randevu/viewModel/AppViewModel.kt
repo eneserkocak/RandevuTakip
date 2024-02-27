@@ -3,6 +3,7 @@ package com.eneserkocak.randevu.viewModel
 import android.app.Application
 import androidx.lifecycle.*
 import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.db_firmaMaps.FirmaMapsDatabase
 import com.eneserkocak.randevu.model.*
 import com.google.firebase.Timestamp
@@ -12,15 +13,18 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
+import java.util.concurrent.CopyOnWriteArrayList
 
 class AppViewModel(app:Application):AndroidViewModel(app) {
 
 
        val randevuListesi = MutableLiveData<List<Randevu>>()
-      val raporRandevuListesi = MutableLiveData<List<Randevu>>()
+       val raporRandevuListesi = MutableLiveData<List<Randevu>>()
        val tamamlananRandevuListesi = MutableLiveData<List<Randevu>>()
+       val veresiyeTamamlananRandevuListesi = MutableLiveData<List<Randevu>>()
 
 
+       val kaydedilenAuthFirma=MutableLiveData<Firma>()
        val kaydedilenFirma = MutableLiveData<Firma>()
        var secilenPersonel = MutableLiveData<Personel>()
        var secilenHizmet = MutableLiveData<Hizmet>()
@@ -34,6 +38,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
 
 
 
+
     //RANDEVU LİSTESİ FRAGMENT TA TAMAMLANAN RANDEVULAR RANDEVU DTO DAN->RANDEVU MODELİNE ÇEVİR VE FİREBASE DEN ÇEK:
     //TÜM RANDEVULARI ÇEKECEĞİZ
 
@@ -41,12 +46,21 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
        //  indirilenRandevuListesi ni burda tanımla ..Aaşağıda Kullanacağız.
       //  kULLANMASAK FOR içinde old. için indirilenRandevulara sürekli (add) ekleme yapar...
 
-       val indirilenRandevuListesi = mutableListOf<Randevu>()
+       val indirilenRandevuListesi = CopyOnWriteArrayList<Randevu>()
 
-        val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR).get()
+        val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get()
         viewModelScope.launch(Dispatchers.IO ) {
 
         var indirilenRandevular = queryRef.await().toObjects(RandevuDTO::class.java)
+
+            if (indirilenRandevular.isEmpty()) {
+                withContext(Dispatchers.Main) {
+                    randevuListesi.value = emptyList()
+                    return@withContext
+                }
+            }
 
        indirilenRandevular.forEach { randevu->
 
@@ -55,19 +69,19 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
            val musteri = async {
                     //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                FirebaseFirestore.getInstance().collection("musteriler")
-               .document("${randevu.firmaId}-${randevu.musteriId}")
+               .document("${UserUtil.firmaKodu}-${randevu.musteriId}")
                       .get().await().toObject(Musteri::class.java)
                                 }.await()
            val personel = async {
                //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                FirebaseFirestore.getInstance().collection("personeller")
-                   .document("${randevu.firmaId}-${randevu.personelId}")
+                   .document("${UserUtil.firmaKodu}-${randevu.personelId}")
                    .get().await().toObject(Personel::class.java)
                                 }.await()
            val hizmet = async {
                //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                FirebaseFirestore.getInstance().collection("hizmetler")
-                   .document("${randevu.firmaId}-${randevu.hizmetId}")
+                   .document("${UserUtil.firmaKodu}-${randevu.hizmetId}")
                    .get().await().toObject(Hizmet::class.java)
                                }.await()
 
@@ -82,7 +96,8 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
            )*/
        //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
            val indirilenRandevu=Randevu(
-               randevu.firmaId,
+
+               randevu.firmaKodu,
                personel!!,
                musteri!!,
                hizmet!!,
@@ -90,8 +105,8 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                randevu.randevuTime,
                randevu.randevuDurumu,
                randevu.randevuNotu,
-              // randevu.randevuTarih,
-              // randevu.randevuSaat,
+               randevu.randevuGelirTuru,
+               randevu.veresiyeTutari
 
            )
            println("İNDİRİLEN RANDEVU : $indirilenRandevu")
@@ -101,13 +116,19 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
            //indirilenRandevuListesi(Boş liste) ile başla .indirilen randevular ı ekleyince (EŞİTLENİNCE) DURR.
            if (indirilenRandevuListesi.size==indirilenRandevular.size){
                withContext(Dispatchers.Main) {
+
+
                    randevuListesi.value = indirilenRandevuListesi
+
              }
            }
          }
        }
      }
    }
+
+
+
 
     //GÜN ÖZETİ FRAGMENT TA TAMAMLANAN RANDEVULAR RANDEVU DTO DAN->RANDEVU MODELİNE ÇEVİR VE FİREBASE DEN ÇEK:
         //SADECE TAMAMLANAN RANDEVULARI ÇEKECEĞİZ
@@ -116,9 +137,10 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
         //  cekilenRandevuListesi ni burda tanımla ..Aaşağıda Kullanacağız.
         //  kULLANMASAK FOR içinde old. için indirilenRandevulara sürekli (add) ekleme yapar...
 
-        val cekilenRandevuListesi = mutableListOf<Randevu>()
+        val cekilenRandevuListesi = CopyOnWriteArrayList<Randevu>()
 
         val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .whereEqualTo(RANDEVU_DURUMU,"Randevu Tamamlandı")
             .get()
         viewModelScope.launch(Dispatchers.IO ) {
@@ -132,26 +154,26 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                     val musteri = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("musteriler")
-                            .document("${randevu.firmaId}-${randevu.musteriId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.musteriId}")
                             .get().await().toObject(Musteri::class.java)
                     }.await()
                     val personel = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("personeller")
-                            .document("${randevu.firmaId}-${randevu.personelId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.personelId}")
                             .get().await().toObject(Personel::class.java)
                     }.await()
                     val hizmet = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("hizmetler")
-                            .document("${randevu.firmaId}-${randevu.hizmetId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.hizmetId}")
                             .get().await().toObject(Hizmet::class.java)
                     }.await()
 
   //COURİTİNE İÇİNDE İLGİLİ SINIFLARDAN (HİZMET, MUSTERİ VB) ÇEKTİĞİMİZ VERİLERİ AŞAĞIDA RANDEVU MODEL İNE ÇEVİRİYORUZ.
 //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
                     val indirilenRandevu=Randevu(
-                        randevu.firmaId,
+                        randevu.firmaKodu,
                         personel!!,
                         musteri!!,
                         hizmet!!,
@@ -159,8 +181,8 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                         randevu.randevuTime,
                         randevu.randevuDurumu,
                         randevu.randevuNotu,
-                      //  randevu.randevuTarih,
-                      //  randevu.randevuSaat,
+                        randevu.randevuGelirTuru,
+                        randevu.veresiyeTutari
                     )
 
 
@@ -171,11 +193,12 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                     //indirilenRandevuListesi(Boş liste) ile başla .indirilen randevular ı ekleyince (EŞİTLENİNCE) DURR.
                     if (cekilenRandevuListesi.size==cekilenRandevular.size){
                         withContext(Dispatchers.Main) {
-                            tamamlananRandevuListesi.value = cekilenRandevuListesi
+
+
+                                tamamlananRandevuListesi.value = cekilenRandevuListesi
+
                         }
                     }
-
-
                 }
             }
         }
@@ -189,11 +212,12 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
         //  indirilenRandevuListesi ni burda tanımla ..Aaşağıda Kullanacağız.
         //  kULLANMASAK FOR içinde old. için indirilenRandevulara sürekli (add) ekleme yapar...
 
-
-        val indirilenRandevuListesi = mutableListOf<Randevu>()
+        val indirilenRandevuListesi = CopyOnWriteArrayList<Randevu>()
+        //val indirilenRandevuListesi = mutableListOf<Randevu>()
 
             val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR)
            //val queryRef =  AppUtil.randevuQuery()
+                .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .whereEqualTo(RANDEVU_DURUMU,"Randevu Tamamlandı")
             //.whereEqualTo(PERSONEL_ID,personelId)
                 .whereGreaterThanOrEqualTo(RANDEVU_TIME,tarih1)
@@ -219,19 +243,19 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                     val musteri = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("musteriler")
-                            .document("${randevu.firmaId}-${randevu.musteriId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.musteriId}")
                             .get().await().toObject(Musteri::class.java)
                     }.await()
                     val personel = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("personeller")
-                            .document("${randevu.firmaId}-${randevu.personelId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.personelId}")
                             .get().await().toObject(Personel::class.java)
                     }.await()
                     val hizmet = async {
                         //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
                         FirebaseFirestore.getInstance().collection("hizmetler")
-                            .document("${randevu.firmaId}-${randevu.hizmetId}")
+                            .document("${UserUtil.firmaKodu}-${randevu.hizmetId}")
                             .get().await().toObject(Hizmet::class.java)
                     }.await()
 
@@ -240,7 +264,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
 
    //  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
                     val indirilenRandevu=Randevu(
-                        randevu.firmaId,
+                        randevu.firmaKodu,
                         personel!!,
                         musteri!!,
                         hizmet!!,
@@ -248,8 +272,9 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                         randevu.randevuTime,
                         randevu.randevuDurumu,
                         randevu.randevuNotu,
-                   //     randevu.randevuTarih,
-                   //     randevu.randevuSaat,
+                        randevu.randevuGelirTuru,
+                        randevu.veresiyeTutari
+
                         )
                     println("İNDİRİLEN RANDEVU : $indirilenRandevu")
 
@@ -258,6 +283,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
                     //indirilenRandevuListesi(Boş liste) ile başla .indirilen randevular ı ekleyince (EŞİTLENİNCE) DURR.
                     if (indirilenRandevuListesi.size==indirilenRandevular.size){
                         withContext(Dispatchers.Main) {
+
                             raporRandevuListesi.value = indirilenRandevuListesi
                         }
                     }
@@ -269,7 +295,96 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
 
 
 
-}
+    //VERESİYE TAMAMLANAN RANDEVULAR RANDEVU DTO DAN->RANDEVU MODELİNE ÇEVİR VE FİREBASE DEN ÇEK:
+    //SADECE VERESİYE TAMAMLANAN RANDEVULARI ÇEKECEĞİZ
+    fun veresiyeRandVerileriGetir(){
+
+        //  veresiyeRandevuListesi ni burda tanımla ..Aaşağıda Kullanacağız.
+        //  kULLANMASAK FOR içinde old. için indirilenRandevulara sürekli (add) ekleme yapar...
+
+        //CopyOnWriteArrayList sadece coroutine de kullanılır. MUTABLE LİST yapınca uyg. sürekli çöküyor..
+        val veresiyeRandevuListesi = CopyOnWriteArrayList<Randevu>()
+
+        val queryRef= FirebaseFirestore.getInstance().collection(RANDEVULAR)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .whereEqualTo(RANDEVU_DURUMU,TAMAMLANDI)
+            .whereEqualTo(RANDEVU_GELIR_TURU, VERESIYE)
+            .get()
+
+        viewModelScope.launch(Dispatchers.IO ) {
+
+            var cekilenVeresiyeRandevular = queryRef.await().toObjects(RandevuDTO::class.java)
+
+            //BURADA BOŞ MU KONTROLÜ YAP..YOKSA AŞAĞIDA FOR DÖNGÜSÜNDE BOŞ SA DÖNGÜYE GİRMİYOR
+            //VE MUSTERİ DUZENLE VERESİYELERDE BOŞ TARİH SEÇİNCE VERİ BURDAN RAPORLARA GELMİYOR VE RAKAMLAR "0" GÖRÜNMÜYOR..
+            if (cekilenVeresiyeRandevular.isEmpty()) {
+                withContext(Dispatchers.Main) {
+                    veresiyeTamamlananRandevuListesi.value = emptyList()
+                    return@withContext
+                }
+            }
+
+            cekilenVeresiyeRandevular.forEach { randevu->
+
+                viewModelScope.launch(Dispatchers.IO) {
+
+                    val musteri = async {
+                        //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
+                        FirebaseFirestore.getInstance().collection("musteriler")
+                            .document("${UserUtil.firmaKodu}-${randevu.musteriId}")
+                            .get().await().toObject(Musteri::class.java)
+                    }.await()
+                    val personel = async {
+                        //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
+                        FirebaseFirestore.getInstance().collection("personeller")
+                            .document("${UserUtil.firmaKodu}-${randevu.personelId}")
+                            .get().await().toObject(Personel::class.java)
+                    }.await()
+                    val hizmet = async {
+                        //   println(" MUSTERİ THREAD :${Thread.currentThread().name}")
+                        FirebaseFirestore.getInstance().collection("hizmetler")
+                            .document("${UserUtil.firmaKodu}-${randevu.hizmetId}")
+                            .get().await().toObject(Hizmet::class.java)
+                    }.await()
+
+                    //COURİTİNE İÇİNDE İLGİLİ SINIFLARDAN (HİZMET, MUSTERİ VB) ÇEKTİĞİMİZ VERİLERİ AŞAĞIDA RANDEVU MODEL İNE ÇEVİRİYORUZ.
+//  DİKKATT!!  AŞAĞIDA MODELE GÖRE SIRASIYLA GİİRİLMELİ--YOKSA MODELDEN ÇAĞIRINCA BİRBİRİNİN YERİNE GELİYOR
+                    val indirilenRandevu=Randevu(
+                        randevu.firmaKodu,
+                        personel!!,
+                        musteri!!,
+                        hizmet!!,
+                        randevu.randevuGeliri,
+                        randevu.randevuTime,
+                        randevu.randevuDurumu,
+                        randevu.randevuNotu,
+                        randevu.randevuGelirTuru,
+                        randevu.veresiyeTutari
+                    )
+
+                    veresiyeRandevuListesi.add(indirilenRandevu)
+                    println("indirilen randevu size : ${veresiyeRandevuListesi.size}/${ cekilenVeresiyeRandevular.size}")
+
+                    //indirilenRandevuListesi(Boş liste) ile başla .indirilen randevular ı ekleyince (EŞİTLENİNCE) DURR.
+                    if (veresiyeRandevuListesi.size==cekilenVeresiyeRandevular.size) {
+                        withContext(Dispatchers.Main) {
+
+                            veresiyeTamamlananRandevuListesi.value = veresiyeRandevuListesi
+                      }
+                    }
+                          //  veresiyeTamamlananRandevuListesi.postValue(veresiyeRandevuListesi)
+               }
+             }
+          }
+        }
+
+
+    }
+
+
+
+
+
     //FİREBASE DEN ÖNCE ROOM işlemlerini VİEWMODEL DAN ÇEKEBİLİYORDUK:
 
 //val dao= PersonelDatabase.getInstance(app)!!.personelDao()

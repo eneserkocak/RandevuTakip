@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.AppUtil
+import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.Util.toTarih
 import com.eneserkocak.randevu.Util.toTimestamp
 import com.eneserkocak.randevu.adapter.RaporlarAdapter
@@ -29,11 +30,6 @@ private fun Date.dateToText(format: String): String {
     return dateFormatter.format(this)
 }
 
-/*
-//call the extension function on a date object
-val timestampt = Date()
-val dateString = timestamp.dateToString("hh:mm a E dd-MMM")*/
-
 class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_raporlar) {
 
     var personelListesi= listOf<Personel>()
@@ -50,6 +46,8 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
 
         binding.raporlarRecycler.layoutManager=LinearLayoutManager(requireContext())
         binding.raporlarRecycler.adapter=adapter
@@ -104,8 +102,7 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
                           binding.toplamGiderCount.setText(giderTutar.toString())
                       }
                   }
-
-                }
+              }
 
                 val date1Text=convertTimeToDate(it.first)
                 println("date1Text:${date1Text}")
@@ -165,8 +162,10 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
     fun getPersonelRandevuRapor(){
        //Her Tarih seçiminde bu fonk çalışıyor.Aşağıda CLEAR yapmazsak eski listeyi silmeden. Altına tekrar liste oluşturuyor.
         personelRaporListesi.clear()
-      //PERSONEL LİSTESİNİ FİREBASEDEN ÇEK (personel objesi -> personelRaporListesini doldururken lazım)
-        FirebaseFirestore.getInstance().collection(PERSONELLER).get()
+       //PERSONEL LİSTESİNİ FİREBASEDEN ÇEK (personel objesi -> personelRaporListesini doldururken lazım)
+        FirebaseFirestore.getInstance().collection(PERSONELLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
+            .get()
             .addOnSuccessListener {
                 it?.let {
                     personelListesi=it.toObjects(Personel::class.java)
@@ -206,12 +205,16 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
     fun getData(tarih1: com.google.firebase.Timestamp, tarih2: com.google.firebase.Timestamp, giderler: (List<Gider>) -> Unit) {
 
         FirebaseFirestore.getInstance().collection(GIDERLER)
+            .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .whereGreaterThanOrEqualTo(GIDER_TARİH,tarih1)
             .whereLessThanOrEqualTo(GIDER_TARİH,tarih2)
+
+
             .get().addOnSuccessListener {
             it?.let {
                 val giderList = it.toObjects(Gider::class.java)
 
+                println("GİDERLER MERAK KONUSU: ${giderList}")
                 giderler.invoke(giderList)
             }
             //println()
