@@ -47,10 +47,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:textSize="16sp"
+                    android:text=" * Uygulamada, Google Ses Asistanı (Voice Assistant) özelliği kullanılmaktadır."
                     android:textAlignment="center"
-                    android:text=" * Uygulamada, Google Ses Asistanı özelliği kullanılmaktadır.">
-                </TextView>
+                    android:textSize="16sp"></TextView>
 
                 <TextView
                     android:layout_width="match_parent"

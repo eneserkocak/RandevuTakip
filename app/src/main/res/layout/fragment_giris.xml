@@ -233,6 +233,9 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
+
             <TextView
                 android:id="@+id/sktBildirimText"
                 android:layout_width="300dp"

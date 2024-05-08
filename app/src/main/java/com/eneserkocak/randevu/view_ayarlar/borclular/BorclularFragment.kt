@@ -1,11 +1,16 @@
 package com.eneserkocak.randevu.view_ayarlar.borclular
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.eneserkocak.randevu.R
 import com.eneserkocak.randevu.Util.UserUtil
 import com.eneserkocak.randevu.adapter.BorclularAdapter
+import com.eneserkocak.randevu.databinding.DialogAlacaklarBilgiNotuBinding
+import com.eneserkocak.randevu.databinding.DialogRandevuIptalBinding
 import com.eneserkocak.randevu.databinding.FragmentBorclularBinding
 import com.eneserkocak.randevu.model.*
 import com.eneserkocak.randevu.view.BaseFragment
@@ -13,8 +18,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 
 class BorclularFragment :BaseFragment<FragmentBorclularBinding>(R.layout.fragment_borclular) {
-
-
 
     lateinit var adapter:BorclularAdapter
 
@@ -27,12 +30,9 @@ class BorclularFragment :BaseFragment<FragmentBorclularBinding>(R.layout.fragmen
         binding.musteriBorcRecycler.adapter=adapter
 
 
-
         viewModel.veresiyeRandVerileriGetir()
         viewModel.veresiyeTamamlananRandevuListesi.observe(viewLifecycleOwner){
             it?.let {
-
-
 
                 var topAlacak = 0
               it.forEach {
@@ -49,19 +49,18 @@ class BorclularFragment :BaseFragment<FragmentBorclularBinding>(R.layout.fragmen
 
             getmusteriVeresiyeRapor(it){
                 adapter.mustBorcListesiniGuncelle(it)
+                }
             }
+        }
 
+        binding.msjButton.setOnClickListener {
 
+            findNavController().navigate(R.id.borclularBilgiNotuDialogFragment)
 
-
-            }
         }
     }
 
     fun getmusteriVeresiyeRapor(randevus: List<Randevu>,callback:(List<MusteriVeresiye>)->Unit) {
-
-
-
 
         //MUSTERİ LİSTESİNİ FİREBASEDEN ÇEK (musteri objesi -> musteriVereiyeListesini doldururken lazım)
         //MUSTERI LERDEN VERESIYESI OLANLARI GETİR...YOKSA BORCU OLMAYANLAR DA GELİYOR FİLTRELE

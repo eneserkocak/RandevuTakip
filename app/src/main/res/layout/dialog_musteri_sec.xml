@@ -9,15 +9,29 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
         android:orientation="vertical">
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Müşteri Listesi"
+            android:background="#068176"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="0dp"
+
+            android:textAlignment="center"></TextView>
 
         <SearchView
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
 
             android:background="@drawable/search_bg"
             android:queryHint="Müşteri ara.."
@@ -43,7 +57,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginTop="3dp"
+            android:padding="5dp"
             android:orientation="horizontal">
 
 
@@ -51,14 +67,13 @@
                 android:id="@+id/yeniMusteriEkle"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-
+                android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/maps_btn_bg"
                 android:gravity="center"
                 android:text="Yeni Müşteri Ekle"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
-
 
             <TextView
                 android:id="@+id/Kapat"
@@ -70,6 +85,8 @@
                 android:text="Kapat"
                 android:textAlignment="center"
                 android:textColor="@color/white" />
+
+
 
 
         </LinearLayout>

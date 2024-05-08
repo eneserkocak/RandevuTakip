@@ -89,3 +89,5 @@ const val PERS_DAKIKA="persDakika"
 
 const val PATRON="patron"
 const val PERSONEL="personel"
+
+const val MUSTERI_NO="musteriNo"

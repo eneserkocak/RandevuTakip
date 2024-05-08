@@ -28,7 +28,7 @@ class DestekFragment : BaseFragment<FragmentDestekBinding>(R.layout.fragment_des
        binding.gonderBtn.setOnClickListener {
 
 
-           val email="huseyinerkocak@hotmail.com"
+           val email="erkocakenes@gmail.com"
            val mesaj=binding.mailDestek.text.toString()
 
           sendEmail(email,mesaj)

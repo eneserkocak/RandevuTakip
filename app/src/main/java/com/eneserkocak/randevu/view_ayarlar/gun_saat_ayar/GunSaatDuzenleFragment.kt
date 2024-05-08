@@ -95,7 +95,7 @@ class GunSaatDuzenleFragment: BaseFragment<FragmentGunSaatDuzenleBinding>(R.layo
                AppUtil.longToast(requireContext(), "Randevu saat aralığı seçiniz..!!")
                 return@setOnClickListener
             }
-                println(persDakikaAralik)
+
 
 
             AppUtil.personelKaydet(personel){

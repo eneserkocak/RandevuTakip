@@ -152,12 +152,8 @@ class GirisFragment : BaseFragment<FragmentGirisBinding>(R.layout.fragment_giris
             navigate(R.id.musteriListeFragment)
         }
 
-
-
         binding.randevular.setOnClickListener {
            findNavController().navigate(R.id.randevuListesiFragment)
-
-
         }
 
         getData(){

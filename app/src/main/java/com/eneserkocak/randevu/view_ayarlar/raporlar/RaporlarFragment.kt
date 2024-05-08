@@ -191,7 +191,7 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
         var gelir = 0
             randevular.forEach {
                  gelir = gelir+ it.randevuGeliri
-        println("randevular: ${randevular.size}")
+     //   println("randevular: ${randevular.size}")
           }
         return PersonelRandevu(personel,randevular.size,gelir,randevu.randevuTime)
 
@@ -218,10 +218,10 @@ class RaporlarFragment: BaseFragment<FragmentRaporlarBinding>(R.layout.fragment_
             it?.let {
                 val giderList = it.toObjects(Gider::class.java)
 
-                println("GİDERLER MERAK KONUSU: ${giderList}")
+               // println("GİDERLER MERAK KONUSU: ${giderList}")
                 giderler.invoke(giderList)
             }
-            //println()
+
         }
             .addOnFailureListener {
                 println(it)

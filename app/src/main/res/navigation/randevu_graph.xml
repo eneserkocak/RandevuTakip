@@ -144,9 +144,7 @@
         <action
             android:id="@+id/action_musteriDuzenleFragment_to_yeniMusteriEkleFragment"
             app:destination="@id/yeniMusteriEkleFragment" />
-        <action
-            android:id="@+id/action_musteriDuzenleFragment_to_yeniMusteriEkleFragment2"
-            app:destination="@id/yeniMusteriEkleFragment" />
+
         <action
             android:id="@+id/action_musteriDuzenleFragment_to_musteriFragment"
             app:destination="@id/musteriListeFragment" />
@@ -543,8 +541,8 @@
             android:id="@+id/action_haritaInfoFragment_to_sesAsistanFragment"
             app:destination="@id/sesAsistanFragment" />
         <action
-            android:id="@+id/action_haritaInfoFragment_to_reklamFragment"
-            app:destination="@id/reklamFragment" />
+            android:id="@+id/action_haritaInfoFragment_to_callerInfoFragment"
+            app:destination="@id/callerInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/musteriCariFragment"
@@ -561,6 +559,9 @@
         <action
             android:id="@+id/action_borclularFragment_to_ayarlarFragment"
             app:destination="@id/ayarlarFragment" />
+        <action
+            android:id="@+id/action_borclularFragment_to_borclularBilgiNotuDialogFragment"
+            app:destination="@id/borclularBilgiNotuDialogFragment" />
     </fragment>
     <fragment
         android:id="@+id/eighthFragment"
@@ -597,7 +598,30 @@
         android:name="com.eneserkocak.randevu.view_uygulamaHakkinda.ReklamFragment"
         android:label="ReklamFragment" >
         <action
-            android:id="@+id/action_reklamFragment_to_haritaInfoFragment"
-            app:destination="@id/haritaInfoFragment" />
+            android:id="@+id/action_reklamFragment_to_callerInfoFragment"
+            app:destination="@id/callerInfoFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/callerInfoFragment"
+        android:name="com.eneserkocak.randevu.view_uygulamaHakkinda.CallerInfoFragment"
+        android:label="CallerInfoFragment" >
+        <action
+            android:id="@+id/action_callerInfoFragment_to_haritaInfoFragment"
+            app:destination="@id/haritaInfoFragment" />
+        <action
+            android:id="@+id/action_callerInfoFragment_to_reklamFragment"
+            app:destination="@id/reklamFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/borclularBilgiNotuDialogFragment"
+        android:name="com.eneserkocak.randevu.view_ayarlar.borclular.BorclularBilgiNotuDialogFragment"
+        android:label="fragment_borclular_bilgi_notu_dialog"
+        tools:layout="@layout/fragment_borclular_bilgi_notu_dialog" >
+        <action
+            android:id="@+id/action_borclularBilgiNotuDialogFragment_to_borclularFragment"
+            app:destination="@id/borclularFragment" />
+        <action
+            android:id="@+id/action_borclularBilgiNotuDialogFragment_to_musteriListeFragment"
+            app:destination="@id/musteriListeFragment" />
+    </dialog>
 </navigation>

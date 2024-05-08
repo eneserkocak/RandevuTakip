@@ -62,7 +62,7 @@ class HizmetDuzenleFragment : DialogFragment() {
 
             binding.duzenleBtn.setOnClickListener {
 
-               val hizmetAd= binding.hizmetAdi.text.toString().toLowerCase()
+                val hizmetAd= binding.hizmetAdi.text.toString().toLowerCase()
                 val hizAciklama= binding.aciklama.text.toString()
                 val hizFiyat=binding.fiyat.text.toString().replace(Regex("[^a-zA-Z0-9\\s]"), "").toInt()
 

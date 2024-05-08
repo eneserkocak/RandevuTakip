@@ -100,5 +100,22 @@ object PictureUtil {
             }
     }
 
+    //ALACAKLAR BORÇLU MUSTERİ GÖRSEL EKLE
+    fun alacaklarGorselIndir(musteri: Musteri, context: Context, imageView: ImageView){
+        val imageName= "${UserUtil.firmaKodu}-${musteri.musteriId}.jpg"
+        // GÖRSELLERİ STORAGE DAN ÇEK
+        val storageRef = FirebaseStorage.getInstance().reference.child("Musteri_images").child(imageName)
+        storageRef.downloadUrl.addOnSuccessListener {
+            Glide.with(context)
+                .load(it)
+                .transform(CircleCrop())
+                .into(imageView)
+        }
+            .addOnFailureListener { e->
+                println(e)
+
+            }
+    }
+
 
 }

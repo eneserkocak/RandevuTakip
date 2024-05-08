@@ -42,7 +42,7 @@ class musteriCariFragment : BaseFragment<FragmentMusteriCariBinding>(R.layout.fr
         binding.musteriVeresiyeRecycler.layoutManager= LinearLayoutManager(requireContext())
         binding.musteriVeresiyeRecycler.adapter= adapter
 
-        checkPermission()
+     //   checkPermission()
 
         viewModel.veresiyeRandVerileriGetir()
         viewModel.veresiyeTamamlananRandevuListesi.observe(viewLifecycleOwner){

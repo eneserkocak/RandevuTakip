@@ -60,16 +60,21 @@ class StepperInfoFragment : Fragment() {
                     binding.next.text = getString(R.string.btc_next)
                     currentPage = 3
                 }
-                else if (position == 4){
+                else if (position == 4) {
+                    binding.prev.visibility = View.VISIBLE
+                    binding.next.text = getString(R.string.btc_next)
+                    currentPage = 4
+                }
+                else if (position == 5){
                     binding.prev.visibility = View.VISIBLE
                     binding.next.text = getString(R.string.btc_finish)
-                    currentPage = 4
+                    currentPage = 5
                 }
                 super.onPageSelected(position)
             }
         })
         binding.next.setOnClickListener {
-            if (currentPage < 4) {
+            if (currentPage < 5) {
                 currentPage ++
                 when (currentPage) {
                     0 -> {
@@ -90,6 +95,10 @@ class StepperInfoFragment : Fragment() {
                     }
                     4 -> {
                         viewPager.currentItem = 4
+                        binding.prev.visibility = View.VISIBLE
+                    }
+                    5 -> {
+                        viewPager.currentItem = 5
                         binding.next.text = getString(R.string.btc_finish)
                         binding.prev.visibility = View.VISIBLE
                     }
@@ -119,6 +128,10 @@ class StepperInfoFragment : Fragment() {
                     }
                     4 -> {
                         viewPager.currentItem = 4
+                        binding.next.text = getString(R.string.btc_next)
+                    }
+                    5 -> {
+                        viewPager.currentItem = 5
                     }
                 }
             }
@@ -130,7 +143,7 @@ class StepperInfoFragment : Fragment() {
 
     private inner class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStateAdapter(fragmentManager, lifecycle) {
         override fun getItemCount(): Int {
-            return 5
+            return 6
         }
 
         override fun createFragment(position: Int): Fragment {
@@ -147,7 +160,9 @@ class StepperInfoFragment : Fragment() {
                 3 -> {
                     HaritaInfoFragment()
                 }
-
+                4 -> {
+                    CallerInfoFragment()
+                }
                 else -> {
                     ReklamFragment()
                 }

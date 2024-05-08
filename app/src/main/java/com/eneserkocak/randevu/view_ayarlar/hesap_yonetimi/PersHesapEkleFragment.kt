@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isNotEmpty
+import androidx.core.widget.doOnTextChanged
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.eneserkocak.randevu.R
@@ -158,12 +159,22 @@ class PersHesapEkleFragment :BaseFragment<FragmentPersHesapEkleBinding>(R.layout
           }
       }
 
+        binding.parolaText.doOnTextChanged { text, start, before, count ->
+
+            if (text!!.length<6){
+                binding.layoutParola.error = "En az 6 karakter giriniz..!"
+            }else if(text!!.length==6 || text!!.length>6) {
+                binding.layoutParola.error= null
+            }
+
+        }
+
         binding.layoutEposta.setEndIconOnClickListener {
             askSpeechInput(128)
         }
-        binding.layoutParola.setEndIconOnClickListener {
+       /* binding.layoutParola.setEndIconOnClickListener {
             askSpeechInput(129)
-        }
+        }*/
 
   }
 
@@ -175,7 +186,7 @@ class PersHesapEkleFragment :BaseFragment<FragmentPersHesapEkleBinding>(R.layout
 
             when (requestCode){
                 128-> binding.epostaText.setText(result?.get(0).toString())
-                129-> binding.parolaText.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
+              //  129-> binding.parolaText.setText(result?.get(0).toString().filterNot { it.isWhitespace() })
             }
         }
     }

@@ -18,15 +18,13 @@
 
 
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:padding="8dp"
-            android:gravity="center"
-
-            android:orientation="horizontal">
+            android:gravity="center">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,12 +75,18 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <ImageView
+                android:id="@+id/msjButton"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:src="@drawable/attention"
+                app:layout_constraintBottom_toBottomOf="@+id/toplamAlacak"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/toplamAlacak"
+                app:layout_constraintTop_toTopOf="@+id/toplamAlacak"></ImageView>
 
 
-
-
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

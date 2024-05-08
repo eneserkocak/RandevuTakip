@@ -52,7 +52,7 @@ class AppViewModel(app:Application):AndroidViewModel(app) {
             .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)
             .get()
 
-        viewModelScope.launch(Dispatchers.IO ) {
+        viewModelScope.launch(Dispatchers.IO) {
 
         var indirilenRandevular = queryRef.await().toObjects(RandevuDTO::class.java)
 

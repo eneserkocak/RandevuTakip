@@ -8,7 +8,7 @@ object UserUtil {
 
 
     //Auth create de değer eşitle. Tüm uygulamada bu firmaKodu KULLANILACAK...!!!
-   var firmaKodu :Int=100
+   var firmaKodu :Int=0
 
     //Auth create de İlk kullanıcı "PATRON" un  UID si:
    var uid:String=""

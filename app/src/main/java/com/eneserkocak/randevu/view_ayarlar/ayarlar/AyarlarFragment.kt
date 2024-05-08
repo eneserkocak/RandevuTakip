@@ -65,6 +65,8 @@ class AyarlarFragment : BaseFragment<FragmentAyarlarBinding>(R.layout.fragment_a
 
 
 
+
+
     }
 
 }

@@ -41,13 +41,10 @@ class HizmetEkleFragment: DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         binding.hzmtKaydetBtn.setOnClickListener {
 
             val hizmetAdi = binding.hizmetAdi.text.toString().toLowerCase()
             val aciklama = binding.aciklama.text.toString()
-
 
             var hizFiyati=0
             val fiyat=binding.fiyat.text.toString()
@@ -64,7 +61,6 @@ class HizmetEkleFragment: DialogFragment() {
               // YedekUtil.longToast(requireContext(),"Hizmet adı girilmeden, hizmet kaydedilemez!..")
                 return@setOnClickListener
             }
-
 
             FirebaseFirestore.getInstance().collection(HIZMETLER)
                 .whereEqualTo(FIRMA_KODU,UserUtil.firmaKodu)

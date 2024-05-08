@@ -136,7 +136,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-
                     app:randevuTamTextGoster="@{randevu}"
                     android:textColor="#068176"
                     android:textSize="16sp"
@@ -150,7 +149,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:layout_marginBottom="15dp"
-
                     app:randevuIptTextGoster="@{randevu}"
                     android:textColor="#A81207"
                     android:textSize="16sp"

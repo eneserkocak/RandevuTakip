@@ -43,6 +43,7 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
     private var downloadUrl:String=""
     lateinit var personel  :Personel
 
+
     //private var downloadUrl:Uri?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,8 +65,10 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
 
                 binding.RadioGrupPers.setOnCheckedChangeListener { group, checkedId ->
                     if (R.id.yoneticiBtn == checkedId) personel.personelYetki = true
+
                     else personel.personelYetki = false
                 }
+
 
                 if (personel.personelHesap==true)
                     personel.personelHesap=true
@@ -106,6 +109,7 @@ class PerDuzenleFragment : BaseFragment<FragmentPerDuzenleBinding>(R.layout.frag
           val tel = binding.persTel.text.toString().filterNot { it.isWhitespace() }
           val mail = binding.persMail.text.toString()
           val unvan = binding.persUnvan.text.toString()
+
 
 
             val personel= Personel(personel.firmaKodu,personel.personelId,isim,tel,mail,unvan,personel.personelYetki,personel.personelHesap)

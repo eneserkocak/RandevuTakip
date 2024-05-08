@@ -61,8 +61,12 @@
                 android:layout_marginTop="15dp"
                 android:hint="PAROLA"
                 android:textSize="20sp"
-                app:endIconDrawable="@drawable/voice"
+                app:endIconDrawable="@drawable/ic_baseline_check_24"
                 app:endIconMode="custom"
+                app:counterEnabled="true"
+                app:errorEnabled="true"
+                app:helperText="parola*"
+                app:helperTextTextColor="#A81207"
                 app:layout_constraintTop_toBottomOf="@+id/layoutEposta"
                 app:startIconDrawable="@drawable/password">
 

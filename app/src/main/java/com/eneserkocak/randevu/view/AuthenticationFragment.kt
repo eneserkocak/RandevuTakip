@@ -68,6 +68,7 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
         binding.kayitOlBtn.setOnClickListener {
 
             val cal = Calendar.getInstance()
+            cal.add(Calendar.DAY_OF_MONTH,30)
             val skt= cal.time.toTimestamp()
 
             val email= binding.epostaText.text.toString().trim()
@@ -110,7 +111,7 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
           //UYGULAMADA HER YERDE AŞAĞIDA Kİ "USERUTİL.uid" yi ÇAĞIRIP KULLAN
                     UserUtil.uid=uid
 
-            val kullanicilarArray=ArrayList<String>()
+                    val kullanicilarArray=ArrayList<String>()
                     kullanicilarArray.add(uid)
 
 
@@ -133,11 +134,12 @@ class AuthenticationFragment:BaseFragment<FragmentAuthenticationBinding>(R.layou
                       yeniKullanici.put(UID,uid)
                       yeniKullanici.put(SIFRE,password)
                       yeniKullanici.put(EMAIL,email)
-                 yeniKullanici.put(PATRON,true)
+                      yeniKullanici.put(PATRON,true)
 
 
                 FirebaseFirestore.getInstance().collection(FIRMALAR).document(UserUtil.firmaKodu.toString())
-                                  .collection(KULLANICILAR).document(uid).set(yeniKullanici)
+                                  .collection(KULLANICILAR).document(uid)
+                     .set(yeniKullanici)
                      .addOnSuccessListener {
                          AppUtil.longToast(requireContext(),"Yeni firma eklendi")
                          findNavController().popBackStack()

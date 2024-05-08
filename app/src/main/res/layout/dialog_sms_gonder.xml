@@ -88,21 +88,22 @@
                 android:textStyle="bold"></TextView>
 
             <TextView
+                android:id="@+id/dialogSmsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginTop="5dp"
-                android:clickable="true"
-                android:layout_marginRight="10dp"
                 android:layout_gravity="center_vertical"
-                android:gravity="center_vertical"
-                android:text="Telefon Sms Gönder"
-                android:id="@+id/dialogSmsBtn"
-
-                android:textSize="16sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
                 android:background="@drawable/maps_btn_bg"
-                android:textColor="@color/white"
+                android:clickable="true"
+                android:gravity="center_vertical"
+
+                android:text="Telefon Sms Gönder"
                 android:textAlignment="center"
-                android:textStyle="bold"></TextView>
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:visibility="gone"></TextView>
 
 
             <TextView
