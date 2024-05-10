@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="firma"
+            type="com.eneserkocak.randevu.model.Firma" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:strokeColor="#EBEBEB"
+        app:strokeWidth="3dp"
+        >
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:layout_marginTop="0dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:text="Üyelik Bilgileri"
+            android:gravity="center_vertical"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:background="#068176"
+            android:textStyle="bold"
+            android:textAlignment="center"></TextView>
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+
+            android:layout_gravity="center_horizontal"
+            app:srcCompat="@drawable/userlogin"></ImageView>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:background="@drawable/maps_konum_btn_bg">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="match_parent"
+
+            android:text="Üyelik Süresi"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            ></TextView>
+
+            <Switch
+                android:id="@+id/switchSktBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Göster"
+                android:textAlignment="center"
+                android:textColor="#068176"
+                android:textSize="14sp"></Switch>
+
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/sktLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/ilac_row_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.8"
+                    android:text="Üyelik Son Kullanım Tarihi :"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    ></TextView>
+
+                <TextView
+                    android:id="@+id/sktText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#068176"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+
+                    ></TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/ilac_row_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:text="Üyelik Bitimine Kalan Gün :"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    ></TextView>
+
+                <TextView
+                    android:id="@+id/kalanGunText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:textColor="#A81207"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+
+                    ></TextView>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/indicator" />
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_konum_btn_bg">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                android:layout_height="match_parent"
+
+                android:text="Banka Hesap Bilgilerimiz"
+                android:gravity="center_vertical"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"
+                ></TextView>
+
+            <Switch
+                android:id="@+id/switchHesapBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Göster"
+                android:textAlignment="center"
+                android:textColor="#068176"
+                android:textSize="14sp"></Switch>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/hesapLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ilac_row_bg"
+            android:orientation="vertical"
+
+            android:visibility="gone">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="5dp"
+                    android:text="ZİRAAT BANKASI"
+                    android:textSize="14sp"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="Hüseyin Enes ERKOÇAK"
+                    android:textSize="14sp"></TextView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="IBAN :"
+                    android:textSize="14sp"></TextView>
+
+                <TextView
+                    android:id="@+id/ibanText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:text="TR710001001985885323625002"
+                    android:textSize="14sp"></TextView>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/IbanKopyalaBtn"
+                android:layout_width="150dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/maps_btn_bg"
+                android:gravity="center_vertical"
+                android:text="IBAN Kopyala"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/indicator" />
+
+      <!--  <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:srcCompat="@drawable/tum_ilac_ilacsil_icon"></ImageView>-->
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/maps_konum_btn_bg"
+            android:orientation="horizontal">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:text="Uygulamaya giriş parolası"
+                android:textSize="16sp"
+                android:gravity="center_vertical"
+
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"
+
+                ></TextView>
+
+
+            <Switch
+                android:id="@+id/switchBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="Değiştir"
+                android:textAlignment="center"
+                android:textColor="#068176"
+                android:textSize="14sp"></Switch>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/parolaLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutParola"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="YENİ PAROLA"
+                android:textSize="20sp"
+                app:counterEnabled="true"
+                app:endIconDrawable="@drawable/ic_baseline_check_24"
+                app:endIconMode="custom"
+                app:errorEnabled="true"
+                app:helperText="parola*"
+                app:helperTextTextColor="#A81207"
+                app:layout_constraintTop_toBottomOf="@+id/layoutEposta"
+                app:startIconDrawable="@drawable/password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/parolaText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/parolaDegistirBtn"
+                android:layout_width="130dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center"
+
+                android:layout_marginTop="10dp"
+                android:background="@drawable/maps_btn_bg"
+                android:gravity="center_vertical"
+                android:text="Değiştir"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
+
+        </LinearLayout>
+
+
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/indicator" />
+
+
+        </LinearLayout>
+
+        </ScrollView>
+
+
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

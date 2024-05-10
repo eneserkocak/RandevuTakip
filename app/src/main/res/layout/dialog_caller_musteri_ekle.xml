@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="2dp"
+        app:strokeColor="#EBEBEB"
+        app:strokeWidth="3dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/linearLayout8"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="#068176"
+                android:textColor="@color/white"
+                android:text="Müşteri Ekle"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"></TextView>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutMustAdi"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:hint="AD SOYAD"
+                android:textSize="20sp"
+
+                app:endIconMode="custom"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout8"
+                app:startIconDrawable="@drawable/person"
+                tools:layout_editor_absoluteX="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/musteriIsmiText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layoutMustTel"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:hint="TELEFON (0**********)"
+
+                android:textSize="20sp"
+
+
+
+                app:endIconMode="custom"
+                app:layout_constraintTop_toBottomOf="@+id/layoutMustAdi"
+                app:startIconDrawable="@drawable/phones"
+                tools:layout_editor_absoluteX="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/musteriTelText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+
+                    />
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layoutMustTel">
+
+                <TextView
+                    android:id="@+id/vazgecBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/maps_cancel_btn_bg"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:text="Vazgeç"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
+
+
+                <TextView
+                    android:id="@+id/kaydetBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="35dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/maps_btn_bg"
+                    android:clickable="true"
+                    android:gravity="center_vertical"
+                    android:text="Kaydet"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"></TextView>
+
+            </LinearLayout>
+
+
+            >
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
